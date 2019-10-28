@@ -5,8 +5,8 @@
 
     public class WeaponController : MonoBehaviour {
         [SerializeField] private Weapon[]   weapons;
-        private Animator   animator;
-        private GameObject currentWeaponObject;
+        private                  Animator   animator;
+        private                  GameObject currentWeaponObject;
 
         private int currentWeaponNumber = 0;
 
@@ -21,16 +21,16 @@
         private readonly int equipWeapon = Animator.StringToHash("EquipWeapon");
 
         void Awake() {
-            this.animator = this.GetComponent<Animator>();
+            this.animator              = this.GetComponent<Animator>();
             this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
-            this.currentWeaponObject = this.currentWeaponInstance.WeaponObject;
+            this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
         }
 
         void Update() {
             if (!this.isChangingWeapon && !this.isFiring && !this.isReloading && Input.GetKeyDown(KeyCode.Q)) {
                 this.ChangeWeapon();
             }
-            
+
             if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("EquipWeapon")
                 && this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f) {
                 this.SetWeapon();
@@ -48,9 +48,9 @@
             }
 
             this.animator.SetBool(this.equipWeapon, true);
-            
+
             this.currentWeaponObject.SetActive(false);
-            this.currentWeaponObject = this.currentWeaponInstance.WeaponObject;
+            this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
             this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
         }
 
