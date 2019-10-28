@@ -4,7 +4,8 @@
     public class Crosshair : MonoBehaviour {
         [SerializeField] private Texture crosshairTexture;
 
-        private          Rect  crosshairPlace;
+        private Rect crosshairPlace;
+
         private readonly float crosshairSize      = Screen.width * 0.03f;
         private readonly float crosshairRegulator = (Screen.height / 8);
 
