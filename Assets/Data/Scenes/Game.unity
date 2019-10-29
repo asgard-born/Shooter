@@ -767,6 +767,16 @@ PrefabInstance:
       propertyPath: solver.target
       value: 
       objectReference: {fileID: 671521767}
+    - target: {fileID: 7052017987424318629, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051485523622031815, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38ef3a4ac7a3a7049b8f43a2537a0606, type: 3}
 --- !u!4 &7685441530312498865 stripped

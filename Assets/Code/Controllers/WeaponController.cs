@@ -1,4 +1,7 @@
-﻿namespace Controllers {
+﻿using System;
+using System.Threading.Tasks;
+
+namespace Controllers {
     using Structures;
     using System.Collections;
     using UnityEngine;
@@ -11,6 +14,7 @@
         private int currentWeaponNumber = 0;
 
         private bool isChangingWeapon;
+        private bool canChangeWeapon = true;
         private bool isFiring;
         private bool isReloading;
 
@@ -18,45 +22,62 @@
 
         private Weapon currentWeaponInstance;
 
-        private readonly int equipWeapon = Animator.StringToHash("EquipWeapon");
+        private readonly int equipWeapon  = Animator.StringToHash("EquipWeapon");
+        private readonly int firstWeapon  = Animator.StringToHash("EquipWeapon");
+        private readonly int secondWeapon = Animator.StringToHash("EquipWeapon");
+        private readonly int thirdWeapon  = Animator.StringToHash("EquipWeapon");
 
-        void Awake() {
+        private void Awake() {
             this.animator              = this.GetComponent<Animator>();
             this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
             this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
+            this.animator.SetBool(this.currentWeaponInstance.WeaponName, true);
         }
 
-        void Update() {
-            if (!this.isChangingWeapon && !this.isFiring && !this.isReloading && Input.GetKeyDown(KeyCode.Q)) {
+        private void Update() {
+            if (this.canChangeWeapon && Input.GetKeyDown(KeyCode.Q)) {
                 this.ChangeWeapon();
             }
 
-            if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("EquipWeapon")
-                && this.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f) {
-                this.SetWeapon();
+            Debug.Log(this.animator.GetCurrentAnimatorStateInfo(1).normalizedTime);
+
+            if ((this.animator.GetCurrentAnimatorStateInfo(1).IsName("Shotgun Equip")
+                 || this.animator.GetCurrentAnimatorStateInfo(1).IsName("Rifle Equip")
+                 || this.animator.GetCurrentAnimatorStateInfo(1).IsName("Grenade Equip"))
+                && this.isChangingWeapon) {
+                if (this.animator.GetCurrentAnimatorStateInfo(1).normalizedTime > .3f) {
+                    this.SetWeapon();
+                }
             }
         }
 
         private void ChangeWeapon() {
             this.isChangingWeapon = true;
+            this.canChangeWeapon  = false;
 
-            if (this.currentWeaponNumber == this.weapons.Length) {
+            if (this.currentWeaponNumber == this.weapons.Length - 1) {
                 this.currentWeaponNumber = 0;
             }
             else {
                 this.currentWeaponNumber++;
             }
 
-            this.animator.SetBool(this.equipWeapon, true);
-
             this.currentWeaponObject.SetActive(false);
-            this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
+            this.animator.SetBool(this.currentWeaponInstance.WeaponName, false);
+
             this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
+            this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
+
+            this.animator.SetBool(this.currentWeaponInstance.WeaponName, true);
+            this.animator.SetBool(this.equipWeapon, true);
         }
 
-        private void SetWeapon() {
-            this.currentWeaponObject.SetActive(true);
+        private async void SetWeapon() {
             this.isChangingWeapon = false;
+            this.animator.SetBool(this.equipWeapon, false);
+            this.currentWeaponObject.SetActive(true);
+            await Task.Delay(TimeSpan.FromSeconds(1.5f));
+            this.canChangeWeapon = true;
         }
     }
 }
