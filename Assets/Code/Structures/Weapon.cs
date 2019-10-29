@@ -42,7 +42,7 @@ namespace Structures {
             }
         }
 
-        private void Fire() {
+        public void Fire() {
             if (this.Ammo > 0) {
                 this.Ammo--;
 

@@ -1,19 +1,27 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Controllers {
+﻿namespace Controllers {
+    using RootMotion.FinalIK;
+    using System;
+    using System.Threading.Tasks;
     using Structures;
     using UnityEngine;
 
     public class WeaponController : MonoBehaviour {
-        [SerializeField] private Weapon[]   weapons;
-        private                  Animator   animator;
-        private                  GameObject currentWeaponObject;
+        public static WeaponController Instance;
+
+        public bool IsAiming => this.isChangingWeaponOver && !this.isReloading;
+
+        public event Action<string, bool> OnWeaponChanged;
+        public event Action<bool>         SetWeaponEquipped;
+
+        [SerializeField] private Weapon[] weapons;
+        [SerializeField] private AimIK    aimIk;
+
+        private GameObject currentWeaponObject;
 
         private int currentWeaponNumber = 0;
 
-        private bool isChangingWeapon;
-        private bool canChangeWeapon = true;
+        private bool isChangingWeaponProcess;
+        private bool isChangingWeaponOver = true;
         private bool isFiring;
         private bool isReloading;
 
@@ -21,35 +29,39 @@ namespace Controllers {
 
         private Weapon currentWeaponInstance;
 
-        private readonly int equipWeapon  = Animator.StringToHash("EquipWeapon");
-        private readonly int firstWeapon  = Animator.StringToHash("EquipWeapon");
-        private readonly int secondWeapon = Animator.StringToHash("EquipWeapon");
-        private readonly int thirdWeapon  = Animator.StringToHash("EquipWeapon");
-
-        private void Awake() {
-            this.animator              = this.GetComponent<Animator>();
-            this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
-            this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
-            this.animator.SetBool(this.currentWeaponInstance.WeaponName, true);
-        }
-
-        private void Update() {
-            if (this.canChangeWeapon && Input.GetKeyDown(KeyCode.Q)) {
-                this.ChangeWeapon();
-            }
-
-            if ((this.animator.GetCurrentAnimatorStateInfo(1).IsName("Shotgun Equip")
-                 || this.animator.GetCurrentAnimatorStateInfo(1).IsName("Rifle Equip")
-                 || this.animator.GetCurrentAnimatorStateInfo(1).IsName("Grenade Equip"))
-                && this.animator.GetCurrentAnimatorStateInfo(1).normalizedTime > .3f
-                && this.isChangingWeapon) {
+        public void OnWeaponEquip() {
+            if (this.isChangingWeaponProcess) {
                 this.SetWeapon();
             }
         }
 
+        public void Fire() {
+            this.currentWeaponInstance.Fire();
+        }
+
+        public void SetupTheWeapon(bool isSet) {
+            this.OnWeaponChanged?.Invoke(this.currentWeaponInstance.WeaponName, isSet);
+        }
+
+        public void ChangeAimPositionWeight(int value) =>
+            this.aimIk.solver.IKPositionWeight = value;
+
+        private void Awake() {
+            Instance = this;
+
+            this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
+            this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
+        }
+
+        private void Update() {
+            if (this.isChangingWeaponOver && Input.GetKeyDown(KeyCode.Q)) {
+                this.ChangeWeapon();
+            }
+        }
+
         private void ChangeWeapon() {
-            this.isChangingWeapon = true;
-            this.canChangeWeapon  = false;
+            this.isChangingWeaponProcess = true;
+            this.isChangingWeaponOver    = false;
 
             if (this.currentWeaponNumber == this.weapons.Length - 1) {
                 this.currentWeaponNumber = 0;
@@ -59,21 +71,21 @@ namespace Controllers {
             }
 
             this.currentWeaponObject.SetActive(false);
-            this.animator.SetBool(this.currentWeaponInstance.WeaponName, false);
+            this.SetupTheWeapon(false);
 
             this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
             this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
 
-            this.animator.SetBool(this.currentWeaponInstance.WeaponName, true);
-            this.animator.SetBool(this.equipWeapon, true);
+            this.SetupTheWeapon(true);
+            this.SetWeaponEquipped?.Invoke(true);
         }
 
         private async void SetWeapon() {
-            this.isChangingWeapon = false;
-            this.animator.SetBool(this.equipWeapon, false);
+            this.isChangingWeaponProcess = false;
+            this.SetWeaponEquipped?.Invoke(false);
             this.currentWeaponObject.SetActive(true);
-            await Task.Delay(TimeSpan.FromSeconds(1.5f));
-            this.canChangeWeapon = true;
+            await Task.Delay(TimeSpan.FromSeconds(1.2f));
+            this.isChangingWeaponOver = true;
         }
     }
 }

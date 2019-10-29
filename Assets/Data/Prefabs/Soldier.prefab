@@ -268,8 +268,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7046830873672825899}
   - component: {fileID: 6957812662431268939}
-  - component: {fileID: 7260915270736546632}
-  - component: {fileID: 7050476622477585096}
   - component: {fileID: 6997037690747525773}
   - component: {fileID: 6935305500617844361}
   - component: {fileID: 6939552692662513687}
@@ -317,35 +315,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7260915270736546632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7050476622477585097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd359320b19288143a4260eedaf22144, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movingSpeed: 5
---- !u!114 &7050476622477585096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7050476622477585097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d08a78dd871a784aacaefd3e8348cec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapons:
-  - {fileID: 7052017987424318628}
-  - {fileID: 7051485523622066018}
-  weaponSlot: {fileID: 7046682953432823177}
 --- !u!54 &6997037690747525773
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -630,8 +599,12 @@ MonoBehaviour:
   Id: 1
   WeaponName: Shotgun
   Damage: 0
-  EquipRate: 0
-  HolsterRate: 0
+  Ammo: 0
+  Range: 0
+  SerialRate: 0
+  ReloadRate: 0
+  bullet: {fileID: 0}
+  aim: {fileID: 0}
 --- !u!1 &7051774361712807773
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,7 +1314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7046817951722215281
 Transform:
   m_ObjectHideFlags: 0
@@ -1418,8 +1391,12 @@ MonoBehaviour:
   Id: 0
   WeaponName: Rifle
   Damage: 50
-  EquipRate: 0
-  HolsterRate: 0
+  Ammo: 0
+  Range: 100
+  SerialRate: 0
+  ReloadRate: 0
+  bullet: {fileID: 0}
+  aim: {fileID: 0}
 --- !u!1 &7052025860109956277
 GameObject:
   m_ObjectHideFlags: 0
@@ -3882,33 +3859,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shotgun
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00902232
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.029585404
+      value: 0.034
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.025046874
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.031109199
+      value: -0.016414436
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6955235
+      value: 0.7056344
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.10130703
+      value: 0.08506999
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.71064496
+      value: 0.70325935
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
       propertyPath: m_RootOrder
@@ -3916,15 +3897,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -10.669001
+      value: -8.2300005
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 88.218
+      value: 89.79
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 5.8820004
+      value: 5.5950003
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e870f12990348ad4b94b4cdb8f09b7a0, type: 3}
       propertyPath: m_LocalScale.x
