@@ -84,9 +84,6 @@
             this.movementController.ForwardMoving    = this.inputController.ForwardMoving;
             this.movementController.IsJumpPressed    = this.inputController.IsJumpPressed;
 
-            Debug.Log("Run "    + this.inputController.RunValue);
-            Debug.Log("Aiming " + this.weaponController.IsAiming);
-
             if (this.inputController.RunValue == 1 || !this.weaponController.IsAiming) {
                 this.weaponController.ChangeAimPositionWeight(0);
             }
