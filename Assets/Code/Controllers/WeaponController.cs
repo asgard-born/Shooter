@@ -39,15 +39,12 @@ namespace Controllers {
                 this.ChangeWeapon();
             }
 
-            Debug.Log(this.animator.GetCurrentAnimatorStateInfo(1).normalizedTime);
-
             if ((this.animator.GetCurrentAnimatorStateInfo(1).IsName("Shotgun Equip")
                  || this.animator.GetCurrentAnimatorStateInfo(1).IsName("Rifle Equip")
                  || this.animator.GetCurrentAnimatorStateInfo(1).IsName("Grenade Equip"))
+                && this.animator.GetCurrentAnimatorStateInfo(1).normalizedTime > .3f
                 && this.isChangingWeapon) {
-                if (this.animator.GetCurrentAnimatorStateInfo(1).normalizedTime > .3f) {
-                    this.SetWeapon();
-                }
+                this.SetWeapon();
             }
         }
 
