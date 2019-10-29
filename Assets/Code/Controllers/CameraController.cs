@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿namespace Controllers {
+    using UnityEngine;
 
-namespace Controllers {
     public class CameraController : MonoBehaviour {
         private float mouseX;
         private float mouseY;
