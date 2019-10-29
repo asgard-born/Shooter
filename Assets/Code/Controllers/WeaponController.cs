@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 namespace Controllers {
     using Structures;
-    using System.Collections;
     using UnityEngine;
 
     public class WeaponController : MonoBehaviour {
