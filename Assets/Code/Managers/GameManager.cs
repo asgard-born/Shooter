@@ -8,9 +8,10 @@
     public class GameManager : MonoBehaviour {
         public PoolOptions PoolOptions;
 
-        private PoolManager     poolManager;
-        private InputController playerInputController;
-        private AnimatorManager animatorManager;
+        private PoolManager              poolManager;
+        private PlayerInputController    playerInputController;
+        private CommandsForBotController commandsForBotController;
+        private AnimatorManager          animatorManager;
 
         private CameraController   cameraController;
         private MovementController movementController;
@@ -52,7 +53,7 @@
 
             while (this.playerInputController == null) {
                 await Task.Delay(TimeSpan.FromSeconds(.1f));
-                this.playerInputController = InputController.Instance;
+                this.playerInputController = PlayerInputController.Instance;
             }
 
             while (this.animatorManager == null) {

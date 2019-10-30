@@ -3,8 +3,6 @@
     using UnityEngine;
 
     public abstract class InputController : MonoBehaviour {
-        public static InputController Instance;
-
         public float ForwardMoving    => this.forwardMoving;
         public float HorizontalMoving => this.horizontalMoving;
         public float RotateX          => this.rotateX;
@@ -26,10 +24,7 @@
         protected bool  isSneak;
         protected bool  isJumping;
         protected bool  isReload;
-
         
-
         protected void FireOnce() => this.OnFireOnce?.Invoke();
-        protected void StopFire() => this.OnStopFire?.Invoke();
     }
 }

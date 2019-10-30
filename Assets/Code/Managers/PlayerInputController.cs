@@ -1,15 +1,18 @@
-﻿namespace Managers {
+﻿using System;
+using System.Threading.Tasks;
+
+namespace Managers {
     using UnityEngine;
 
     public class PlayerInputController : InputController {
         public static PlayerInputController Instance;
 
-        private bool  notSerialFire;
-        private float serialRate = .9f;
+        private bool  canInputFire = true;
+        private float serialRate = .04f;
 
         private void Awake() => Instance = this;
 
-        private void Update() {
+        private async void Update() {
             this.rotateX += Input.GetAxis("Mouse X");
             this.rotateY -= Input.GetAxis("Mouse Y");
 
@@ -23,20 +26,23 @@
 
             this.isJumping = Input.GetKeyDown(KeyCode.Space);
 
-            if (Input.GetMouseButtonDown(0)) {
-                this.FireOnce();
+            if (Input.GetMouseButtonDown(0) && this.canInputFire) {
+                PerformFireInputWithFireRate();
             }
             //TODO change logic
-            else if (Input.GetMouseButton(0) && !this.IsInvoking(nameof(this.FireOnce)) && !this.notSerialFire) {
-//                this.Invoke(nameof(this.FireOnce), this.serialRate);
-            }
-            else if (Input.GetMouseButtonUp(0)) {
-                this.StopFire();
-                this.notSerialFire = true;
+            else if (Input.GetMouseButton(0) && this.canInputFire) {
+                PerformFireInputWithFireRate();
             }
 
             if (Input.GetKeyDown(KeyCode.R)) {
                 this.isReload = true;
+            }
+
+            async void PerformFireInputWithFireRate() {
+                this.canInputFire = false;
+                this.FireOnce();
+                await Task.Delay(TimeSpan.FromSeconds(this.serialRate));
+                this.canInputFire = true;
             }
         }
     }

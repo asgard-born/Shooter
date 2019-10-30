@@ -1027,6 +1027,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7914330014339372225, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7820368849585315886, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
         type: 3}
       propertyPath: Speed
@@ -1035,7 +1040,7 @@ PrefabInstance:
     - target: {fileID: 7820368849585315886, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
         type: 3}
       propertyPath: MagazineCapacity
-      value: 3
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7820368849585315886, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
         type: 3}

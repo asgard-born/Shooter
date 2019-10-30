@@ -1,6 +1,4 @@
-﻿using Structures.WeaponTypes;
-
-namespace Controllers {
+﻿namespace Controllers {
     using System;
     using System.Threading.Tasks;
     using Structures;

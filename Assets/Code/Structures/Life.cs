@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Structures {
+﻿namespace Structures {
     using UnityEngine;
 
     public class Life : MonoBehaviour {
