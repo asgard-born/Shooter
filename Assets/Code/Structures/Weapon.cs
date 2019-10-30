@@ -20,12 +20,12 @@ namespace Structures {
 
         public Bullet bullet;
 
-        [SerializeField] private Transform aim;
+        [SerializeField] protected Transform aim;
 
-        private Vector3 fireDirection;
+        protected Vector3 fireDirection;
 
-        private Crosshair   crosshair;
-        private PoolManager poolManager;
+        protected Crosshair   crosshair;
+        protected PoolManager poolManager;
 
         private async void Awake() {
             this.crosshair   = Crosshair.Instance;

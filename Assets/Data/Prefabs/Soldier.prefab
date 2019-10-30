@@ -72,28 +72,6 @@ Transform:
   m_Father: {fileID: 7823064469499635873}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7818719882862273512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7818719882862372173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2a9565455be42eaae1b28a26d585e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WeaponObject: {fileID: 7818719882862372173}
-  Id: 1
-  WeaponName: Shotgun
-  Damage: 0
-  Ammo: 0
-  Range: 0
-  SerialRate: 0
-  ReloadRate: 0
-  bullet: {fileID: 0}
-  aim: {fileID: 0}
 --- !u!1 &7818719881886689441
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +119,28 @@ MonoBehaviour:
   - {fileID: 7820368849585315886}
   - {fileID: 7818719882862273512}
   weaponSlot: {fileID: 7822924318721876227}
+--- !u!114 &7818719882862273512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818719882862372173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a9565455be42eaae1b28a26d585e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponObject: {fileID: 7818719882862372173}
+  Id: 2
+  WeaponName: Shotgun
+  Damage: 30
+  Ammo: 6
+  Range: 50
+  SerialRate: 1
+  ReloadRate: 2
+  bullet: {fileID: 0}
+  aim: {fileID: 7822296457216992493}
 --- !u!1 &7818831123976891457
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +233,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7818838110388600387}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 26.697681, y: 0, z: 4.379816}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3396,15 +3396,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponObject: {fileID: 7820368849585315887}
-  Id: 0
+  Id: 1
   WeaponName: Rifle
   Damage: 50
-  Ammo: 0
+  Ammo: 30
   Range: 100
-  SerialRate: 0
-  ReloadRate: 0
+  SerialRate: 0.3
+  ReloadRate: 2
   bullet: {fileID: 0}
-  aim: {fileID: 0}
+  aim: {fileID: 7822296457216992493}
 --- !u!1 &7820378569107808319
 GameObject:
   m_ObjectHideFlags: 0
