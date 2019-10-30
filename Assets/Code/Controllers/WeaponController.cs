@@ -22,7 +22,6 @@ namespace Controllers {
         private bool isChangingWeaponProcess;
         private bool isChangingWeaponOver = true;
         private bool isFiring;
-        private bool isReloading;
 
         [SerializeField] private Transform weaponSlot;
 
@@ -33,20 +32,16 @@ namespace Controllers {
         }
 
         public void OnFire() {
-            this.currentWeaponInstance.Fire();
+            if (this.isChangingWeaponOver) {
+                this.currentWeaponInstance.Fire();
+            }
         }
 
-        public async void Reload() {
-            var reloadableInstance = currentWeaponInstance as FiringWeapon;
-            
-            if (!this.isReloading && reloadableInstance != null) {
+        public void Reload() {
+            var reloadableInstance = currentWeaponInstance as Reloadable;
+
+            if (reloadableInstance != null && !reloadableInstance.IsReloading()) {
                 reloadableInstance.Reload();
-                this.isReloading = true;
-
-                await Task.Delay(TimeSpan.FromSeconds(reloadableInstance.GetReloadRate()));
-
-                Debug.Log("finish reload");
-                this.isReloading = false;
             }
         }
 
@@ -66,8 +61,6 @@ namespace Controllers {
                 this.ChangeWeapon();
             }
         }
-
-        public bool CanShoot => this.isChangingWeaponOver && !this.isReloading;
 
         private void ChangeWeapon() {
             this.isChangingWeaponProcess = true;

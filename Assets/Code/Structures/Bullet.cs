@@ -34,12 +34,12 @@ namespace Structures {
                     life.GetDamage(this.damage);
                     this.travelDistance = 0;
                 }
-                
+
                 this.GetComponent<PoolObject>().ReturnToPool();
             }
 
             if (this.travelDistance >= weaponRange) {
-                this.gameObject.SetActive(false);
+                this.GetComponent<PoolObject>().ReturnToPool();
                 this.isBulletFly    = false;
                 this.travelDistance = 0;
             }

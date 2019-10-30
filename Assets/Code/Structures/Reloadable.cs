@@ -1,6 +1,8 @@
-﻿namespace Structures {
+﻿using System.Threading.Tasks;
+
+namespace Structures {
     public interface Reloadable {
-        void  Reload();
-        float GetReloadRate();
+        Task  Reload();
+        bool IsReloading();
     }
 }

@@ -5,9 +5,8 @@
     public class Rifle : FiringWeapon {
         public override void Fire() {
             base.Fire();
-            if (this.Ammo > 0) {
-                this.Ammo--;
 
+            if (this.Ammo > 0 && !this.isReloading) {
                 RaycastHit hit;
 
                 // if there is some object on the weapon range distance - it became a target and rotation point
@@ -26,12 +25,9 @@
                                  .GetObject("Bullet", this.aim.position, Quaternion.LookRotation(this.fireDirection))
                                  .GetComponent<Bullet>();
 
-                bullet.Initialize(bullet.transform.position,
-                    this.Range,
-                    0,
-                    this.Damage,
-                    this.Speed,
-                    true);
+                bullet.Initialize(bullet.transform.position, this.Range, 0, this.Damage, this.Speed, true);
+
+                this.Ammo--;
             }
         }
     }

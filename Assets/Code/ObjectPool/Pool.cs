@@ -11,7 +11,10 @@
             this.objects       = new List<PoolObject>();
             this.objectsParent = objectsParent;
 
-            for (int i = 0; i < count; i++) this.AddObject(sample, objectsParent);
+            for (int i = 0; i < count; i++) {
+                this.AddObject(sample, objectsParent);
+                sample.PoolContainer = objectsParent;
+            }
         }
 
         public void AddObject(PoolObject sample, Transform objectsParent) {

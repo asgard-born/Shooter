@@ -5,7 +5,7 @@
         public static PlayerInputController Instance;
 
         private bool  notSerialFire;
-        private float serialRate = .5f;
+        private float serialRate = .9f;
 
         private void Awake() => Instance = this;
 
@@ -27,8 +27,8 @@
                 this.FireOnce();
             }
             //TODO change logic
-            else if (Input.GetMouseButton(0) && !IsInvoking("Fire") && !this.notSerialFire) {
-                Invoke(nameof(this.FireOnce), this.serialRate);
+            else if (Input.GetMouseButton(0) && !this.IsInvoking(nameof(this.FireOnce)) && !this.notSerialFire) {
+//                this.Invoke(nameof(this.FireOnce), this.serialRate);
             }
             else if (Input.GetMouseButtonUp(0)) {
                 this.StopFire();
