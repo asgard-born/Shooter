@@ -8,7 +8,7 @@ namespace Managers {
         public static PlayerInputController Instance;
 
         private bool  canInputFire = true;
-        private float serialRate   = .04f;
+        public float SerialRate;
 
         private void Awake() => Instance = this;
 
@@ -41,7 +41,7 @@ namespace Managers {
             async void PerformFireInputWithFireRate() {
                 this.canInputFire = false;
                 this.FireOnce();
-                await Task.Delay(TimeSpan.FromSeconds(this.serialRate));
+                await Task.Delay(TimeSpan.FromSeconds(this.SerialRate));
                 this.canInputFire = true;
             }
         }

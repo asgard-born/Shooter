@@ -3,16 +3,16 @@
     using System.Threading.Tasks;
     using UnityEngine;
 
-    public class FiringWeapon : Weapon {
-        public int   MagazineCapacity;
-        public float SerialRate;
-
+    public class FiringWeapon : Weapon, Reloadable {
+        public int MagazineCapacity;
         public int Ammo;
 
         [SerializeField] protected Transform aim;
         [SerializeField] protected float     reloadRate;
 
         protected bool isReloading;
+        
+        public bool IsReloading() => this.isReloading;
 
         protected new void Awake() {
             base.Awake();

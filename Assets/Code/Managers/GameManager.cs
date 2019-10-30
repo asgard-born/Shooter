@@ -27,13 +27,14 @@
         private async void Initialize() {
             await this.GetSingletons();
 
-            this.animatorManager.OnWeaponEquip      += this.weaponController.OnWeaponEquip;
-            this.weaponController.OnWeaponChanged   += this.animatorManager.SetupWeaponCondition;
-            this.weaponController.SetWeaponEquipped += this.animatorManager.SetWeaponEquipping;
-            this.playerInputController.OnFireOnce   += this.weaponController.OnFire;
-            this.playerInputController.OnReload     += this.weaponController.Reload;
+            this.animatorManager.OnWeaponEquip       += this.weaponController.OnWeaponEquip;
+            this.weaponController.OnWeaponRearranged += this.animatorManager.SetupWeaponCondition;
+            this.weaponController.SetWeaponEquipped  += this.animatorManager.SetWeaponEquipping;
+            this.weaponController.OnWeaponChanged    += rate => this.playerInputController.SerialRate = rate;
+            this.playerInputController.OnFireOnce    += this.weaponController.OnFire;
+            this.playerInputController.OnReload      += this.weaponController.Reload;
 
-            this.weaponController.SetupTheWeapon(true);
+            this.weaponController.Initialize();
 
             this.poolManager.Initialize(this.PoolOptions.Pools);
         }

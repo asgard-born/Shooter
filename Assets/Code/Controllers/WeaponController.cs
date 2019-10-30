@@ -7,15 +7,15 @@
     public class WeaponController : MonoBehaviour {
         public static WeaponController Instance;
 
-        public event Action<string, bool> OnWeaponChanged;
+        public event Action<string, bool> OnWeaponRearranged;
         public event Action<bool>         SetWeaponEquipped;
+        public event Action<float>        OnWeaponChanged;
 
-        [SerializeField] private Weapon[] weapons;
+        [SerializeField]         private Weapon[] weapons;
+        [Space] [SerializeField] private int      currentWeaponNumber = 1;
 
         private Weapon     currentWeaponInstance;
         private GameObject currentWeaponObject;
-
-        private int currentWeaponNumber = 0;
 
         private bool isChangingWeaponProcess;
         private bool isChangingWeaponOver = true;
@@ -43,15 +43,26 @@
             }
         }
 
+        public void Initialize() {
+            
+            foreach (var weapon in this.weapons) {
+                weapon.WeaponObject.SetActive(false);
+            }
+            
+            this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
+            this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
+            this.currentWeaponObject.SetActive(true);
+
+            this.SetupTheWeapon(true);
+            this.OnWeaponChanged?.Invoke(this.currentWeaponInstance.SerialRate);
+        }
+
         public void SetupTheWeapon(bool isSet) {
-            this.OnWeaponChanged?.Invoke(this.currentWeaponInstance.WeaponName, isSet);
+            this.OnWeaponRearranged?.Invoke(this.currentWeaponInstance.WeaponName, isSet);
         }
 
         private void Awake() {
             Instance = this;
-
-            this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
-            this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
         }
 
         private void Update() {
@@ -87,6 +98,7 @@
             this.currentWeaponObject.SetActive(true);
             await Task.Delay(TimeSpan.FromSeconds(1.2f));
             this.isChangingWeaponOver = true;
+            this.OnWeaponChanged?.Invoke(this.currentWeaponInstance.SerialRate);
         }
     }
 }

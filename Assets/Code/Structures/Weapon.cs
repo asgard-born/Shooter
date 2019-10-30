@@ -9,6 +9,7 @@
 
         public int    Id;
         public string WeaponName;
+        public float  SerialRate;
         public int    Damage;
         public int    AttackSpeed;
         public float  Range;
