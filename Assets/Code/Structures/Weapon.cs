@@ -10,14 +10,8 @@
         public int    Id;
         public string WeaponName;
         public int    Damage;
-        public int    MagazineCapacity;
         public int    Speed;
         public float  Range;
-
-        public float SerialRate;
-        public float ReloadRate;
-
-        [SerializeField] protected Transform aim;
 
         protected Vector3 fireDirection;
 
