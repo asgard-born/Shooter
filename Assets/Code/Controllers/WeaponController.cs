@@ -1,5 +1,4 @@
 ﻿namespace Controllers {
-    using RootMotion.FinalIK;
     using System;
     using System.Threading.Tasks;
     using Structures;
@@ -8,13 +7,10 @@
     public class WeaponController : MonoBehaviour {
         public static WeaponController Instance;
 
-        public bool IsAiming => this.isChangingWeaponOver && !this.isReloading;
-
         public event Action<string, bool> OnWeaponChanged;
         public event Action<bool>         SetWeaponEquipped;
 
         [SerializeField] private Weapon[] weapons;
-        [SerializeField] private AimIK    aimIk;
 
         private GameObject currentWeaponObject;
 
@@ -35,16 +31,13 @@
             }
         }
 
-        public void Fire() {
+        public void OnFire() {
             this.currentWeaponInstance.Fire();
         }
 
         public void SetupTheWeapon(bool isSet) {
             this.OnWeaponChanged?.Invoke(this.currentWeaponInstance.WeaponName, isSet);
         }
-
-        public void ChangeAimPositionWeight(int value) =>
-            this.aimIk.solver.IKPositionWeight = value;
 
         private void Awake() {
             Instance = this;
@@ -58,6 +51,8 @@
                 this.ChangeWeapon();
             }
         }
+
+        public bool IsCanShoot => this.isChangingWeaponOver && !this.isReloading;
 
         private void ChangeWeapon() {
             this.isChangingWeaponProcess = true;

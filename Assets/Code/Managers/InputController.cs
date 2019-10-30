@@ -1,57 +1,35 @@
-﻿using System;
-
-namespace Managers {
+﻿namespace Managers {
+    using System;
     using UnityEngine;
 
-    public class InputController : MonoBehaviour {
+    public abstract class InputController : MonoBehaviour {
         public static InputController Instance;
 
         public float ForwardMoving    => this.forwardMoving;
         public float HorizontalMoving => this.horizontalMoving;
-        public float MouseX           => this.mouseX;
-        public float MouseY           => this.mouseY;
+        public float RotateX          => this.rotateX;
+        public float RotateY          => this.rotateY;
         public int   RunValue         => this.runValue;
         public bool  IsSneak          => this.isSneak;
-        public bool  IsJumpPressed    => this.isJumpPressed;
+        public bool  IsJumping        => this.isJumping;
+        public bool  IsReload         => this.isReload;
 
-        public event Action OnMouseButtonDown;
-        public event Action OnMouseButtonUp;
+        public event Action OnFireOnce;
+        public event Action OnStopFire;
 
-        private float mouseX;
-        private float mouseY;
+        protected float rotateX;
+        protected float rotateY;
 
-        // basic motion variables
-        private float forwardMoving;
-        private float horizontalMoving;
-        private int   runValue;
-        private bool  isSneak;
-        private bool  isJumpPressed;
+        protected float forwardMoving;
+        protected float horizontalMoving;
+        protected int   runValue;
+        protected bool  isSneak;
+        protected bool  isJumping;
+        protected bool  isReload;
 
-        private void Awake() => Instance = this;
+        
 
-        private void Update() {
-            this.mouseX += Input.GetAxis("Mouse X");
-            this.mouseY -= Input.GetAxis("Mouse Y");
-
-            this.forwardMoving    = Input.GetAxis("Vertical");
-            this.horizontalMoving = Input.GetAxis("Horizontal");
-            this.isSneak          = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-            this.runValue         = Input.GetButton("Run") && !this.isSneak ? 1 : 0;
-
-            this.forwardMoving    += this.forwardMoving    > 0 ? this.runValue : this.forwardMoving < 0 ? -this.runValue : 0;
-            this.horizontalMoving += this.horizontalMoving > 0 ? this.runValue : this.horizontalMoving < 0 ? -this.runValue : 0;
-
-            this.isJumpPressed = Input.GetKeyDown(KeyCode.Space);
-
-            if (Input.GetMouseButtonDown(0)) {
-                this.OnMouseButtonDown?.Invoke();
-            }
-            else if (Input.GetMouseButtonUp(0)) {
-                this.OnMouseButtonUp?.Invoke();
-            }
-
-            if (Input.GetKeyDown(KeyCode.R)) {
-            }
-        }
+        protected void FireOnce() => this.OnFireOnce?.Invoke();
+        protected void StopFire() => this.OnStopFire?.Invoke();
     }
 }

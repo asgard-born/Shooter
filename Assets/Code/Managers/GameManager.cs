@@ -9,7 +9,7 @@
         public PoolOptions PoolOptions;
 
         private PoolManager     poolManager;
-        private InputController inputController;
+        private InputController playerInputController;
         private AnimatorManager animatorManager;
 
         private CameraController   cameraController;
@@ -29,7 +29,7 @@
             this.animatorManager.OnWeaponEquip      += this.weaponController.OnWeaponEquip;
             this.weaponController.OnWeaponChanged   += this.animatorManager.SetupWeaponCondition;
             this.weaponController.SetWeaponEquipped += this.animatorManager.SetWeaponEquipping;
-            this.inputController.OnMouseButtonDown  += this.weaponController.Fire;
+            this.playerInputController.OnFireOnce   += this.weaponController.OnFire;
 
             this.weaponController.SetupTheWeapon(true);
 
@@ -37,9 +37,9 @@
         }
 
         private async Task GetSingletons() {
-            this.poolManager     = PoolManager.Instance;
-            this.inputController = InputController.Instance;
-            this.animatorManager = AnimatorManager.Instance;
+            this.poolManager           = PoolManager.Instance;
+            this.playerInputController = PlayerInputController.Instance;
+            this.animatorManager       = AnimatorManager.Instance;
 
             this.cameraController   = CameraController.Instance;
             this.movementController = MovementController.Instance;
@@ -50,9 +50,9 @@
                 this.poolManager = PoolManager.Instance;
             }
 
-            while (this.inputController == null) {
+            while (this.playerInputController == null) {
                 await Task.Delay(TimeSpan.FromSeconds(.1f));
-                this.inputController = InputController.Instance;
+                this.playerInputController = InputController.Instance;
             }
 
             while (this.animatorManager == null) {
@@ -77,19 +77,12 @@
         }
 
         private void Update() {
-            this.mouseX = this.inputController.MouseX;
-            this.mouseY = this.inputController.MouseY;
+            this.mouseX = this.playerInputController.RotateX;
+            this.mouseY = this.playerInputController.RotateY;
 
-            this.movementController.HorizontalMoving = this.inputController.HorizontalMoving;
-            this.movementController.ForwardMoving    = this.inputController.ForwardMoving;
-            this.movementController.IsJumpPressed    = this.inputController.IsJumpPressed;
-
-            if (this.inputController.RunValue == 1 || !this.weaponController.IsAiming) {
-                this.weaponController.ChangeAimPositionWeight(0);
-            }
-            else {
-                this.weaponController.ChangeAimPositionWeight(1);
-            }
+            this.movementController.HorizontalMoving = this.playerInputController.HorizontalMoving;
+            this.movementController.ForwardMoving    = this.playerInputController.ForwardMoving;
+            this.movementController.IsJumpPressed    = this.playerInputController.IsJumping;
 
 
             this.movementController.RotatePlayer(this.mouseX);
@@ -101,8 +94,8 @@
 
         private void FixedUpdate() {
             this.movementController.Move(
-                this.inputController.ForwardMoving    * Time.fixedDeltaTime,
-                this.inputController.HorizontalMoving * Time.fixedDeltaTime);
+                this.playerInputController.ForwardMoving    * Time.fixedDeltaTime,
+                this.playerInputController.HorizontalMoving * Time.fixedDeltaTime);
         }
 
         private void LateUpdate() {
@@ -111,9 +104,9 @@
         }
 
         private void UpdateAnimatorState() {
-            this.animatorManager.ForwardMoving    = this.inputController.ForwardMoving;
-            this.animatorManager.HorizontalMoving = this.inputController.HorizontalMoving;
-            this.animatorManager.IsSneak          = this.inputController.IsSneak;
+            this.animatorManager.ForwardMoving    = this.playerInputController.ForwardMoving;
+            this.animatorManager.HorizontalMoving = this.playerInputController.HorizontalMoving;
+            this.animatorManager.IsSneak          = this.playerInputController.IsSneak;
             this.animatorManager.IsJumping        = this.movementController.IsJumping;
             this.animatorManager.IsFalling        = this.movementController.IsFalling();
             this.animatorManager.IsGrounded       = this.movementController.IsGrounded();

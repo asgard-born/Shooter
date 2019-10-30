@@ -11,21 +11,24 @@
         [HideInInspector] public bool  IsJumpPressed;
         [HideInInspector] public bool  IsJumping;
 
-        [SerializeField] private Rigidbody rigidbody;
-        [SerializeField] private Transform characterTransform;
 
         [SerializeField] private float movingSpeed;
         [SerializeField] private float jumpVelocity = 7f;
 
         private readonly float nearGroundMarker = 1.2f;
 
+        private Rigidbody rigidbody;
         private float turnSmoothVelocity;
 
-        private void Awake() => Instance = this;
+        private void Awake() {
+            Instance = this;
+
+            this.rigidbody = this.GetComponent<Rigidbody>();
+        }
 
         // Should be called in Update
         public void RotatePlayer(float mouseX) =>
-            this.characterTransform.rotation = Quaternion.Euler(0, mouseX, 0);
+            this.transform.rotation = Quaternion.Euler(0, mouseX, 0);
 
         // Should be called in FixedUpdate
         public void Move(float forwardMoving, float horizontalMoving) {
@@ -33,20 +36,20 @@
             horizontalMoving *= this.movingSpeed;
 
             this.rigidbody.MovePosition(
-                this.characterTransform.position +
-                (this.characterTransform.right * horizontalMoving + this.characterTransform.forward * forwardMoving));
+                this.transform.position +
+                (this.transform.right * horizontalMoving + this.transform.forward * forwardMoving));
         }
 
         public bool IsFalling() => !this.IsGrounded() && this.rigidbody.velocity.y < 0;
 
         public bool IsGrounded() {
             RaycastHit hit;
-            return Physics.Raycast(this.characterTransform.position + new Vector3(0, 0.2f, 0), Vector3.down, out hit, 0.2f);
+            return Physics.Raycast(this.transform.position + new Vector3(0, 0.2f, 0), Vector3.down, out hit, 0.2f);
         }
 
         public bool IsNearToGround() {
             RaycastHit hit;
-            return (!this.IsGrounded()) && Physics.Raycast(this.characterTransform.position, Vector3.down, out hit, this.nearGroundMarker);
+            return (!this.IsGrounded()) && Physics.Raycast(this.transform.position, Vector3.down, out hit, this.nearGroundMarker);
         }
 
         private void LateUpdate() {
