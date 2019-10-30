@@ -31,6 +31,7 @@
             this.weaponController.OnWeaponChanged   += this.animatorManager.SetupWeaponCondition;
             this.weaponController.SetWeaponEquipped += this.animatorManager.SetWeaponEquipping;
             this.playerInputController.OnFireOnce   += this.weaponController.OnFire;
+            this.playerInputController.OnReload     += this.weaponController.Reload;
 
             this.weaponController.SetupTheWeapon(true);
 

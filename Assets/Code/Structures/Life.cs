@@ -15,7 +15,7 @@
         }
 
         private void Death() {
-            GameObject.Destroy(this.gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

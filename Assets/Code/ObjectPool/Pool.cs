@@ -34,7 +34,7 @@
 
         public PoolObject GetObject() {
             for (int i = 0; i < this.objects.Count; i++) {
-                if (this.objects[i].gameObject.activeInHierarchy == false)
+                if (this.objects[i].gameObject.activeSelf == false)
                     return this.objects[i];
             }
 

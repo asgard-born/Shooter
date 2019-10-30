@@ -2,7 +2,10 @@
     using UnityEngine;
     using WeaponTypes;
 
-    public class Rifle : FiringWeapon {
+    public class Rifle : FiringWeapon, Reloadable {
+        
+        public bool IsReloading() => this.isReloading;
+        
         public override void Fire() {
             base.Fire();
 
@@ -25,7 +28,7 @@
                                  .GetObject("Bullet", this.aim.position, Quaternion.LookRotation(this.fireDirection))
                                  .GetComponent<Bullet>();
 
-                bullet.Initialize(bullet.transform.position, this.Range, 0, this.Damage, this.Speed, true);
+                bullet.Initialize(bullet.transform.position, this.Range, 0, this.Damage, this.AttackSpeed, true);
 
                 this.Ammo--;
             }

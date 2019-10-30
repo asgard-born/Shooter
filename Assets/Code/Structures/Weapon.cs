@@ -10,15 +10,15 @@
         public int    Id;
         public string WeaponName;
         public int    Damage;
-        public int    Speed;
+        public int    AttackSpeed;
         public float  Range;
 
-        protected Vector3 fireDirection;
-
+        protected Vector3     fireDirection;
         protected PoolManager poolManager;
 
         protected async void Awake() {
             this.poolManager = PoolManager.Instance;
+            Debug.Log("Awaken !");
 
             while (this.poolManager == null) {
                 await Task.Delay(TimeSpan.FromSeconds(.1f));

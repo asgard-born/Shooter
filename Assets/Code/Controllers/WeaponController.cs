@@ -36,7 +36,7 @@
         }
 
         public void Reload() {
-            var reloadableInstance = currentWeaponInstance as Reloadable;
+            var reloadableInstance = this.currentWeaponInstance as Reloadable;
 
             if (reloadableInstance != null && !reloadableInstance.IsReloading()) {
                 reloadableInstance.Reload();

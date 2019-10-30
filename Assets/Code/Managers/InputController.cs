@@ -10,10 +10,9 @@
         public int   RunValue         => this.runValue;
         public bool  IsSneak          => this.isSneak;
         public bool  IsJumping        => this.isJumping;
-        public bool  IsReload         => this.isReload;
 
         public event Action OnFireOnce;
-        public event Action OnStopFire;
+        public event Action OnReload;
 
         protected float rotateX;
         protected float rotateY;
@@ -23,8 +22,8 @@
         protected int   runValue;
         protected bool  isSneak;
         protected bool  isJumping;
-        protected bool  isReload;
-        
+
         protected void FireOnce() => this.OnFireOnce?.Invoke();
+        protected void Reload()   => this.OnReload?.Invoke();
     }
 }

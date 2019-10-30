@@ -8,7 +8,7 @@ namespace Managers {
         public static PlayerInputController Instance;
 
         private bool  canInputFire = true;
-        private float serialRate = .04f;
+        private float serialRate   = .04f;
 
         private void Awake() => Instance = this;
 
@@ -35,7 +35,7 @@ namespace Managers {
             }
 
             if (Input.GetKeyDown(KeyCode.R)) {
-                this.isReload = true;
+                this.Reload();
             }
 
             async void PerformFireInputWithFireRate() {

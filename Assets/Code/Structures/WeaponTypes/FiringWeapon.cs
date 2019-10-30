@@ -1,28 +1,21 @@
-﻿using System.Threading.Tasks;
-
-namespace Structures.WeaponTypes {
+﻿namespace Structures.WeaponTypes {
     using System;
+    using System.Threading.Tasks;
     using UnityEngine;
 
-    public class FiringWeapon : Weapon, Reloadable {
+    public class FiringWeapon : Weapon {
         public int   MagazineCapacity;
         public float SerialRate;
 
         public int Ammo;
 
         [SerializeField] protected Transform aim;
+        [SerializeField] protected float     reloadRate;
 
         protected bool isReloading;
 
-        [SerializeField] private float reloadRate;
-
-        public event Action OnAmmoEmpty;
-
-        public bool IsReloading() => this.isReloading;
-
-        protected void Awake() {
+        protected new void Awake() {
             base.Awake();
-
             this.Ammo = this.MagazineCapacity;
         }
 
@@ -33,15 +26,15 @@ namespace Structures.WeaponTypes {
         }
 
         public override void Fire() {
-            Debug.Log("fire");
         }
 
         public async Task Reload() {
             this.isReloading = true;
             this.Ammo        = this.MagazineCapacity;
             await Task.Delay(TimeSpan.FromSeconds(this.reloadRate));
-            Debug.Log("finish reload");
             this.isReloading = false;
+
+            Debug.Log("finish reloading");
         }
     }
 }
