@@ -1,4 +1,6 @@
-﻿namespace Structures {
+﻿using ObjectPool;
+
+namespace Structures {
     using UnityEngine;
 
     public class Bullet : MonoBehaviour {
@@ -26,14 +28,14 @@
 
             if (Physics.Raycast(startingPoint, this.transform.forward, out this.raycastHit, this.travelDistance)) {
                 this.isBulletFly = false;
-                this.gameObject.SetActive(false);
-
                 var life = this.raycastHit.transform.gameObject.GetComponent<Life>();
 
                 if (life != null) {
                     life.GetDamage(this.damage);
                     this.travelDistance = 0;
                 }
+                
+                this.GetComponent<PoolObject>().ReturnToPool();
             }
 
             if (this.travelDistance >= weaponRange) {

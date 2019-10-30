@@ -52,7 +52,7 @@
             }
         }
 
-        public bool IsCanShoot => this.isChangingWeaponOver && !this.isReloading;
+        public bool CanShoot => this.isChangingWeaponOver && !this.isReloading;
 
         private void ChangeWeapon() {
             this.isChangingWeaponProcess = true;

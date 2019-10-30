@@ -3,9 +3,12 @@
 
     public class PlayerInputController : InputController {
         public static PlayerInputController Instance;
-        
+
+        private bool  notSerialFire;
+        private float serialRate = .5f;
+
         private void Awake() => Instance = this;
-        
+
         private void Update() {
             this.rotateX += Input.GetAxis("Mouse X");
             this.rotateY -= Input.GetAxis("Mouse Y");
@@ -23,8 +26,12 @@
             if (Input.GetMouseButtonDown(0)) {
                 this.FireOnce();
             }
+            else if (Input.GetMouseButton(0) && !IsInvoking("Fire") && !this.notSerialFire) {
+                Invoke(nameof(this.FireOnce), this.serialRate);
+            }
             else if (Input.GetMouseButtonUp(0)) {
                 this.StopFire();
+                this.notSerialFire = true;
             }
 
             if (Input.GetKeyDown(KeyCode.R)) {
