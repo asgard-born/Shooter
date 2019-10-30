@@ -98,11 +98,12 @@ MonoBehaviour:
   WeaponObject: {fileID: 6283683098509179469}
   Id: 2
   WeaponName: Shotgun
-  Damage: 20
+  SerialRate: 1
+  Damage: 10
   AttackSpeed: 20
   Range: 50
-  MagazineCapacity: 6
-  SerialRate: 1
+  Image: {fileID: 0}
+  MagazineCapacity: 7
   Ammo: 0
   aim: {fileID: 2766494725218230985}
   reloadRate: 3

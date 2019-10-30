@@ -13,6 +13,7 @@
         public int    Damage;
         public int    AttackSpeed;
         public float  Range;
+        public Sprite Image;
 
         protected Vector3     fireDirection;
         protected PoolManager poolManager;
