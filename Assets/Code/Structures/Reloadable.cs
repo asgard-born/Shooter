@@ -1,5 +1,6 @@
 ﻿namespace Structures {
     public interface Reloadable {
-        void Reload();
+        void  Reload();
+        float GetReloadRate();
     }
 }

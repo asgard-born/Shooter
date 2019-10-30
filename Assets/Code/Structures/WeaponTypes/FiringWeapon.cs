@@ -5,13 +5,16 @@
     public class FiringWeapon : Weapon, Reloadable {
         public int   MagazineCapacity;
         public float SerialRate;
-        public float ReloadRate;
+
+        [SerializeField] private float reloadRate;
 
         [HideInInspector] public int Ammo;
 
         [SerializeField] protected Transform aim;
 
         public event Action OnAmmoEmpty;
+
+        public float GetReloadRate() => this.reloadRate;
 
         protected void Awake() {
             base.Awake();
@@ -20,15 +23,13 @@
         }
 
         public override void Fire() {
-            if (this.Ammo > 0) {
-                this.Ammo--;
-            }
-            else {
+            if (this.Ammo == 0) {
                 this.OnAmmoEmpty?.Invoke();
             }
         }
 
         public void Reload() {
+            this.Ammo = this.MagazineCapacity;
         }
     }
 }

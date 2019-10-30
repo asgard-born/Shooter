@@ -1,4 +1,6 @@
-﻿namespace Controllers {
+﻿using Structures.WeaponTypes;
+
+namespace Controllers {
     using System;
     using System.Threading.Tasks;
     using Structures;
@@ -12,6 +14,7 @@
 
         [SerializeField] private Weapon[] weapons;
 
+        private Weapon     currentWeaponInstance;
         private GameObject currentWeaponObject;
 
         private int currentWeaponNumber = 0;
@@ -23,8 +26,6 @@
 
         [SerializeField] private Transform weaponSlot;
 
-        private Weapon currentWeaponInstance;
-
         public void OnWeaponEquip() {
             if (this.isChangingWeaponProcess) {
                 this.SetWeapon();
@@ -33,6 +34,20 @@
 
         public void OnFire() {
             this.currentWeaponInstance.Fire();
+        }
+
+        public async void Reload() {
+            var reloadableInstance = currentWeaponInstance as FiringWeapon;
+            
+            if (!this.isReloading && reloadableInstance != null) {
+                reloadableInstance.Reload();
+                this.isReloading = true;
+
+                await Task.Delay(TimeSpan.FromSeconds(reloadableInstance.GetReloadRate()));
+
+                Debug.Log("finish reload");
+                this.isReloading = false;
+            }
         }
 
         public void SetupTheWeapon(bool isSet) {
