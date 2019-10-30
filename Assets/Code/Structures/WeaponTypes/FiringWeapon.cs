@@ -1,15 +1,15 @@
-﻿using System;
-using UnityEngine;
+﻿namespace Structures.WeaponTypes {
+    using System;
+    using UnityEngine;
 
-namespace Structures.WeaponTypes {
-    public class FiringWeapon : Weapon {
+    public class FiringWeapon : Weapon, Reloadable {
         [HideInInspector] public int Ammo;
 
         public event Action OnAmmoEmpty;
 
         protected void Awake() {
             base.Awake();
-            
+
             this.Ammo = this.MagazineCapacity;
         }
 
@@ -21,7 +21,9 @@ namespace Structures.WeaponTypes {
                 this.OnAmmoEmpty?.Invoke();
             }
         }
-        
-        
+
+        public void Reload() {
+            
+        }
     }
 }

@@ -26,6 +26,7 @@
             if (Input.GetMouseButtonDown(0)) {
                 this.FireOnce();
             }
+            //TODO fixed
             else if (Input.GetMouseButton(0) && !IsInvoking("Fire") && !this.notSerialFire) {
                 Invoke(nameof(this.FireOnce), this.serialRate);
             }
