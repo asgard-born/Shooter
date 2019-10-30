@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Structures {
+﻿namespace Structures {
+    using System;
+    using System.Threading.Tasks;
     using Managers;
-    using UI;
     using UnityEngine;
 
     public abstract class Weapon : MonoBehaviour {
@@ -13,28 +11,21 @@ namespace Structures {
         public string WeaponName;
         public int    Damage;
         public int    Ammo;
+        public int    Speed;
         public float  Range;
 
         public float SerialRate;
         public float ReloadRate;
 
-        public Bullet bullet;
-
         [SerializeField] protected Transform aim;
 
         protected Vector3 fireDirection;
 
-        protected Crosshair   crosshair;
         protected PoolManager poolManager;
 
         private async void Awake() {
-            this.crosshair   = Crosshair.Instance;
             this.poolManager = PoolManager.Instance;
 
-            while (this.crosshair == null) {
-                await Task.Delay(TimeSpan.FromSeconds(.1f));
-                this.crosshair = Crosshair.Instance;
-            }
 
             while (this.poolManager == null) {
                 await Task.Delay(TimeSpan.FromSeconds(.1f));
@@ -46,27 +37,30 @@ namespace Structures {
             if (this.Ammo > 0) {
                 this.Ammo--;
 
-                Ray ray = Camera.main.ScreenPointToRay(new Vector3(
-                    Screen.width / 2,
-                    Screen.height / 2 + this.crosshair.CrosshairRegulator
-                ));
-
-                Vector3 startingPoint = ray.origin;
-
                 RaycastHit hit;
 
                 // if there is some object on the weapon range distance - it became a target and rotation point
-                if (Physics.Raycast(startingPoint, ray.direction, out hit, this.Range)) {
+                if (Physics.Raycast(this.aim.position, this.aim.forward, out hit, this.Range)) {
                     this.fireDirection = (hit.point - this.aim.position).normalized;
                     // otherwise take target and rotation point from max possibility of current weapon range
                 }
                 else {
-                    Vector3 endPoint = startingPoint + ray.direction * this.Range;
-                    this.fireDirection = (endPoint   - this.aim.position).normalized;
+                    Vector3 endPoint = this.aim.position + this.aim.forward * this.Range;
+
+                    this.fireDirection = (endPoint - this.aim.position).normalized;
                 }
 
                 // Get Bullet from pool
-                this.bullet = this.poolManager.GetObject("Bullet", this.aim.position, Quaternion.LookRotation(this.fireDirection)).GetComponent<Bullet>();
+                var bullet = this.poolManager
+                                 .GetObject("Bullet", this.aim.position, Quaternion.LookRotation(this.fireDirection))
+                                 .GetComponent<Bullet>();
+
+                bullet.Initialize(bullet.transform.position,
+                    this.Range,
+                    0,
+                    this.Damage,
+                    this.Speed,
+                    true);
             }
         }
     }
