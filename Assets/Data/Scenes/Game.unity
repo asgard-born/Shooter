@@ -218,6 +218,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crosshairTexture: {fileID: 2800000, guid: 44544c5c1da8794408f520f15a213960, type: 3}
+  crosshairPlace:
+    x: 0
+    y: 0
+    width: 0
+    height: 0
 --- !u!4 &95807567
 Transform:
   m_ObjectHideFlags: 0
@@ -993,12 +998,6 @@ Transform:
   m_Father: {fileID: 37553275}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 11.357, y: 0, z: 0}
---- !u!4 &4447937299123504 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7822296457216992493, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
-    type: 3}
-  m_PrefabInstance: {fileID: 7818719882966837725}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &95971395165273372 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 7914330014339372225, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
@@ -1080,8 +1079,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7820368849585315886, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
         type: 3}
-      propertyPath: aim
-      value: 
-      objectReference: {fileID: 4447937299123504}
+      propertyPath: Speed
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38ef3a4ac7a3a7049b8f43a2537a0606, type: 3}
