@@ -6,42 +6,56 @@ namespace Structures {
     public class Bullet : MonoBehaviour {
         private Vector3 startingPoint;
         private float   weaponRange;
-        private float   travelDistance;
+        private float   travelledDistance;
         private int     damage;
         private int     bulletSpeed;
+        private int     id_attacker;
+        private int     id_weapon;
+        private string  weaponName;
         private bool    isBulletFly;
 
         private RaycastHit raycastHit;
 
-        public void Initialize(Vector3 startingPoint, float weaponRange, float travelDistance, int damage, int bulletSpeed, bool isBulletFly) {
-            this.startingPoint  = startingPoint;
-            this.weaponRange    = weaponRange;
-            this.travelDistance = travelDistance;
-            this.damage         = damage;
-            this.bulletSpeed    = bulletSpeed;
-            this.isBulletFly    = isBulletFly;
+        public void Initialize(Vector3 startingPoint,
+                               float weaponRange,
+                               float travelledDistance,
+                               int damage,
+                               int bulletSpeed,
+                               int id_attacker,
+                               int id_weapon,
+                               string weaponName,
+                               bool isBulletFly) {
+            this.startingPoint     = startingPoint;
+            this.weaponRange       = weaponRange;
+            this.travelledDistance = travelledDistance;
+            this.damage            = damage;
+            this.bulletSpeed       = bulletSpeed;
+            this.id_attacker       = id_attacker;
+            this.id_weapon         = id_weapon;
+            this.weaponName        = weaponName;
+            this.isBulletFly       = isBulletFly;
         }
 
         public void Fly(float weaponRange, Vector3 startingPoint) {
-            this.travelDistance += Time.deltaTime * this.bulletSpeed;
-            Debug.DrawRay(startingPoint, this.transform.forward * this.travelDistance, Color.cyan);
+            this.travelledDistance += Time.deltaTime * this.bulletSpeed;
+            Debug.DrawRay(startingPoint, this.transform.forward * this.travelledDistance, Color.cyan);
 
-            if (Physics.Raycast(startingPoint, this.transform.forward, out this.raycastHit, this.travelDistance)) {
+            if (Physics.Raycast(startingPoint, this.transform.forward, out this.raycastHit, this.travelledDistance)) {
                 this.isBulletFly = false;
-                var life = this.raycastHit.transform.gameObject.GetComponent<Life>();
+                var lifer = this.raycastHit.transform.gameObject.GetComponent<Lifer>();
 
-                if (life != null) {
-                    life.GetDamage(this.damage);
-                    this.travelDistance = 0;
+                if (lifer != null) {
+                    lifer.Hit(this.damage, this.id_attacker, this.id_weapon, this.weaponName);
+                    this.travelledDistance = 0;
                 }
 
                 this.GetComponent<PoolObject>().ReturnToPool();
             }
 
-            if (this.travelDistance >= weaponRange) {
+            if (this.travelledDistance >= weaponRange) {
                 this.GetComponent<PoolObject>().ReturnToPool();
-                this.isBulletFly    = false;
-                this.travelDistance = 0;
+                this.isBulletFly       = false;
+                this.travelledDistance = 0;
             }
 
             this.transform.position += this.transform.forward * Time.deltaTime * this.bulletSpeed;

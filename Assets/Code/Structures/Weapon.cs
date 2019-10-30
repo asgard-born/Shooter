@@ -27,6 +27,6 @@
             }
         }
 
-        public abstract void Fire();
+        public abstract void Attack(int id_attacker);
     }
 }

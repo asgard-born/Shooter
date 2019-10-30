@@ -1,6 +1,6 @@
 ﻿namespace Structures.WeaponTypes {
     public class ThrowingWeapon : Weapon {
-        public override void Fire() {
+        public override void Attack(int id_attacker) {
         }
     }
 }

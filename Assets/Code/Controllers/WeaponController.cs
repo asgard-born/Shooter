@@ -14,6 +14,9 @@
         [SerializeField]         private Weapon[] weapons;
         [Space] [SerializeField] private int      currentWeaponNumber = 1;
 
+        private Character character;
+        private int       character_id;
+
         private Weapon     currentWeaponInstance;
         private GameObject currentWeaponObject;
 
@@ -31,24 +34,23 @@
 
         public void OnFire() {
             if (this.isChangingWeaponOver) {
-                this.currentWeaponInstance.Fire();
+                this.currentWeaponInstance.Attack(this.character_id);
             }
         }
 
         public void Reload() {
             var reloadableInstance = this.currentWeaponInstance as Reloadable;
 
-            if (reloadableInstance != null && !reloadableInstance.IsReloading()) {
+            if (reloadableInstance != null && !reloadableInstance.IsReloading) {
                 reloadableInstance.Reload();
             }
         }
 
         public void Initialize() {
-            
             foreach (var weapon in this.weapons) {
                 weapon.WeaponObject.SetActive(false);
             }
-            
+
             this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
             this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
             this.currentWeaponObject.SetActive(true);
@@ -62,7 +64,9 @@
         }
 
         private void Awake() {
-            Instance = this;
+            Instance       = this;
+            this.character = this.GetComponent<Character>();
+            this.character_id = this.character.Id;
         }
 
         private void Update() {

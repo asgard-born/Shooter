@@ -7,25 +7,23 @@
 
         private RaycastHit hit;
 
-        public override void Fire() {
-            base.Fire();
+        public override void Attack(int id_attacker) {
+            base.Attack(id_attacker);
 
             if (this.Ammo > 0 && !this.isReloading) {
                 for (int i = 0; i < 16; i++) {
-                    Vector3 randomDirection = new Vector3(
-                        Random.Range(-this.splash, this.splash),
-                        Random.Range(-this.splash, this.splash),
-                        0);
+                    var verticalRandomDirectionPart   = (this.aim.forward + this.aim.up * Random.Range(-this.splash, this.splash));
+                    var horizontalRandomDirectionPart = (this.aim.forward + this.aim.right * Random.Range(-this.splash, this.splash));
 
-                    randomDirection += this.aim.forward;
+                    var direction = verticalRandomDirectionPart + horizontalRandomDirectionPart;
 
-                    var firingRotation = Quaternion.LookRotation(randomDirection);
+                    var firingRotation = Quaternion.LookRotation(direction);
 
                     var bullet = this.poolManager
                                      .GetObject("Bullet", this.aim.position, firingRotation)
                                      .GetComponent<Bullet>();
 
-                    bullet.Initialize(bullet.transform.position, this.Range, 0, this.Damage, this.AttackSpeed, true);
+                    this.InitializeTheBullet(bullet, id_attacker);
                 }
 
                 this.Ammo--;

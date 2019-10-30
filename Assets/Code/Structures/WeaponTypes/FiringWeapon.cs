@@ -12,7 +12,7 @@
 
         protected bool isReloading;
         
-        public bool IsReloading() => this.isReloading;
+        public bool IsReloading => this.isReloading;
 
         protected new void Awake() {
             base.Awake();
@@ -25,7 +25,7 @@
             }
         }
 
-        public override void Fire() {
+        public override void Attack(int id_attacker) {
         }
 
         public async Task Reload() {
@@ -35,6 +35,19 @@
             this.isReloading = false;
 
             Debug.Log("finish reloading");
+        }
+
+        protected void InitializeTheBullet(Bullet bullet, int id_attacker) {
+            bullet.Initialize(
+                bullet.transform.position,
+                this.Range,
+                0,
+                this.Damage,
+                this.AttackSpeed,
+                id_attacker,
+                this.Id,
+                this.WeaponName,
+                true);
         }
     }
 }
