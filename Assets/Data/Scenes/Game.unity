@@ -1032,5 +1032,10 @@ PrefabInstance:
       propertyPath: Speed
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 7820368849585315886, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
+        type: 3}
+      propertyPath: MagazineCapacity
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38ef3a4ac7a3a7049b8f43a2537a0606, type: 3}
