@@ -88,13 +88,13 @@ MonoBehaviour:
   Id: 2
   WeaponName: Shotgun
   Damage: 30
-  Speed: 0
+  AttackSpeed: 80
   Range: 50
-  MagazineCapacity: 0
+  MagazineCapacity: 6
   SerialRate: 1
-  Ammo: 6
+  Ammo: 0
   aim: {fileID: 7822296457216992493}
-  reloadRate: 0
+  reloadRate: 3
 --- !u!1 &7818831123976891457
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,13 +166,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7823064469499635873}
-  - component: {fileID: 7914330014339372225}
   - component: {fileID: 7818838110388600445}
   - component: {fileID: 7818838110388600386}
+  - component: {fileID: 7818838110388600444}
+  - component: {fileID: 7914330014339372225}
   - component: {fileID: 7800300812982406663}
   - component: {fileID: 7882816040087122435}
   - component: {fileID: 7900099964881383151}
-  - component: {fileID: 7818838110388600444}
+  - component: {fileID: 4846744309548628565}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Player
@@ -197,25 +198,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &7914330014339372225
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7818838110388600387}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: dab9cd6b3aa068b4385111bc9af85bd7, type: 3}
-  m_Controller: {fileID: 9100000, guid: 76eb690fe517c494982ff950efd2fe54, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7818838110388600445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +232,37 @@ MonoBehaviour:
   - {fileID: 7820368849585315886}
   - {fileID: 7818719882862273512}
   weaponSlot: {fileID: 7822924318721876227}
+--- !u!114 &7818838110388600444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818838110388600387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c62f45f5dd4b05ae4628a6cc8f0ab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &7914330014339372225
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818838110388600387}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: dab9cd6b3aa068b4385111bc9af85bd7, type: 3}
+  m_Controller: {fileID: 9100000, guid: 76eb690fe517c494982ff950efd2fe54, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!54 &7800300812982406663
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -376,7 +389,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &7818838110388600444
+--- !u!114 &4846744309548628565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -385,9 +398,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 7818838110388600387}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9c62f45f5dd4b05ae4628a6cc8f0ab4, type: 3}
+  m_Script: {fileID: 11500000, guid: 5013856973b27429d937d256dc082f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeStep: 0
+  fixTransforms: 1
+  solver:
+    IKPosition: {x: 30.178112, y: 0.10027516, z: 6.6803765}
+    IKPositionWeight: 1
+    root: {fileID: 7823064469499635873}
+    target: {fileID: 0}
+    tolerance: 1
+    maxIterations: 4
+    useRotationLimits: 1
+    XY: 0
+    bones:
+    - transform: {fileID: 7823249475161544147}
+      weight: 0.44
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 0}
+      defaultLocalPosition: {x: -4.5241677e-10, y: 0.11724192, z: 5.566599e-16}
+      defaultLocalRotation: {x: 0.02706466, y: 7.298185e-16, z: -8.243794e-16, w: 0.9996337}
+      length: 0
+      axis: {x: 0, y: 0, z: 0}
+    - transform: {fileID: 7822517239662205217}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 0}
+      defaultLocalPosition: {x: -0.0000000055014895, y: 0.21435943, z: 0.0039671953}
+      defaultLocalRotation: {x: -0.009337376, y: -0.000000035767837, z: 0.0000000016085694,
+        w: 0.9999564}
+      length: 0
+      axis: {x: 0, y: 0, z: 0}
+    transform: {fileID: 7822296457216992493}
+    axis: {x: 0, y: 0, z: 1}
+    poleAxis: {x: 0, y: 1, z: 0}
+    polePosition: {x: 26.523258, y: 2.0478172, z: 7.601862}
+    poleWeight: 0
+    poleTarget: {fileID: 0}
+    clampWeight: 0.528
+    clampSmoothing: 2
 --- !u!1 &7818877687170079079
 GameObject:
   m_ObjectHideFlags: 0
@@ -3352,13 +3402,13 @@ MonoBehaviour:
   Id: 1
   WeaponName: Rifle
   Damage: 50
-  Speed: 0
-  Range: 100
-  MagazineCapacity: 0
+  AttackSpeed: 40
+  Range: 6000
+  MagazineCapacity: 30
   SerialRate: 0.3
-  Ammo: 30
+  Ammo: 0
   aim: {fileID: 7822296457216992493}
-  reloadRate: 0
+  reloadRate: 2
 --- !u!1 &7820378569107808319
 GameObject:
   m_ObjectHideFlags: 0
