@@ -8,11 +8,11 @@ namespace Managers {
         public static PlayerInputController Instance;
 
         private bool  canInputFire = true;
-        public float SerialRate;
+        public  float SerialRate;
 
         private void Awake() => Instance = this;
 
-        private async void Update() {
+        private void Update() {
             this.rotateX += Input.GetAxis("Mouse X");
             this.rotateY -= Input.GetAxis("Mouse Y");
 
@@ -29,7 +29,6 @@ namespace Managers {
             if (Input.GetMouseButtonDown(0) && this.canInputFire) {
                 PerformFireInputWithFireRate();
             }
-            //TODO change logic
             else if (Input.GetMouseButton(0) && this.canInputFire) {
                 PerformFireInputWithFireRate();
             }

@@ -7,6 +7,8 @@
     public class WeaponController : MonoBehaviour {
         public static WeaponController Instance;
 
+        [SerializeField] private LayerMask layerMask;
+
         public event Action<string, bool> OnWeaponRearranged;
         public event Action<bool>         SetWeaponEquipped;
         public event Action<float>        OnWeaponChanged;
@@ -34,7 +36,7 @@
 
         public void OnFire() {
             if (this.isChangingWeaponOver) {
-                this.currentWeaponInstance.Attack(this.character_id);
+                this.currentWeaponInstance.Attack(this.character_id, this.layerMask);
             }
         }
 
@@ -64,8 +66,8 @@
         }
 
         private void Awake() {
-            Instance       = this;
-            this.character = this.GetComponent<Character>();
+            Instance          = this;
+            this.character    = this.GetComponent<Character>();
             this.character_id = this.character.Id;
         }
 

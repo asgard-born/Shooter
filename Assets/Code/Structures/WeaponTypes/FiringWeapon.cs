@@ -25,7 +25,7 @@
             }
         }
 
-        public override void Attack(int id_attacker) {
+        public override void Attack(int id_attacker, LayerMask layerMask) {
         }
 
         public async Task Reload() {
@@ -37,7 +37,7 @@
             Debug.Log("finish reloading");
         }
 
-        protected void InitializeTheBullet(Bullet bullet, int id_attacker) {
+        protected void InitializeTheBullet(Bullet bullet, int id_attacker, LayerMask layerMask) {
             bullet.Initialize(
                 bullet.transform.position,
                 this.Range,
@@ -47,7 +47,8 @@
                 id_attacker,
                 this.Id,
                 this.WeaponName,
-                true);
+                true,
+                layerMask);
         }
     }
 }

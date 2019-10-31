@@ -126,11 +126,12 @@ MonoBehaviour:
   WeaponObject: {fileID: 5033076589691935527}
   Id: 1
   WeaponName: Rifle
+  SerialRate: 0.7
   Damage: 50
   AttackSpeed: 40
   Range: 6000
+  Image: {fileID: 0}
   MagazineCapacity: 30
-  SerialRate: 0.3
   Ammo: 0
   aim: {fileID: 5795071674391063305}
   reloadRate: 2

@@ -20,7 +20,6 @@
 
         protected async void Awake() {
             this.poolManager = PoolManager.Instance;
-            Debug.Log("Awaken !");
 
             while (this.poolManager == null) {
                 await Task.Delay(TimeSpan.FromSeconds(.1f));
@@ -28,6 +27,6 @@
             }
         }
 
-        public abstract void Attack(int id_attacker);
+        public abstract void Attack(int id_attacker, LayerMask layerMask);
     }
 }

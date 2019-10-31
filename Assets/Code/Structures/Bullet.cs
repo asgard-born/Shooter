@@ -4,15 +4,16 @@ namespace Structures {
     using UnityEngine;
 
     public class Bullet : MonoBehaviour {
-        private Vector3 startingPoint;
-        private float   weaponRange;
-        private float   travelledDistance;
-        private int     damage;
-        private int     bulletSpeed;
-        private int     id_attacker;
-        private int     id_weapon;
-        private string  weaponName;
-        private bool    isBulletFly;
+        private Vector3   startingPoint;
+        private float     weaponRange;
+        private float     travelledDistance;
+        private int       damage;
+        private int       bulletSpeed;
+        private int       id_attacker;
+        private int       id_weapon;
+        private string    weaponName;
+        private bool      isBulletFly;
+        private LayerMask layerMask;
 
         private RaycastHit raycastHit;
 
@@ -24,7 +25,8 @@ namespace Structures {
                                int id_attacker,
                                int id_weapon,
                                string weaponName,
-                               bool isBulletFly) {
+                               bool isBulletFly,
+                               LayerMask layerMask) {
             this.startingPoint     = startingPoint;
             this.weaponRange       = weaponRange;
             this.travelledDistance = travelledDistance;
@@ -34,13 +36,14 @@ namespace Structures {
             this.id_weapon         = id_weapon;
             this.weaponName        = weaponName;
             this.isBulletFly       = isBulletFly;
+            this.layerMask         = layerMask;
         }
 
         public void Fly(float weaponRange, Vector3 startingPoint) {
             this.travelledDistance += Time.deltaTime * this.bulletSpeed;
             Debug.DrawRay(startingPoint, this.transform.forward * this.travelledDistance, Color.cyan);
 
-            if (Physics.Raycast(startingPoint, this.transform.forward, out this.raycastHit, this.travelledDistance)) {
+            if (Physics.Raycast(startingPoint, this.transform.forward, out this.raycastHit, this.travelledDistance, layerMask)) {
                 this.isBulletFly = false;
                 var lifer = this.raycastHit.transform.gameObject.GetComponent<Lifer>();
 
