@@ -207,16 +207,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1092712180}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 382dffe519a64c7c83e12d3315cb4a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 1292164234}
   initialTrans: {fileID: 391192372}
-  SpeedFactor: 60
+  SpeedFactor: 20
   Angle: 0
-  Gravity: 30
+  Gravity: 10
 --- !u!120 &1092712182
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -462,13 +462,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292164230}
-  m_LocalRotation: {x: -0.31111795, y: -0, z: -0, w: 0.9503713}
+  m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 6.2, z: 0}
   m_LocalScale: {x: 0.27527, y: 0.27527, z: 0.27527}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: -36.253002, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
 --- !u!96 &1292164235
 TrailRenderer:
   serializedVersion: 2
@@ -508,7 +508,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 3
+  m_Time: 6
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.5
