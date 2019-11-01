@@ -43,7 +43,7 @@
                 float vy = this.SpeedFactor * this.time * Mathf.Sin(this.Angle) * Time.deltaTime - this.Gravity * (this.time * this.time) / 2 * Time.deltaTime;
 
                 this.sphere.localPosition += new Vector3(0, vy, vz);
-                this.speedFactorZ         -= .25f;
+//                this.speedFactorZ         -= .25f;
                 this.speedFactorZ         =  Mathf.Clamp(this.speedFactorZ, this.SpeedFactor / 4f, this.SpeedFactor);
             }
         }

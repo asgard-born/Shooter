@@ -40,9 +40,9 @@
         }
 
         private Vector3 CalculateArcPoint(float time, float maxDistance) {
-            float x = time * maxDistance;
-            float y = x * Mathf.Tan(this.radianAngle) - ((this.gravity * x * x) / (2 * this.velocity * this.velocity * Mathf.Cos(this.radianAngle) * Mathf.Cos(this.radianAngle)));
-            return new Vector3(x, y);
+            float z = time * maxDistance;
+            float y = z * Mathf.Tan(this.radianAngle) - ((this.gravity * z * z) / (2 * this.velocity * this.velocity * Mathf.Cos(this.radianAngle) * Mathf.Cos(this.radianAngle)));
+            return new Vector3(0, y, z);
         }
     }
 }
