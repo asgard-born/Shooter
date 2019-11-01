@@ -1,72 +1,61 @@
 ﻿namespace Controllers {
-    using System;
+    using Managers;
     using UnityEngine;
 
     public class ArcRenderer : MonoBehaviour {
-        public LineRenderer LineRenderer;
-        public Transform    sphere;
-
+        public Transform sphere;
         public Transform initialTrans;
-        public float     SpeedFactor;
-        public float     Angle;
-        public float     Gravity = 9.8f;
 
-        [SerializeField] private int positionCount = 16;
+        private LineRenderer lineRenderer;
 
-        private float time;
-        private bool  isRendering;
-        private float speedFactorZ;
+        [SerializeField] private float velocity;
+        [Range(.5f,50f)][SerializeField] private float fadingFactor;
+        [SerializeField] private float angle;
+        [SerializeField] private int   pointsCount;
+        [SerializeField] private float gravity;
 
-        public event Action<bool> OnRenderArc;
+        private float currentVelocity;
+        private float currentFadingFactor;
+        private float radianAngle;
 
         private void Awake() {
-            this.speedFactorZ = this.SpeedFactor;
-
-            this.OnRenderArc += this.ArrangeRendering;
-        }
-
-        private void Update() {
-            if (Input.GetMouseButtonDown(0)) {
-                this.OnRenderArc?.Invoke(true);
-            }
-        }
-
-        private void ArrangeRendering(bool isRendering) {
-            if (isRendering) {
-                this.Angle        =  Vector3.Angle(this.sphere.forward, this.initialTrans.forward);
-                this.Angle        *= Mathf.Deg2Rad;
-                this.speedFactorZ =  this.SpeedFactor;
-
-                this.isRendering = true;
-
-                this.Render();
-            }
-            else {
-                this.isRendering = false;
-                this.time        = 0;
-            }
+            this.angle           = 45;
+            this.currentVelocity = this.velocity;
+            this.lineRenderer    = this.GetComponent<LineRenderer>();
+            this.lineRenderer.SetVertexCount(this.pointsCount);
         }
 
         private void Render() {
-            for (int i = 0; i < this.positionCount; i++) {
-                this.SetPosition(i);
-
-                if (i == this.positionCount - 1) {
-                    this.OnRenderArc?.Invoke(false);
-                }
-            }
+            this.currentFadingFactor = this.fadingFactor / 10000;
+            this.lineRenderer.SetPositions(this.CalculateArcArray());
         }
 
-        private void SetPosition(int index) {
-            float vz = this.speedFactorZ * this.time * Mathf.Cos(this.Angle) * Time.fixedDeltaTime;
-            float vy = this.SpeedFactor * this.time * Mathf.Sin(this.Angle) * Time.fixedDeltaTime - this.Gravity * (this.time * this.time) / 2 * Time.fixedDeltaTime;
+        private void Update() {
+            this.Render();
+        }
 
-            var position = new Vector3(0, vy, vz);
-            this.LineRenderer.SetPosition(index + 1, position);
-            this.speedFactorZ -= .25f;
-            this.speedFactorZ =  Mathf.Clamp(this.speedFactorZ, this.SpeedFactor / 4f, this.SpeedFactor);
+        private Vector3[] CalculateArcArray() {
+            Vector3[] arcArray = new Vector3[this.pointsCount];
 
-            this.time += Time.fixedDeltaTime * this.SpeedFactor;
+            this.radianAngle = Mathf.Deg2Rad * this.angle;
+            float maxDistance = (this.currentVelocity * this.currentVelocity * Mathf.Sin(2 * this.radianAngle)) / this.gravity;
+
+            for (int i = 0; i < this.pointsCount; i++) {
+                float time    = (float) i / this.pointsCount;
+                var   point2D = PhysicsMath.CalculateArcPoint(this.radianAngle, this.gravity, this.currentVelocity, time, maxDistance);
+                var   offset  = new Vector3(0, point2D.y, point2D.x);
+
+                arcArray[i]          =  this.sphere.position + this.sphere.rotation * offset;
+//                this.currentVelocity -= this.currentVelocity * this.currentFadingFactor;
+
+                this.currentVelocity = Mathf.Clamp(this.currentVelocity, 10, 9999);
+
+                if (i + 1 == this.pointsCount) {
+                    this.currentVelocity = this.velocity;
+                }
+            }
+
+            return arcArray;
         }
     }
 }

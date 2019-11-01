@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Managers {
+﻿namespace Managers {
+    using System;
+    using System.Threading.Tasks;
     using UnityEngine;
 
     public class PlayerInputController : InputController {
@@ -21,7 +20,7 @@ namespace Managers {
             this.isSneak          = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
             this.runValue         = Input.GetButton("Run") && !this.isSneak ? 1 : 0;
 
-            this.forwardMoving    += this.forwardMoving    > 0 ? this.runValue : this.forwardMoving < 0 ? -this.runValue : 0;
+            this.forwardMoving    += this.forwardMoving > 0 ? this.runValue : this.forwardMoving < 0 ? -this.runValue : 0;
             this.horizontalMoving += this.horizontalMoving > 0 ? this.runValue : this.horizontalMoving < 0 ? -this.runValue : 0;
 
             this.isJumping = Input.GetKeyDown(KeyCode.Space);
