@@ -1664,11 +1664,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2512439405093091957, guid: 89f8125a55fc7d24cb38b12f49f66964,
-        type: 3}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2512439404233420508, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1678,6 +1673,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512439405093091957, guid: 89f8125a55fc7d24cb38b12f49f66964,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89f8125a55fc7d24cb38b12f49f66964, type: 3}
@@ -1754,26 +1754,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6201909322839279687, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
-        type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 567
-      objectReference: {fileID: 0}
-    - target: {fileID: 6201909322839279687, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
-        type: 3}
-      propertyPath: currentWeaponNumber
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8777678656734612560, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
         type: 3}
       propertyPath: solver.target
       value: 
       objectReference: {fileID: 671521767}
-    - target: {fileID: 6202587493878683179, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
-        type: 3}
-      propertyPath: SerialRate
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 9091199887310417291, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
         type: 3}
       propertyPath: m_AnchorMax.x

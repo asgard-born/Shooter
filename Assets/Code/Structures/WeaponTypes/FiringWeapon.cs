@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using UnityEngine;
 
-    public class FiringWeapon : Weapon, Reloadable {
+    public abstract class FiringWeapon : Weapon, Reloadable {
         public int MagazineCapacity;
         public int Ammo;
 
@@ -23,9 +23,6 @@
             if (this.Ammo == 0) {
                 this.Reload();
             }
-        }
-
-        public override void Attack(int id_attacker, LayerMask layerMask) {
         }
 
         public async Task Reload() {

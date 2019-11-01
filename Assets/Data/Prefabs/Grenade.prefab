@@ -165,7 +165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8454485592980040916}
-  - component: {fileID: 5353552886831403213}
+  - component: {fileID: 7334105485631474945}
   m_Layer: 0
   m_Name: Grenade
   m_TagString: Untagged
@@ -190,7 +190,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5353552886831403213
+--- !u!114 &7334105485631474945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,16 +199,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 8454485592980074740}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baa9aa1c4fa544d5b6f006691dd80d5d, type: 3}
+  m_Script: {fileID: 11500000, guid: d83fe03cc7644b5e8969609fb6c51400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponObject: {fileID: 8454485592980074740}
   Id: 3
   WeaponName: Grenade
-  SerialRate: 0.5
+  SerialRate: 0
   Damage: 90
-  AttackSpeed: 3
-  Range: 10
+  AttackSpeed: 10
+  Range: 0
   Image: {fileID: 0}
 --- !u!1 &8454485592980074742
 GameObject:
