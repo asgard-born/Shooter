@@ -8,12 +8,12 @@
         [SerializeField] private float angle;
         [SerializeField] private int   pointsCount;
 
-        private float gravity;
+        [SerializeField] private float gravity;
         private float radianAngle;
 
         private void Awake() {
             this.lineRenderer = this.GetComponent<LineRenderer>();
-            this.gravity      = Mathf.Abs(Physics.gravity.y);
+//            this.gravity      = Mathf.Abs(Physics.gravity.y);
         }
 
         private void Start() {
