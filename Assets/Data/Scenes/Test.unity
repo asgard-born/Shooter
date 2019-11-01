@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 1092712184}
   - component: {fileID: 1092712181}
   - component: {fileID: 1092712182}
+  - component: {fileID: 1092712185}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -347,7 +348,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1092712180}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c67f6ecd4c53457f8bacf2269eaaae3a, type: 3}
   m_Name: 
@@ -359,6 +360,21 @@ MonoBehaviour:
   Angle: 0
   Gravity: 10
   positionCount: 15
+--- !u!114 &1092712185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092712180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd946af075d414697f5b89c87a9d480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: 60
+  angle: 45
+  pointsCount: 16
 --- !u!1 &1292164230
 GameObject:
   m_ObjectHideFlags: 0
