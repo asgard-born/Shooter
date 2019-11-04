@@ -1,35 +1,23 @@
 ﻿namespace Controllers {
-    using Managers;
     using UnityEngine;
 
-    public class GrenadeController : MonoBehaviour {
-        public Transform sphere;
-
-        public Transform initialTrans;
-        public float     Velocity;
-        public float     Angle;
-        public float     Gravity = 30f;
-
-        private float time;
-        private bool  isFly;
-        private float speedFactorZ;
-        private float maxDistance;
-        private float radianAngle;
+    public class GrenadeController : BallisticController {
+        public  Transform sphere;
+        private bool      isFly;
 
         private void Awake() {
-            this.speedFactorZ = this.Velocity;
+            this.currentVelocity = this.Velocity;
         }
 
-        private void Update() {
-            if (Input.GetMouseButtonDown(0)) {
+        private void FixedUpdate() {
+            if (Input.GetKeyDown(KeyCode.R)) {
                 if (this.isFly) {
                     this.time            = 0;
                     this.isFly           = false;
-                    this.sphere.position = this.initialTrans.position;
+                    this.sphere.position = this.Comparer.position;
                 }
                 else {
-                    this.Angle        = Vector3.Angle(this.sphere.forward, this.initialTrans.forward);
-                    this.speedFactorZ = this.Velocity;
+                    this.currentVelocity = this.Velocity;
 
                     this.radianAngle = Mathf.Deg2Rad * this.Angle;
                     this.maxDistance = (this.Velocity * this.Velocity * Mathf.Sin(2 * this.radianAngle)) / this.Gravity;
@@ -39,9 +27,14 @@
             }
 
             if (this.isFly) {
-                this.time += Time.fixedDeltaTime;
-                var newPosition = PhysicsMath.CalculateArcPoint(this.radianAngle, this.Gravity, this.Velocity, this.time, this.maxDistance);
-                this.sphere.localPosition = new Vector3(this.sphere.localPosition.x, newPosition.y, newPosition.x);
+                this.time            += Time.fixedDeltaTime;
+                this.sphere.position =  this.CalculateNextPoint(this.time);
+            }
+
+            var direction = this.sphere.forward;
+
+            if (Physics.SphereCast(this.sphere.position, this.radius, direction, out this.hit, direction.magnitude, this.layerMask)) {
+                this.isFly = false;
             }
         }
     }
