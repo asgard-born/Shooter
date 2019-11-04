@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 1092712183}
   - component: {fileID: 1092712185}
   - component: {fileID: 1092712186}
-  - component: {fileID: 1092712182}
+  - component: {fileID: 1092712181}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -199,7 +199,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!120 &1092712182
+--- !u!120 &1092712181
 LineRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -239,21 +239,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -261,8 +247,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.016483307
-        value: 0.08450699
+        time: 0
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -343,7 +329,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 823
   radius: 0.5
-  PointsCount: 500
+  PointsCount: 60
 --- !u!114 &1092712186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +348,7 @@ MonoBehaviour:
   Gravity: 45
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 823
   radius: 0.5
   sphere: {fileID: 1292164234}
 --- !u!1 &1292164230
@@ -466,7 +452,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292164230}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

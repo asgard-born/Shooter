@@ -1,4 +1,7 @@
-﻿namespace Controllers {
+﻿using System;
+
+namespace Controllers {
+    using Managers;
     using UnityEngine;
 
     public class ArcRenderer : BallisticController {
@@ -9,7 +12,16 @@
 
         private int currentIteration;
 
+        protected override Vector3 CalculateNextPoint(float timepoint) {
+            var arcPoint2D = PhysicsMath.CalculateArcPoint2D(this.radianAngle, this.Gravity, this.currentVelocity, timepoint, this.maxDistance);
+            var offset     = new Vector3(0, arcPoint2D.y, arcPoint2D.x);
+
+            return this.Comparer.position + this.Comparer.rotation * offset;
+        }
+
         private void Awake() {
+            this.arcArray = new Vector3[this.PointsCount];
+
             this.lineRenderer = this.GetComponent<LineRenderer>();
             this.lineRenderer.SetVertexCount(this.PointsCount);
         }
@@ -24,7 +36,7 @@
         }
 
         private Vector3[] CalculateArcArray() {
-            this.arcArray = new Vector3[this.PointsCount];
+            Array.Clear(this.arcArray, 0, this.arcArray.Length);
 
             this.radianAngle = Mathf.Deg2Rad * this.Angle;
             this.maxDistance = (this.currentVelocity * this.currentVelocity * Mathf.Sin(2 * this.radianAngle)) / this.Gravity;
@@ -47,9 +59,9 @@
 
         private Vector3 CheckForCollision() {
             var nextIterationTimepoint = (float) (this.currentIteration + 1) / this.PointsCount;
-            var newHypotheticalPoint   = this.CalculateNextPoint(nextIterationTimepoint);
+            var nextHypotheticalPoint  = this.CalculateNextPoint(nextIterationTimepoint);
 
-            var direction = newHypotheticalPoint - this.arcArray[this.currentIteration];
+            var direction = nextHypotheticalPoint - this.arcArray[this.currentIteration];
 
             if (Physics.SphereCast(this.arcArray[this.currentIteration], this.radius, direction.normalized, out this.hit, direction.magnitude, this.layerMask)) {
                 return this.hit.point;
@@ -61,13 +73,14 @@
         private bool CalculateIteration() {
             this.time = (float) this.currentIteration / this.PointsCount;
 
-            var potentialCollizion = Vector3.zero;
+            var potentialCollision = Vector3.zero;
 
-            if (this.currentIteration + 1 < this.PointsCount)
-                potentialCollizion = this.CheckForCollision();
+            if (this.currentIteration + 1 < this.PointsCount) {
+                potentialCollision = this.CheckForCollision();
+            }
 
-            if (this.currentIteration + 1 < this.PointsCount && potentialCollizion != Vector3.zero) {
-                this.arcArray[this.currentIteration] = potentialCollizion;
+            if (this.currentIteration + 1 < this.PointsCount && potentialCollision != Vector3.zero) {
+                this.arcArray[this.currentIteration] = potentialCollision;
 
                 return false;
             }

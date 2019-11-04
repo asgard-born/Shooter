@@ -18,11 +18,6 @@ namespace Controllers {
         protected float      maxDistance;
         protected float      time;
 
-        protected Vector3 CalculateNextPoint(float timepoint) {
-            var arcPoint2D = PhysicsMath.CalculateArcPoint2D(this.radianAngle, this.Gravity, this.currentVelocity, timepoint, this.maxDistance);
-            var offset     = new Vector3(0, arcPoint2D.y, arcPoint2D.x);
-
-            return this.Comparer.position + this.Comparer.rotation * offset;
-        }
+        protected abstract Vector3 CalculateNextPoint(float timepoint);
     }
 }
