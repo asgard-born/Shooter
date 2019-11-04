@@ -1,17 +1,20 @@
 ﻿namespace Controllers {
     using System;
     using System.Threading.Tasks;
+    using Structures.WeaponTypes;
     using Structures;
     using UnityEngine;
 
     public class WeaponController : MonoBehaviour {
         public static WeaponController Instance;
 
-        [SerializeField] private LayerMask layerMask;
+        [SerializeField] private LayerMask   layerMask;
+        [SerializeField] private ArcRenderer arcRenderer;
 
         public event Action<string, bool> OnWeaponRearranged;
         public event Action<bool>         SetWeaponEquipped;
         public event Action<float>        OnWeaponChanged;
+        public event Action<bool>         OnThrowingWeaponEquip;
 
         [SerializeField]         private Weapon[] weapons;
         [Space] [SerializeField] private int      currentWeaponNumber = 1;
@@ -25,8 +28,6 @@
         private bool isChangingWeaponProcess;
         private bool isChangingWeaponOver = true;
         private bool isFiring;
-
-        [SerializeField] private Transform weaponSlot;
 
         public void OnWeaponEquip() {
             if (this.isChangingWeaponProcess) {
@@ -58,6 +59,8 @@
             this.currentWeaponObject.SetActive(true);
 
             this.SetupTheWeapon(true);
+            this.DetectThrowingWeapon();
+
             this.OnWeaponChanged?.Invoke(this.currentWeaponInstance.SerialRate);
         }
 
@@ -94,8 +97,23 @@
             this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
             this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
 
+            this.DetectThrowingWeapon();
+
             this.SetupTheWeapon(true);
             this.SetWeaponEquipped?.Invoke(true);
+        }
+
+        private void DetectThrowingWeapon() {
+            var throwInstance = this.currentWeaponInstance as ThrowingWeapon;
+
+            if (throwInstance != null) {
+                this.OnThrowingWeaponEquip?.Invoke(true);
+                this.arcRenderer.SetupRendering(true);
+            }
+            else {
+                this.OnThrowingWeaponEquip?.Invoke(false);
+                this.arcRenderer.SetupRendering(false);
+            }
         }
 
         private async void SetWeapon() {

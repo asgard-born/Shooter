@@ -67,12 +67,14 @@
         private async void Initialize() {
             await this.GetSingletons();
 
-            this.animatorManager.OnWeaponEquip       += this.weaponController.OnWeaponEquip;
-            this.weaponController.OnWeaponRearranged += this.animatorManager.SetupWeaponCondition;
-            this.weaponController.SetWeaponEquipped  += this.animatorManager.SetWeaponEquipping;
-            this.weaponController.OnWeaponChanged    += rate => this.playerInputController.SerialRate = rate;
-            this.playerInputController.OnFireOnce    += this.weaponController.OnFire;
-            this.playerInputController.OnReload      += this.weaponController.Reload;
+            this.animatorManager.OnWeaponEquip          += this.weaponController.OnWeaponEquip;
+            this.weaponController.OnWeaponRearranged    += this.animatorManager.SetupWeaponCondition;
+            this.weaponController.SetWeaponEquipped     += this.animatorManager.SetWeaponEquipping;
+            this.weaponController.OnWeaponChanged       += rate => this.playerInputController.SerialRate = rate;
+            this.weaponController.OnThrowingWeaponEquip += isThrowable => this.movementController.SetAimIK(!isThrowable);
+            
+            this.playerInputController.OnFireOnce       += this.weaponController.OnFire;
+            this.playerInputController.OnReload         += this.weaponController.Reload;
 
             this.weaponController.Initialize();
 
@@ -97,7 +99,7 @@
 
         private void FixedUpdate() {
             this.movementController.Move(
-                this.playerInputController.ForwardMoving    * Time.fixedDeltaTime,
+                this.playerInputController.ForwardMoving * Time.fixedDeltaTime,
                 this.playerInputController.HorizontalMoving * Time.fixedDeltaTime);
         }
 

@@ -16,3 +16,7 @@ MonoBehaviour:
   - Prefab: {fileID: 114961004460330124, guid: c50a4e376f470714a9f3f27518b30a37, type: 3}
     Name: Bullet
     Count: 500
+  - Prefab: {fileID: 5493421520286172955, guid: 478a49774055aad40b9c3c053922c8a6,
+      type: 3}
+    Name: Grenade
+    Count: 20

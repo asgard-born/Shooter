@@ -1,5 +1,4 @@
 namespace Controllers {
-    using Managers;
     using UnityEngine;
 
     public abstract class BallisticController : MonoBehaviour {
