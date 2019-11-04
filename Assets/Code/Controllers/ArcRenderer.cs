@@ -58,12 +58,14 @@ namespace Controllers {
         }
 
         private Vector3 CheckForCollision() {
-            var nextIterationTimepoint = (float) (this.currentIteration + 1) / this.PointsCount;
-            var nextHypotheticalPoint  = this.CalculateNextPoint(nextIterationTimepoint);
+            Vector3 nextHypotheticalPoint = this.CalculateNextPoint(this.time);
 
-            var direction = nextHypotheticalPoint - this.arcArray[this.currentIteration];
+            var direction = nextHypotheticalPoint - this.arcArray[this.currentIteration - 1];
 
-            if (Physics.SphereCast(this.arcArray[this.currentIteration], this.radius, direction.normalized, out this.hit, direction.magnitude, this.layerMask)) {
+            Debug.DrawRay(this.arcArray[this.currentIteration - 1], direction, Color.blue);
+
+
+            if (Physics.SphereCast(this.arcArray[this.currentIteration - 1], this.radius, direction.normalized, out this.hit, direction.magnitude, this.layerMask)) {
                 return this.hit.point;
             }
 
@@ -75,11 +77,11 @@ namespace Controllers {
 
             var potentialCollision = Vector3.zero;
 
-            if (this.currentIteration + 1 < this.PointsCount) {
+            if (this.currentIteration > 0) {
                 potentialCollision = this.CheckForCollision();
             }
 
-            if (this.currentIteration + 1 < this.PointsCount && potentialCollision != Vector3.zero) {
+            if (potentialCollision != Vector3.zero) {
                 this.arcArray[this.currentIteration] = potentialCollision;
 
                 return false;
