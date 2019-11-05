@@ -13,7 +13,9 @@
         [HideInInspector] public bool  IsJumping;
 
         [SerializeField] private float movingSpeed;
-        [SerializeField] private float jumpVelocity = 7f;
+        [SerializeField] private float jumpVelocity       = 7f;
+        [SerializeField] private float jumpRotationSpeed  = 1.2f;
+        private readonly         float turnSmoothingTimer = 0.2f;
 
         private readonly float nearGroundMarker = 1.2f;
 
@@ -36,8 +38,8 @@
 
         // Should be called in FixedUpdate
         public void Move(float forwardMoving, float horizontalMoving) {
-            forwardMoving    *= this.movingSpeed;
-            horizontalMoving *= this.movingSpeed;
+            forwardMoving    *= this.movingSpeed * Time.fixedDeltaTime;
+            horizontalMoving *= this.movingSpeed * Time.fixedDeltaTime;
 
             this.rigidbody.MovePosition(
                 this.transform.position +

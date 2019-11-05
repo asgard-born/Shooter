@@ -9,10 +9,11 @@
     public class GameManager : MonoBehaviour {
         public PoolOptions PoolOptions;
 
+        public  JoystickController joystickController;
+        private InputController    playerInputController;
+
         private PoolManager              poolManager;
         private CommandController        playerCommandController;
-        private InputController          playerInputController;
-        private InputController          playerInputControllerAlt;
         private CommandsForBotController commandsForBotController;
         private AnimatorManager          animatorManager;
 
@@ -22,6 +23,7 @@
 
         private float mouseX;
         private float mouseY;
+        private bool  isJoystickOn;
 
         private void Start() {
             this.Initialize();
@@ -69,8 +71,13 @@
 
         private async void Initialize() {
             await this.GetSingletons();
-            this.playerInputController    = this.gameObject.AddComponent<KeyboardController>();
-            this.playerInputControllerAlt = this.gameObject.AddComponent<JoystickController>();
+#if UNITY_ANDROID
+            this.playerInputController = this.joystickController;
+            this.isJoystickOn          = true;
+#else
+            this.playerInputController = this.gameObject.AddComponent<KeyboardController>();
+            this.isJoystickOn = false;
+#endif
 
             this.playerCommandController.Initialize(this.playerInputController);
 
@@ -96,23 +103,26 @@
             this.movementController.ForwardMoving    = this.playerCommandController.ForwardMoving;
             this.movementController.IsJumpPressed    = this.playerCommandController.IsJumping;
 
-
             this.movementController.RotatePlayer(this.mouseX);
 
             this.UpdateAnimatorState();
-
-            Cursor.visible = false;
         }
 
         private void FixedUpdate() {
             this.movementController.Move(
-                this.playerCommandController.ForwardMoving * Time.fixedDeltaTime,
-                this.playerCommandController.HorizontalMoving * Time.fixedDeltaTime);
+                this.playerCommandController.ForwardMoving,
+                this.playerCommandController.HorizontalMoving);
         }
 
         private void LateUpdate() {
             this.cameraController.RotateTargetHorizontally(this.mouseX);
-            this.cameraController.RotateCamera(this.mouseX, this.mouseY);
+
+            if (this.isJoystickOn) {
+                this.cameraController.RotateCamera(this.mouseX, 0);
+            }
+            else {
+                this.cameraController.RotateCamera(this.mouseX, this.mouseY);
+            }
         }
 
         private void UpdateAnimatorState() {

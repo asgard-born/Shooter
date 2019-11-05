@@ -18,7 +18,7 @@
         // Should be called in LateUpdate
         public void RotateCamera(float mouseX, float mouseY) {
             mouseY = Mathf.Clamp(mouseY, this.min, this.max);
-            Vector3    offset   = new Vector3(0, 1.8f, -this.distance);
+            Vector3    offset   = new Vector3(0, 1f, -this.distance);
             Quaternion rotation = Quaternion.Euler(mouseY, mouseX, -this.distance);
 
             this.cameraTransform.position = this.lookAt.position + rotation * offset;

@@ -1,6 +1,5 @@
-﻿using Controllers.Interfaces;
-
-namespace Controllers {
+﻿namespace Controllers {
+    using Interfaces;
     using System.Threading.Tasks;
     using System;
     using UnityEngine;
@@ -13,7 +12,6 @@ namespace Controllers {
         public int   runValue         => Input.GetButton("Run") && !this.IsSneak ? 1 : 0;
         public bool  IsSneak          => Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
         public bool  IsJumping        => Input.GetKeyDown(KeyCode.Space);
-        public bool  CanInputFire     => this.canInputFire;
 
         public float SerialRate { get; set; }
 
