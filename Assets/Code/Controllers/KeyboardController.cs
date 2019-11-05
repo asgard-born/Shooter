@@ -1,29 +1,38 @@
-﻿namespace Managers {
-    using System;
+﻿namespace Controllers {
     using System.Threading.Tasks;
+    using System;
     using UnityEngine;
 
-    public class PlayerInputController : InputController {
-        public static PlayerInputController Instance;
+    public class KeyboardController : MonoBehaviour, InputController {
+        public float GetAxisX         => Input.GetAxis("Mouse X");
+        public float GetAxisY         => Input.GetAxis("Mouse Y");
+        public float HorizontalMoving => this.horizontalMoving;
+        public float ForwardMoving    => this.forwardMoving;
+        public int   runValue         => Input.GetButton("Run") && !this.IsSneak ? 1 : 0;
+        public bool  IsSneak          => Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+        public bool  IsJumping        => Input.GetKeyDown(KeyCode.Space);
+        public bool  CanInputFire     => this.canInputFire;
+
+        public float SerialRate { get; set; }
 
         private bool  canInputFire = true;
-        public  float SerialRate;
+        private float serialRate;
 
-        private void Awake() => Instance = this;
+        private float forwardMoving;
+        private float horizontalMoving;
+
+        public event Action OnFireOnce;
+        public event Action OnReload;
+
+        public void FireOnce() => this.OnFireOnce?.Invoke();
+        public void Reload()   => this.OnReload?.Invoke();
 
         private void Update() {
-            this.rotateX += Input.GetAxis("Mouse X");
-            this.rotateY -= Input.GetAxis("Mouse Y");
-
             this.forwardMoving    = Input.GetAxis("Vertical");
             this.horizontalMoving = Input.GetAxis("Horizontal");
-            this.isSneak          = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-            this.runValue         = Input.GetButton("Run") && !this.isSneak ? 1 : 0;
 
             this.forwardMoving    += this.forwardMoving > 0 ? this.runValue : this.forwardMoving < 0 ? -this.runValue : 0;
             this.horizontalMoving += this.horizontalMoving > 0 ? this.runValue : this.horizontalMoving < 0 ? -this.runValue : 0;
-
-            this.isJumping = Input.GetKeyDown(KeyCode.Space);
 
             if (Input.GetMouseButtonDown(0) && this.canInputFire) {
                 PerformFireInputWithFireRate();

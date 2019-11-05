@@ -60,7 +60,7 @@
                 Debug.DrawRay(this.weaponTransform.position, newDirection, Color.blue);
 
                 if (Physics.SphereCast(this.weaponTransform.position, this.radius, newDirection, out this.hit, newDirection.magnitude * .5f, this.layerMask)) {
-                    this.weaponTransform.position = this.hit.point - this.weaponTransform.forward * .3f;
+                    this.weaponTransform.position = this.hit.point - this.weaponTransform.forward * .1f;
                     this.StopFlying();
 
                     this.OnWeaponReachedTarget();

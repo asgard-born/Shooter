@@ -38,7 +38,7 @@ namespace Structures {
 
         private void Death(int id_attacker, string weaponName) {
             Debug.Log($"killed by {id_attacker} with: {weaponName}");
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 }

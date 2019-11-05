@@ -9,7 +9,9 @@
         public PoolOptions PoolOptions;
 
         private PoolManager              poolManager;
-        private PlayerInputController    playerInputController;
+        private CommandController        playerCommandController;
+        private InputController          playerInputController;
+        private InputController          playerInputControllerAlt;
         private CommandsForBotController commandsForBotController;
         private AnimatorManager          animatorManager;
 
@@ -25,9 +27,9 @@
         }
 
         private async Task GetSingletons() {
-            this.poolManager           = PoolManager.Instance;
-            this.playerInputController = PlayerInputController.Instance;
-            this.animatorManager       = AnimatorManager.Instance;
+            this.poolManager             = PoolManager.Instance;
+            this.playerCommandController = PlayerCommandController.Instance;
+            this.animatorManager         = AnimatorManager.Instance;
 
             this.cameraController   = CameraController.Instance;
             this.movementController = MovementController.Instance;
@@ -38,9 +40,9 @@
                 this.poolManager = PoolManager.Instance;
             }
 
-            while (this.playerInputController == null) {
+            while (this.playerCommandController == null) {
                 await Task.Delay(TimeSpan.FromSeconds(.1f));
-                this.playerInputController = PlayerInputController.Instance;
+                this.playerCommandController = PlayerCommandController.Instance;
             }
 
             while (this.animatorManager == null) {
@@ -66,15 +68,19 @@
 
         private async void Initialize() {
             await this.GetSingletons();
+            this.playerInputController    = this.gameObject.AddComponent<KeyboardController>();
+            this.playerInputControllerAlt = this.gameObject.AddComponent<JoystickController>();
+
+            this.playerCommandController.Initialize(this.playerInputController);
 
             this.animatorManager.OnWeaponEquip          += this.weaponController.OnWeaponEquip;
             this.weaponController.OnWeaponRearranged    += this.animatorManager.SetupWeaponCondition;
             this.weaponController.SetWeaponEquipped     += this.animatorManager.SetWeaponEquipping;
-            this.weaponController.OnWeaponChanged       += rate => this.playerInputController.SerialRate = rate;
+            this.weaponController.OnWeaponChanged       += rate => this.playerCommandController.SerialRate = rate;
             this.weaponController.OnThrowingWeaponEquip += isThrowable => this.movementController.SetAimIK(!isThrowable);
-            
-            this.playerInputController.OnFireOnce       += this.weaponController.OnFire;
-            this.playerInputController.OnReload         += this.weaponController.Reload;
+
+            this.playerCommandController.OnFireOnce += this.weaponController.OnFire;
+            this.playerCommandController.OnReload   += this.weaponController.Reload;
 
             this.weaponController.Initialize();
 
@@ -82,12 +88,12 @@
         }
 
         private void Update() {
-            this.mouseX = this.playerInputController.RotateX;
-            this.mouseY = this.playerInputController.RotateY;
+            this.mouseX = this.playerCommandController.RotateX;
+            this.mouseY = this.playerCommandController.RotateY;
 
-            this.movementController.HorizontalMoving = this.playerInputController.HorizontalMoving;
-            this.movementController.ForwardMoving    = this.playerInputController.ForwardMoving;
-            this.movementController.IsJumpPressed    = this.playerInputController.IsJumping;
+            this.movementController.HorizontalMoving = this.playerCommandController.HorizontalMoving;
+            this.movementController.ForwardMoving    = this.playerCommandController.ForwardMoving;
+            this.movementController.IsJumpPressed    = this.playerCommandController.IsJumping;
 
 
             this.movementController.RotatePlayer(this.mouseX);
@@ -99,8 +105,8 @@
 
         private void FixedUpdate() {
             this.movementController.Move(
-                this.playerInputController.ForwardMoving * Time.fixedDeltaTime,
-                this.playerInputController.HorizontalMoving * Time.fixedDeltaTime);
+                this.playerCommandController.ForwardMoving * Time.fixedDeltaTime,
+                this.playerCommandController.HorizontalMoving * Time.fixedDeltaTime);
         }
 
         private void LateUpdate() {
@@ -109,9 +115,9 @@
         }
 
         private void UpdateAnimatorState() {
-            this.animatorManager.ForwardMoving    = this.playerInputController.ForwardMoving;
-            this.animatorManager.HorizontalMoving = this.playerInputController.HorizontalMoving;
-            this.animatorManager.IsSneak          = this.playerInputController.IsSneak;
+            this.animatorManager.ForwardMoving    = this.playerCommandController.ForwardMoving;
+            this.animatorManager.HorizontalMoving = this.playerCommandController.HorizontalMoving;
+            this.animatorManager.IsSneak          = this.playerCommandController.IsSneak;
             this.animatorManager.IsJumping        = this.movementController.IsJumping;
             this.animatorManager.IsFalling        = this.movementController.IsFalling();
             this.animatorManager.IsGrounded       = this.movementController.IsGrounded();
