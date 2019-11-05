@@ -1,10 +1,10 @@
-﻿namespace Managers {
+﻿namespace Controllers {
     using System;
-    using Controllers;
+    using Interfaces;
 
     public class CommandsForBotController : CommandController {
         private InputController inputController;
-        
+
         public float        ForwardMoving    { get; }
         public float        HorizontalMoving { get; }
         public float        RotateX          { get; }

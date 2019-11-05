@@ -1,8 +1,8 @@
-﻿namespace Managers {
-    using UnityEngine;
-    using System;
-    using Controllers;
+﻿using System;
+using Controllers.Interfaces;
+using UnityEngine;
 
+namespace Controllers {
     public class PlayerCommandController : MonoBehaviour, CommandController {
         public static PlayerCommandController Instance;
 

@@ -1,5 +1,4 @@
-﻿namespace Managers {
-    using Controllers;
+﻿namespace Controllers.Interfaces {
     using System;
 
     public interface CommandController {
