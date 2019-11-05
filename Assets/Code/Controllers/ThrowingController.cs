@@ -22,18 +22,21 @@
             return this.Comparer.position + this.Comparer.rotation * offset;
         }
 
-        protected void InitializeWeapon(Transform weaponTransform, int damage, float range, int id_attacker, int id_weapon, string weaponName, LayerMask layerMask) {
+        protected void InitializeWeapon(Transform weaponTransform, int damage, float range, float blowingTime, int id_attacker, int id_weapon, string weaponName,
+                                        LayerMask layerMask) {
             this.weaponTransform    = weaponTransform;
             this.damage             = damage;
             this.range              = range;
+            this.blowingTime        = blowingTime;
             this.id_attacker        = id_attacker;
             this.id_weapon          = id_weapon;
             this.weaponName         = weaponName;
             this.attackingLayerMask = layerMask;
         }
 
-        public void StartFlyingProcess(Transform weaponTransform, int damage, float range, int id_attacker, int id_weapon, string weaponName, LayerMask layerMask) {
-            this.InitializeWeapon(weaponTransform, damage, range, id_attacker, id_weapon, weaponName, layerMask);
+        public void StartFlyingProcess(Transform weaponTransform, int damage, float range, float blowingTime, int id_attacker, int id_weapon, string weaponName,
+                                       LayerMask layerMask) {
+            this.InitializeWeapon(weaponTransform, damage, range, blowingTime, id_attacker, id_weapon, weaponName, layerMask);
 
             this.weaponTransform.SetParent(null);
             this.Comparer.SetParent(null);
