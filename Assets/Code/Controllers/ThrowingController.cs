@@ -15,9 +15,7 @@
         protected bool      isFly;
         public  LayerMask attackingLayerMask;
 
-        protected void OnWeaponReachedTarget() {
-            
-        }
+        protected abstract void OnWeaponReachedTarget();
 
         protected override Vector3 CalculateNextPoint(float timepoint) {
             var arcPoint2D = PhysicsMath.CalculateArcPoint2D(this.radianAngle, this.Gravity, this.currentVelocity, timepoint, this.maxDistance);

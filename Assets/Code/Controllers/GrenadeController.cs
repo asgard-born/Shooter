@@ -3,7 +3,7 @@
     using UnityEngine;
 
     public class GrenadeController : ThrowingController {
-        protected void OnWeaponReachedTarget() {
+        protected override void OnWeaponReachedTarget() {
             this.Blow();
         }
 
