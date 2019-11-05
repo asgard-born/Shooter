@@ -43,7 +43,7 @@ namespace Structures {
             this.travelledDistance += Time.deltaTime * this.bulletSpeed;
             Debug.DrawRay(startingPoint, this.transform.forward * this.travelledDistance, Color.cyan);
 
-            if (Physics.Raycast(startingPoint, this.transform.forward, out this.raycastHit, this.travelledDistance, layerMask)) {
+            if (Physics.Raycast(startingPoint, this.transform.forward, out this.raycastHit, this.travelledDistance, this.layerMask)) {
                 this.isBulletFly = false;
                 var lifer = this.raycastHit.transform.gameObject.GetComponent<Lifer>();
 

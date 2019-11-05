@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine.Assertions;
+﻿using UnityEngine.Assertions;
 
 namespace Structures {
     using UnityEngine.UI;
@@ -14,10 +13,10 @@ namespace Structures {
         public void Hit(int damage, int id_attacker, int id_weapon, string weaponName) {
             this.health -= damage;
 
-            Debug.Log(health);
+            Debug.Log(this.health);
             Debug.Log(this.maxHealthValue);
 
-            this.healthBar.value = health / this.maxHealthValue;
+            this.healthBar.value = this.health / this.maxHealthValue;
 
             if (this.health <= 0) {
                 this.Death(id_attacker, weaponName);

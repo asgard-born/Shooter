@@ -9,7 +9,8 @@
 
         private void Blow() {
             Collider[] overlapResults = new Collider[100];
-            int        numFound       = Physics.OverlapSphereNonAlloc(this.weaponTransform.position, 10f, overlapResults);
+
+            int numFound = Physics.OverlapSphereNonAlloc(this.weaponTransform.position, this.range, overlapResults);
 
             for (int i = 0; i < numFound; i++) {
                 var lifer = overlapResults[i].gameObject.GetComponent<Lifer>();

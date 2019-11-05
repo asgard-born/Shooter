@@ -20,7 +20,7 @@
                                      .GetObject("Bullet", this.aim.position, firingRotation)
                                      .GetComponent<Bullet>();
 
-                    this.InitializeTheBullet(bullet, id_attacker, layerMask);
+                    this.InitializeTheBullet(bullet, id_attacker, this.layerMask);
                 }
 
                 this.Ammo--;

@@ -1891,30 +1891,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2512439404096581867}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5726523468732845926 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5726523468732845926, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
-    type: 3}
-  m_PrefabInstance: {fileID: 7842618894358075692}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c0e1362ce60477994e8d7d204b39049, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5726523468732845929 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5726523468732845929, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
-    type: 3}
-  m_PrefabInstance: {fileID: 7842618894358075692}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fd946af075d414697f5b89c87a9d480, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &7685441530312498865 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 468013787446069149, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
@@ -1988,26 +1964,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7842226888507444915, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
-        type: 3}
-      propertyPath: arcRenderer
-      value: 
-      objectReference: {fileID: 5726523468732845929}
     - target: {fileID: 4833523891592088228, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
         type: 3}
       propertyPath: solver.target
       value: 
       objectReference: {fileID: 671521767}
-    - target: {fileID: 7840960547447066847, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
-        type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 1591
-      objectReference: {fileID: 0}
     - target: {fileID: 4703282211279929166, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
         type: 3}
-      propertyPath: throwingController
-      value: 
-      objectReference: {fileID: 5726523468732845926}
+      propertyPath: Range
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4967147428885130111, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
         type: 3}
       propertyPath: m_AnchorMax.x

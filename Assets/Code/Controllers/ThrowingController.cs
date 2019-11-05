@@ -1,6 +1,4 @@
 ﻿namespace Controllers {
-    using Structures.WeaponTypes;
-    using Structures;
     using Managers;
     using UnityEngine;
 
@@ -10,10 +8,10 @@
         protected Transform weaponTransform;
 
         protected string    weaponName;
-        protected float     blowingTime;
-        protected int       damage, id_attacker, id_weapon;
+        protected float     blowingTime, range;
+        protected int       damage,      id_attacker, id_weapon;
         protected bool      isFly;
-        public  LayerMask attackingLayerMask;
+        public    LayerMask attackingLayerMask;
 
         protected abstract void OnWeaponReachedTarget();
 
@@ -24,17 +22,18 @@
             return this.Comparer.position + this.Comparer.rotation * offset;
         }
 
-        protected void InitializeWeapon(Transform weaponTransform, int damage, int id_attacker, int id_weapon, string weaponName, LayerMask layerMask) {
+        protected void InitializeWeapon(Transform weaponTransform, int damage, float range, int id_attacker, int id_weapon, string weaponName, LayerMask layerMask) {
             this.weaponTransform    = weaponTransform;
             this.damage             = damage;
+            this.range              = range;
             this.id_attacker        = id_attacker;
             this.id_weapon          = id_weapon;
             this.weaponName         = weaponName;
             this.attackingLayerMask = layerMask;
         }
 
-        public void StartFlyingProcess(Transform weaponTransform, int damage, int id_attacker, int id_weapon, string weaponName, LayerMask layerMask) {
-            this.InitializeWeapon(weaponTransform, damage, id_attacker, id_weapon, weaponName, layerMask);
+        public void StartFlyingProcess(Transform weaponTransform, int damage, float range, int id_attacker, int id_weapon, string weaponName, LayerMask layerMask) {
+            this.InitializeWeapon(weaponTransform, damage, range, id_attacker, id_weapon, weaponName, layerMask);
 
             this.weaponTransform.SetParent(null);
             this.Comparer.SetParent(null);
