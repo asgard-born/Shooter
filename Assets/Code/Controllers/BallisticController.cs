@@ -4,9 +4,7 @@ namespace Controllers {
     public abstract class BallisticController : MonoBehaviour {
         public Transform Comparer;
 
-        public float Velocity;
-        public float Angle;
-        public float Gravity = 30f;
+        public float Velocity, Angle, Gravity = 30f;
 
         [SerializeField] protected LayerMask layerMask;
         [SerializeField] protected float     radius = .5f;

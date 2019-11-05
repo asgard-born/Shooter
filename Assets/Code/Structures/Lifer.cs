@@ -1,8 +1,12 @@
-﻿namespace Structures {
+﻿using System;
+using UnityEngine.Assertions;
+
+namespace Structures {
     using UnityEngine.UI;
     using UnityEngine;
 
     public class Lifer : MonoBehaviour {
+        public Transform CenterOfMass;
         [SerializeField] private Slider healthBar;
         [SerializeField] private float  maxHealthValue = 100;
         [SerializeField] private float  health;
@@ -22,6 +26,10 @@
         
         private void Awake() {
             this.health = this.maxHealthValue;
+        }
+
+        private void OnValidate() {
+            Assert.IsNotNull(this.CenterOfMass);
         }
 
         private void Update() {

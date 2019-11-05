@@ -6,6 +6,7 @@
 
     public abstract class Weapon : MonoBehaviour {
         public GameObject WeaponObject;
+        [SerializeField] protected LayerMask layerMask;
 
         public int    Id;
         public string WeaponName;
@@ -27,6 +28,6 @@
             }
         }
 
-        public abstract void Attack(int id_attacker, LayerMask layerMask);
+        public abstract void Attack(int id_attacker);
     }
 }

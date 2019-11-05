@@ -7,8 +7,6 @@
 
     public class WeaponController : MonoBehaviour {
         public static WeaponController Instance;
-
-        [SerializeField] private LayerMask   layerMask;
         [SerializeField] private ArcRenderer arcRenderer;
 
         public event Action<string, bool> OnWeaponRearranged;
@@ -37,7 +35,7 @@
 
         public void OnFire() {
             if (this.isChangingWeaponOver) {
-                this.currentWeaponInstance.Attack(this.character_id, this.layerMask);
+                this.currentWeaponInstance.Attack(this.character_id);
             }
         }
 
