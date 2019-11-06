@@ -1,4 +1,4 @@
-﻿namespace Structures.WeaponTypes {
+﻿namespace Structures.Weapons.WeaponTypes {
 
     public abstract class ThrowingWeapon : Weapon {
     }

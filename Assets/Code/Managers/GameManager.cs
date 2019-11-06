@@ -25,9 +25,7 @@
         private float mouseY;
         private bool  isJoystickOn;
 
-        private void Start() {
-            this.Initialize();
-        }
+        private void Start() => this.Initialize();
 
         private async Task GetSingletons() {
             this.poolManager             = PoolManager.Instance;

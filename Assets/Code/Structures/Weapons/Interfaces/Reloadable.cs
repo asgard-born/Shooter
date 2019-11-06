@@ -1,4 +1,4 @@
-﻿namespace Structures {
+﻿namespace Structures.Weapons.Interfaces {
     using System.Threading.Tasks;
 
     public interface Reloadable {

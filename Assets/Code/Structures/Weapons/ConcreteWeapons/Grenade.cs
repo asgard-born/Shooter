@@ -1,7 +1,7 @@
-﻿namespace Structures.ConcreteWeapons {
+﻿namespace Structures.Weapons.ConcreteWeapons {
     using Controllers;
-    using UnityEngine;
     using WeaponTypes;
+    using UnityEngine;
 
     public class Grenade : ThrowingWeapon {
         [SerializeField] private ThrowingController throwingController;

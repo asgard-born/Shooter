@@ -1,4 +1,4 @@
-﻿namespace Structures {
+﻿namespace Structures.Weapons {
     using System;
     using System.Threading.Tasks;
     using Managers;
@@ -6,6 +6,7 @@
 
     public abstract class Weapon : MonoBehaviour {
         public GameObject WeaponObject;
+
         [SerializeField] protected LayerMask layerMask;
 
         public int    Id;

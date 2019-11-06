@@ -1,6 +1,7 @@
-﻿namespace Structures.WeaponTypes {
+﻿namespace Structures.Weapons.WeaponTypes {
     using System;
     using System.Threading.Tasks;
+    using Interfaces;
     using UnityEngine;
 
     public abstract class FiringWeapon : Weapon, Reloadable {
@@ -11,7 +12,7 @@
         [SerializeField] protected float     reloadRate;
 
         protected bool isReloading;
-        
+
         public bool IsReloading => this.isReloading;
 
         protected new void Awake() {

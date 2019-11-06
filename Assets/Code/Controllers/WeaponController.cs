@@ -1,7 +1,10 @@
-﻿namespace Controllers {
+﻿using Structures.Weapons;
+using Structures.Weapons.Interfaces;
+using Structures.Weapons.WeaponTypes;
+
+namespace Controllers {
     using System;
     using System.Threading.Tasks;
-    using Structures.WeaponTypes;
     using Structures;
     using UnityEngine;
 

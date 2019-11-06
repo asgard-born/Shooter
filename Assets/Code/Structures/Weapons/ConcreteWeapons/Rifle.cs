@@ -1,6 +1,6 @@
-﻿namespace Structures.ConcreteWeapons {
-    using UnityEngine;
+﻿namespace Structures.Weapons.ConcreteWeapons {
     using WeaponTypes;
+    using UnityEngine;
 
     public class Rifle : FiringWeapon {
         public override void Attack(int id_attacker) {
