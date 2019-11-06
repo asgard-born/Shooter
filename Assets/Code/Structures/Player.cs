@@ -12,6 +12,7 @@
         public event Action OnDeath;
 
         public void Respawn() => this.lifer.Respawn();
+        
 
         private void Awake() {
             this.lifer         =  this.GetComponent<Lifer>();

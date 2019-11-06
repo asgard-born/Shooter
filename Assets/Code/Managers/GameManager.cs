@@ -34,17 +34,17 @@
         private bool  isJoystickOn;
         private bool  isRespawning;
 
-        private void Awake() {
-            this.player.OnDeath += () => this.isRespawning = true;
-        }
+        private void Awake()
+            => this.player.OnDeath += () => this.isRespawning = true;
 
         private void Respawn() {
             this.player.transform.position = Vector3.Lerp(
                 this.player.transform.position, this.respawnPoint.position, Time.deltaTime);
 
-            if (Vector3.Distance(this.player.transform.position, this.respawnPoint.position) <= 0.1f) {
+            if (Vector3.Distance(this.player.transform.position, this.respawnPoint.position) <= 0.3f) {
                 this.isRespawning = false;
                 this.player.gameObject.SetActive(true);
+                this.player.Respawn();
             }
         }
 

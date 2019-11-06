@@ -13,7 +13,11 @@
 
         public event Action OnDeath;
 
-        public void Respawn() => this.gameObject.SetActive(true);
+        public void Respawn() {
+            this.visiblePart.SetActive(true);
+            this.health = this.maxHealthValue;
+            this.healthBar.value = this.health / this.maxHealthValue;
+        }
 
         public void Hit(int damage, int id_attacker, int id_weapon, string weaponName) {
             this.health -= damage;
