@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
+  VisiblePart: {fileID: 0}
 --- !u!54 &297558984757713762
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -188,6 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CenterOfMass: {fileID: 2009601227}
   healthBar: {fileID: 2512439405093091957}
+  visiblePart: {fileID: 352142542513105702}
   maxHealthValue: 100
   health: 100
 --- !u!1 &352164535738846210
@@ -3788,7 +3790,7 @@ MonoBehaviour:
   Damage: 10
   AttackSpeed: 20
   Range: 50
-  Image: {fileID: 0}
+  Sprite: {fileID: 0}
   MagazineCapacity: 7
   Ammo: 0
   aim: {fileID: 2512439404313846412}
@@ -4198,7 +4200,7 @@ MonoBehaviour:
   Damage: 30
   AttackSpeed: 40
   Range: 600
-  Image: {fileID: 0}
+  Sprite: {fileID: 0}
   MagazineCapacity: 30
   Ammo: 0
   aim: {fileID: 2512439404207044387}

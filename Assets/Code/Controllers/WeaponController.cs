@@ -19,7 +19,7 @@
         [SerializeField]         private Weapon[] weapons;
         [Space] [SerializeField] private int      currentWeaponNumber = 1;
 
-        private Character character;
+        private Player player;
         private int       character_id;
 
         private Weapon     currentWeaponInstance;
@@ -71,8 +71,8 @@
 
         private void Awake() {
             Instance          = this;
-            this.character    = this.GetComponent<Character>();
-            this.character_id = this.character.Id;
+            this.player    = this.GetComponent<Player>();
+            this.character_id = this.player.Id;
         }
 
         public void ChangeWeapon() {

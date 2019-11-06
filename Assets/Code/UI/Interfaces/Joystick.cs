@@ -4,8 +4,8 @@
 
     public interface Joystick {
         AttackButton AttackBtn       { get; }
-        Button ReloadBtn       { get; }
-        Button ChangeWeaponBtn { get; }
+        Button       ReloadBtn       { get; }
+        Button       ChangeWeaponBtn { get; }
 
         ETCJoystick MovingJoystick { get; }
         ETCJoystick GrenadeBar     { get; }

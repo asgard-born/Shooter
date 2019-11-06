@@ -6,9 +6,7 @@
     using UnityEngine;
 
     public class GrenadeController : ThrowingController {
-        protected override void OnWeaponReachedTarget() {
-            this.Blow();
-        }
+        protected override void OnWeaponReachedTarget() => this.Blow();
 
         private async void Blow() {
             Collider[] overlapResults = new Collider[100];

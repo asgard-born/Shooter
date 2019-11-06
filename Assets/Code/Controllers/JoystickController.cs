@@ -37,7 +37,7 @@
         [SerializeField] private ETCJoystick grenadeBar;
 
         private bool canInputFire = true;
-        private bool isAttackHolding = false;
+        private bool isAttackHolding;
 
         public void RearrangeAttackUI(Sprite sprite, bool isThrowable) {
             this.ChangeWeaponSprite(sprite);
