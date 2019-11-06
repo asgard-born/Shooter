@@ -12,9 +12,7 @@ namespace Structures {
 
         public void Hit(int damage, int id_attacker, int id_weapon, string weaponName) {
             this.health -= damage;
-
             Debug.Log(this.health);
-            Debug.Log(this.maxHealthValue);
 
             this.healthBar.value = this.health / this.maxHealthValue;
 

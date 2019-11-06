@@ -1,8 +1,7 @@
-﻿using Structures.Weapons;
-using Structures.Weapons.Interfaces;
-using Structures.Weapons.WeaponTypes;
-
-namespace Controllers {
+﻿namespace Controllers {
+    using Structures.Weapons;
+    using Structures.Weapons.Interfaces;
+    using Structures.Weapons.WeaponTypes;
     using System;
     using System.Threading.Tasks;
     using Structures;
@@ -10,12 +9,12 @@ namespace Controllers {
 
     public class WeaponController : MonoBehaviour {
         public static WeaponController Instance;
+
         [SerializeField] private ArcRenderer arcRenderer;
 
-        public event Action<string, bool> OnWeaponRearranged;
-        public event Action<bool>         SetWeaponEquipped;
-        public event Action<float>        OnWeaponChanged;
-        public event Action<bool>         OnThrowingWeaponEquip;
+        public event Action<string, bool>  OnWeaponRearranged;
+        public event Action<float, Sprite, bool> OnWeaponChanged;
+        public event Action<bool>          SetWeaponEquipped;
 
         [SerializeField]         private Weapon[] weapons;
         [Space] [SerializeField] private int      currentWeaponNumber = 1;
@@ -29,6 +28,7 @@ namespace Controllers {
         private bool isChangingWeaponProcess;
         private bool isChangingWeaponOver = true;
         private bool isFiring;
+        private bool isThrowable;
 
         public void OnWeaponEquip() {
             if (this.isChangingWeaponProcess) {
@@ -62,7 +62,7 @@ namespace Controllers {
             this.SetupTheWeapon(true);
             this.DetectThrowingWeapon();
 
-            this.OnWeaponChanged?.Invoke(this.currentWeaponInstance.SerialRate);
+            this.OnWeaponChanged?.Invoke(this.currentWeaponInstance.SerialRate, this.currentWeaponInstance.Sprite, this.isThrowable);
         }
 
         public void SetupTheWeapon(bool isSet) {
@@ -75,46 +75,35 @@ namespace Controllers {
             this.character_id = this.character.Id;
         }
 
-        private void Update() {
-            if (this.isChangingWeaponOver && Input.GetKeyDown(KeyCode.Q)) {
-                this.ChangeWeapon();
+        public void ChangeWeapon() {
+            if (this.isChangingWeaponOver) {
+                this.isChangingWeaponProcess = true;
+                this.isChangingWeaponOver    = false;
+
+                if (this.currentWeaponNumber == this.weapons.Length - 1) {
+                    this.currentWeaponNumber = 0;
+                }
+                else {
+                    this.currentWeaponNumber++;
+                }
+
+                this.currentWeaponObject.SetActive(false);
+                this.SetupTheWeapon(false);
+
+                this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
+                this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
+
+                this.DetectThrowingWeapon();
+
+                this.SetupTheWeapon(true);
+                this.SetWeaponEquipped?.Invoke(true);
             }
-        }
-
-        private void ChangeWeapon() {
-            this.isChangingWeaponProcess = true;
-            this.isChangingWeaponOver    = false;
-
-            if (this.currentWeaponNumber == this.weapons.Length - 1) {
-                this.currentWeaponNumber = 0;
-            }
-            else {
-                this.currentWeaponNumber++;
-            }
-
-            this.currentWeaponObject.SetActive(false);
-            this.SetupTheWeapon(false);
-
-            this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
-            this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
-
-            this.DetectThrowingWeapon();
-
-            this.SetupTheWeapon(true);
-            this.SetWeaponEquipped?.Invoke(true);
         }
 
         private void DetectThrowingWeapon() {
             var throwInstance = this.currentWeaponInstance as ThrowingWeapon;
-
-            if (throwInstance != null) {
-                this.OnThrowingWeaponEquip?.Invoke(true);
-                this.arcRenderer.SetupRendering(true);
-            }
-            else {
-                this.OnThrowingWeaponEquip?.Invoke(false);
-                this.arcRenderer.SetupRendering(false);
-            }
+            this.isThrowable = throwInstance != null;
+            this.arcRenderer.SetupRendering(this.isThrowable);
         }
 
         private async void SetWeapon() {
@@ -123,7 +112,7 @@ namespace Controllers {
             this.currentWeaponObject.SetActive(true);
             await Task.Delay(TimeSpan.FromSeconds(1.2f));
             this.isChangingWeaponOver = true;
-            this.OnWeaponChanged?.Invoke(this.currentWeaponInstance.SerialRate);
+            this.OnWeaponChanged?.Invoke(this.currentWeaponInstance.SerialRate, this.currentWeaponInstance.Sprite, this.isThrowable);
         }
     }
 }

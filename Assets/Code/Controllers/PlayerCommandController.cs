@@ -23,6 +23,7 @@ namespace Controllers {
 
         public event Action OnFireOnce;
         public event Action OnReload;
+        public event Action OnChangingWeapon;
 
         private InputController inputController;
 
@@ -33,9 +34,10 @@ namespace Controllers {
         }
 
         public void Initialize(InputController inputController) {
-            this.inputController            =  inputController;
-            this.inputController.OnFireOnce += () => this.OnFireOnce?.Invoke();
-            this.inputController.OnReload   += () => this.OnReload?.Invoke();
+            this.inputController                  =  inputController;
+            this.inputController.OnFireOnce       += () => this.OnFireOnce?.Invoke();
+            this.inputController.OnReload         += () => this.OnReload?.Invoke();
+            this.inputController.OnChangingWeapon += () => this.OnChangingWeapon?.Invoke();
         }
 
         private void Awake() => Instance = this;

@@ -13,7 +13,6 @@
 
         event Action OnFireOnce;
         event Action OnReload;
-        void         FireOnce();
-        void         Reload();
+        event Action OnChangingWeapon;
     }
 }

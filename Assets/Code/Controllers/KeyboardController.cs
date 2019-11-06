@@ -23,13 +23,17 @@
 
         public event Action OnFireOnce;
         public event Action OnReload;
+        public event Action OnChangingWeapon;
 
-        public void FireOnce() => this.OnFireOnce?.Invoke();
-        public void Reload()   => this.OnReload?.Invoke();
+        private void FireOnce()     => this.OnFireOnce?.Invoke();
+        private void Reload()       => this.OnReload?.Invoke();
+        private void ChangeWeapon() => this.OnChangingWeapon?.Invoke();
 
         private void Update() {
             this.forwardMoving    = Input.GetAxis("Vertical");
             this.horizontalMoving = Input.GetAxis("Horizontal");
+            
+            Debug.Log(GetAxisX);
 
             this.forwardMoving    += this.forwardMoving > 0 ? this.runValue : this.forwardMoving < 0 ? -this.runValue : 0;
             this.horizontalMoving += this.horizontalMoving > 0 ? this.runValue : this.horizontalMoving < 0 ? -this.runValue : 0;
@@ -43,6 +47,10 @@
 
             if (Input.GetKeyDown(KeyCode.R)) {
                 this.Reload();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q)) {
+                this.ChangeWeapon();
             }
 
             async void PerformFireInputWithFireRate() {

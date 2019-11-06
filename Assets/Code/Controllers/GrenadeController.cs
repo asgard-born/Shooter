@@ -33,7 +33,6 @@
 
                         if (lifer != null) {
                             lifer.Hit(this.damage, this.id_attacker, this.id_weapon, this.weaponName);
-                            Debug.Log(this.hit.transform.gameObject);
                         }
                     }
                 }

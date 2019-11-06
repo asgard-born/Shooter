@@ -11,8 +11,10 @@
         public float        RotateY          { get; }
         public bool         IsSneak          { get; }
         public bool         IsJumping        { get; }
+        
         public event Action OnFireOnce;
         public event Action OnReload;
+        public event Action OnChangingWeapon;
 
         public float SerialRate {
             set => this.inputController.SerialRate = value;

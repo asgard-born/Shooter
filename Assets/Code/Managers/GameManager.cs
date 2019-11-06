@@ -1,4 +1,5 @@
 ﻿namespace Managers {
+    using UI.Interfaces;
     using Controllers.Interfaces;
     using Controllers;
     using System;
@@ -11,6 +12,7 @@
 
         public  JoystickController joystickController;
         private InputController    playerInputController;
+        private Joystick           joystick;
 
         private PoolManager              poolManager;
         private CommandController        playerCommandController;
@@ -24,6 +26,8 @@
         private float mouseX;
         private float mouseY;
         private bool  isJoystickOn;
+
+        [SerializeField] private float cameraYAxisOnMobilePlatform = -25f; 
 
         private void Start() => this.Initialize();
 
@@ -69,24 +73,33 @@
 
         private async void Initialize() {
             await this.GetSingletons();
-#if UNITY_ANDROID
-            this.playerInputController = this.joystickController;
-            this.isJoystickOn          = true;
-#else
-            this.playerInputController = this.gameObject.AddComponent<KeyboardController>();
-            this.isJoystickOn = false;
-#endif
+
+            if (!Application.isMobilePlatform) {
+                this.playerInputController = this.joystickController;
+                this.joystick              = this.playerInputController as Joystick;
+                this.isJoystickOn          = true;
+
+                this.weaponController.OnWeaponChanged += (rate, sprite, isThrowable) => this.joystick.RearrangeAttackUI(sprite, isThrowable);
+            }
+            else {
+                this.playerInputController = this.gameObject.AddComponent<KeyboardController>();
+                this.isJoystickOn          = false;
+            }
+            
+            this.joystickController.gameObject.SetActive(this.isJoystickOn);
 
             this.playerCommandController.Initialize(this.playerInputController);
 
-            this.animatorManager.OnWeaponEquip          += this.weaponController.OnWeaponEquip;
-            this.weaponController.OnWeaponRearranged    += this.animatorManager.SetupWeaponCondition;
-            this.weaponController.SetWeaponEquipped     += this.animatorManager.SetWeaponEquipping;
-            this.weaponController.OnWeaponChanged       += rate => this.playerCommandController.SerialRate = rate;
-            this.weaponController.OnThrowingWeaponEquip += isThrowable => this.movementController.SetAimIK(!isThrowable);
+            this.animatorManager.OnWeaponEquip       += this.weaponController.OnWeaponEquip;
+            this.weaponController.OnWeaponRearranged += this.animatorManager.SetupWeaponCondition;
+            this.weaponController.SetWeaponEquipped  += this.animatorManager.SetWeaponEquipping;
+            this.weaponController.OnWeaponChanged    += (rate, sprite, isThrowable) => this.playerCommandController.SerialRate = rate;
 
-            this.playerCommandController.OnFireOnce += this.weaponController.OnFire;
-            this.playerCommandController.OnReload   += this.weaponController.Reload;
+            this.weaponController.OnWeaponChanged += (rate, sprite, isThrowable) => this.movementController.SetAimIK(!isThrowable);
+
+            this.playerCommandController.OnFireOnce       += this.weaponController.OnFire;
+            this.playerCommandController.OnReload         += this.weaponController.Reload;
+            this.playerCommandController.OnChangingWeapon += this.weaponController.ChangeWeapon;
 
             this.weaponController.Initialize();
 
@@ -116,7 +129,7 @@
             this.cameraController.RotateTargetHorizontally(this.mouseX);
 
             if (this.isJoystickOn) {
-                this.cameraController.RotateCamera(this.mouseX, 0);
+                this.cameraController.RotateCamera(this.mouseX, this.cameraYAxisOnMobilePlatform);
             }
             else {
                 this.cameraController.RotateCamera(this.mouseX, this.mouseY);
