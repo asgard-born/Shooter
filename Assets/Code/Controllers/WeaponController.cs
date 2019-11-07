@@ -9,18 +9,18 @@
 
     public class WeaponController : MonoBehaviour {
         public static WeaponController Instance;
+        public        Weapon[]         weapons;
 
         [SerializeField] private ArcRenderer arcRenderer;
 
-        public event Action<string, bool>  OnWeaponRearranged;
+        public event Action<string, bool>        OnWeaponRearranged;
         public event Action<float, Sprite, bool> OnWeaponChanged;
-        public event Action<bool>          SetWeaponEquipped;
+        public event Action<bool>                SetWeaponEquipped;
 
-        [SerializeField]         private Weapon[] weapons;
-        [Space] [SerializeField] private int      currentWeaponNumber = 1;
+        [Space] [SerializeField] private int currentWeaponNumber = 1;
 
         private Player player;
-        private int       character_id;
+        private int    character_id;
 
         private Weapon     currentWeaponInstance;
         private GameObject currentWeaponObject;
@@ -43,9 +43,7 @@
         }
 
         public void Reload() {
-            var reloadableInstance = this.currentWeaponInstance as Reloadable;
-
-            if (reloadableInstance != null && !reloadableInstance.IsReloading) {
+            if (this.currentWeaponInstance is Reloadable reloadableInstance && !reloadableInstance.IsReloading) {
                 reloadableInstance.Reload();
             }
         }
@@ -71,7 +69,7 @@
 
         private void Awake() {
             Instance          = this;
-            this.player    = this.GetComponent<Player>();
+            this.player       = this.GetComponent<Player>();
             this.character_id = this.player.Id;
         }
 

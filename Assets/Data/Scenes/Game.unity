@@ -972,7 +972,6 @@ MonoBehaviour:
   joystickController: {fileID: 1568701518}
   player: {fileID: 5605498456085793309}
   cameraYAxisOnMobilePlatform: -30
-  respawnTime: 3
   respawnPoint: {fileID: 272275077}
 --- !u!1 &564128333
 GameObject:
@@ -2649,6 +2648,41 @@ PrefabInstance:
     - target: {fileID: 3590520113024168109, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4198057995055158454, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
+        type: 3}
+      propertyPath: m_Name
+      value: ProjectileRenderer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867442791646055181, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
+        type: 3}
+      propertyPath: WeaponName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867442791646055181, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
+        type: 3}
+      propertyPath: SerialRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867442791646055181, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
+        type: 3}
+      propertyPath: Damage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867442791646055181, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
+        type: 3}
+      propertyPath: MagazineCapacity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867442791646055181, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
+        type: 3}
+      propertyPath: AttackSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867442791646055181, guid: 38ef3a4ac7a3a7049b8f43a2537a0606,
+        type: 3}
+      propertyPath: Range
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -5,11 +5,12 @@
     using UnityEngine;
 
     public abstract class FiringWeapon : Weapon, Reloadable {
-        public int MagazineCapacity;
-        public int Ammo;
+        public    int   MagazineCapacity;
+        public    int   AttackSpeed;
+        public    float ReloadRate;
+        protected int   Ammo;
 
         [SerializeField] protected Transform aim;
-        [SerializeField] protected float     reloadRate;
 
         protected bool isReloading;
 
@@ -29,7 +30,7 @@
         public async Task Reload() {
             this.isReloading = true;
             this.Ammo        = this.MagazineCapacity;
-            await Task.Delay(TimeSpan.FromSeconds(this.reloadRate));
+            await Task.Delay(TimeSpan.FromSeconds(this.ReloadRate));
             this.isReloading = false;
 
             Debug.Log("finish reloading");

@@ -1,0 +1,37 @@
+{
+  "weaponOptions": [
+    {
+      "id": 1,
+      "weaponName": "Rifle",
+      "serialRate": 0.07,
+      "damage": 30,
+      "attackSpeed": 50,
+      "range": 600,
+      "magazineCapacity": 30,
+      "reloadRate": 2,
+      "blowingTime": 0
+    },
+    {
+      "id": 2,
+      "weaponName": "Shotgun",
+      "serialRate": 0.6,
+      "damage": 10,
+      "attackSpeed": 35,
+      "range": 50,
+      "magazineCapacity": 7,
+      "reloadRate": 3,
+      "blowingTime": 0
+    },
+    {
+      "id": 3,
+      "weaponName": "Grenade",
+      "serialRate": 1,
+      "damage": 100,
+      "attackSpeed": 10,
+      "range": 10,
+      "magazineCapacity": 0,
+      "reloadRate": 0,
+      "blowingTime": 1.2
+    }
+  ]
+}

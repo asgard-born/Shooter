@@ -9,7 +9,7 @@
         bool  IsSneak          { get; }
         bool  IsJumping        { get; }
 
-        float SerialRate { get; set; }
+        float SerialRate { set; }
 
         event Action OnFireOnce;
         event Action OnReload;

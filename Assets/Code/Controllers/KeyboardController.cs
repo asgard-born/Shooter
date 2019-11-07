@@ -33,7 +33,7 @@
             this.forwardMoving    = Input.GetAxis("Vertical");
             this.horizontalMoving = Input.GetAxis("Horizontal");
             
-            Debug.Log(GetAxisX);
+            Debug.Log(this.GetAxisX);
 
             this.forwardMoving    += this.forwardMoving > 0 ? this.runValue : this.forwardMoving < 0 ? -this.runValue : 0;
             this.horizontalMoving += this.horizontalMoving > 0 ? this.runValue : this.horizontalMoving < 0 ? -this.runValue : 0;
