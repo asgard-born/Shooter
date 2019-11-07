@@ -50,8 +50,8 @@
 
         private void Start() => this.Initialize();
 
-        private async void Initialize() {
-            await this.GetSingletons();
+        private void Initialize() {
+            this.GetSingletons();
 
             if (!Application.isMobilePlatform) {
                 this.playerInputController = this.joystickController;
@@ -85,7 +85,7 @@
             this.poolManager.Initialize(this.PoolOptions.Pools);
         }
 
-        private async Task GetSingletons() {
+        private void GetSingletons() {
             this.poolManager             = PoolManager.Instance;
             this.playerCommandController = PlayerCommandController.Instance;
             this.animatorManager         = AnimatorManager.Instance;
@@ -93,36 +93,6 @@
             this.cameraController   = CameraController.Instance;
             this.movementController = MovementController.Instance;
             this.weaponController   = WeaponController.Instance;
-
-            while (this.poolManager == null) {
-                await Task.Delay(TimeSpan.FromSeconds(.1f));
-                this.poolManager = PoolManager.Instance;
-            }
-
-            while (this.playerCommandController == null) {
-                await Task.Delay(TimeSpan.FromSeconds(.1f));
-                this.playerCommandController = PlayerCommandController.Instance;
-            }
-
-            while (this.animatorManager == null) {
-                await Task.Delay(TimeSpan.FromSeconds(.1f));
-                this.animatorManager = AnimatorManager.Instance;
-            }
-
-            while (this.cameraController == null) {
-                await Task.Delay(TimeSpan.FromSeconds(.1f));
-                this.cameraController = CameraController.Instance;
-            }
-
-            while (this.movementController == null) {
-                await Task.Delay(TimeSpan.FromSeconds(.1f));
-                this.movementController = MovementController.Instance;
-            }
-
-            while (this.weaponController == null) {
-                await Task.Delay(TimeSpan.FromSeconds(.1f));
-                this.weaponController = WeaponController.Instance;
-            }
         }
 
         private void Update() {
