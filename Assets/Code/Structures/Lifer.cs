@@ -5,23 +5,23 @@
     using UnityEngine;
 
     public class Lifer : MonoBehaviour {
-        public                   Transform CenterOfMass;
-        [SerializeField] private Slider    healthBar;
+        public Transform CenterOfMass;
+
+        [SerializeField] private Slider     healthBar;
         [SerializeField] private GameObject visiblePart;
-        [SerializeField] private float     maxHealthValue = 100;
-        [SerializeField] private float     health;
+        [SerializeField] private float      maxHealthValue = 100;
+        [SerializeField] private float      health;
 
         public event Action OnDeath;
 
         public void Respawn() {
             this.visiblePart.SetActive(true);
-            this.health = this.maxHealthValue;
+            this.health          = this.maxHealthValue;
             this.healthBar.value = this.health / this.maxHealthValue;
         }
 
         public void Hit(int damage, int id_attacker, int id_weapon, string weaponName) {
             this.health -= damage;
-            Debug.Log(this.health);
 
             this.healthBar.value = this.health / this.maxHealthValue;
 
@@ -39,6 +39,7 @@
 
         private void Death(int id_attacker, string weaponName) {
             Debug.Log($"killed by {id_attacker} with: {weaponName}");
+
             this.visiblePart.SetActive(false);
             this.OnDeath?.Invoke();
         }

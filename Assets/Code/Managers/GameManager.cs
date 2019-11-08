@@ -5,7 +5,6 @@
     using Structures.Weapons.Options;
     using Structures;
     using UI.Interfaces;
-    using Controllers.Interfaces;
     using Controllers;
     using ScriptableObjects;
     using UnityEngine;
@@ -58,6 +57,7 @@
 
                     if (weapon is Grenade grenade) {
                         grenade.BlowingTime = findedOption.blowingTime;
+
                         continue;
                     }
 
@@ -83,7 +83,9 @@
         }
 
         private void Initialize() {
-            this.GetSingletons();
+            this.GetSingletones();
+            this.GetLogicEssences();
+
             this.joystick = this.playerCommandController.Initialize() as Joystick;
 
             if (this.joystick != null) {
@@ -111,15 +113,17 @@
             this.InitializeTheEnemies();
         }
 
-        private void GetSingletons() {
+        private void GetLogicEssences() {
+            this.animatorManager    = this.player.GetComponent<AnimatorManager>();
+            this.movementController = this.player.GetComponent<MovementController>();
+            this.weaponController   = this.player.GetComponent<WeaponController>();
+        }
+
+        private void GetSingletones() {
             this.poolManager             = PoolManager.Instance;
             this.playerCommandController = PlayerCommandController.Instance;
-            this.animatorManager         = AnimatorManager.Instance;
             this.enemiesManager          = EnemiesManager.Instance;
-
-            this.cameraController   = CameraController.Instance;
-            this.movementController = MovementController.Instance;
-            this.weaponController   = WeaponController.Instance;
+            this.cameraController        = CameraController.Instance;
         }
 
         private void InitializeTheEnemies() {

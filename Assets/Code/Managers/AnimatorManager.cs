@@ -15,7 +15,7 @@
 
         public event Action OnWeaponEquip;
 
-        [SerializeField] private Animator animator;
+        private Animator animator;
 
         private readonly int grounded    = Animator.StringToHash("Grounded");
         private readonly int speed       = Animator.StringToHash("Speed");
@@ -32,7 +32,9 @@
         public void SetWeaponEquipping(bool isEquip) =>
             this.animator.SetBool(this.equipWeapon, isEquip);
 
-        private void Awake() => Instance = this;
+        private void Awake() {
+            this.animator = this.GetComponent<Animator>();
+        }
 
         private void Update() {
             if ((this.animator.GetCurrentAnimatorStateInfo(1).IsName("Shotgun Equip")
