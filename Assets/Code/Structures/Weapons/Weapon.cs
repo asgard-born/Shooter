@@ -26,6 +26,8 @@
                 await Task.Delay(TimeSpan.FromSeconds(.1f));
                 this.poolManager = PoolManager.Instance;
             }
+            
+            Debug.Log(this.poolManager);
         }
 
         public abstract void Attack(int id_attacker);

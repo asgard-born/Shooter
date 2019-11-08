@@ -9,18 +9,18 @@
 
     public class WeaponController : MonoBehaviour {
         public static WeaponController Instance;
-        public        Weapon[]         weapons;
+        public        Weapon[]         Weapons;
 
         [SerializeField] private ArcRenderer arcRenderer;
 
-        public event Action<string, bool>        OnWeaponRearranged;
         public event Action<float, Sprite, bool> OnWeaponChanged;
+        public event Action<string, bool>        OnWeaponRearranged;
         public event Action<bool>                SetWeaponEquipped;
 
         [Space] [SerializeField] private int currentWeaponNumber = 1;
 
-        private Player player;
-        private int    character_id;
+        private Character player;
+        private int       character_id;
 
         private Weapon     currentWeaponInstance;
         private GameObject currentWeaponObject;
@@ -49,11 +49,11 @@
         }
 
         public void Initialize() {
-            foreach (var weapon in this.weapons) {
+            foreach (var weapon in this.Weapons) {
                 weapon.WeaponObject.SetActive(false);
             }
 
-            this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
+            this.currentWeaponInstance = this.Weapons[this.currentWeaponNumber];
             this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
             this.currentWeaponObject.SetActive(true);
 
@@ -69,7 +69,7 @@
 
         private void Awake() {
             Instance          = this;
-            this.player       = this.GetComponent<Player>();
+            this.player       = this.GetComponent<Character>();
             this.character_id = this.player.Id;
         }
 
@@ -78,7 +78,7 @@
                 this.isChangingWeaponProcess = true;
                 this.isChangingWeaponOver    = false;
 
-                if (this.currentWeaponNumber == this.weapons.Length - 1) {
+                if (this.currentWeaponNumber == this.Weapons.Length - 1) {
                     this.currentWeaponNumber = 0;
                 }
                 else {
@@ -88,7 +88,7 @@
                 this.currentWeaponObject.SetActive(false);
                 this.SetupTheWeapon(false);
 
-                this.currentWeaponInstance = this.weapons[this.currentWeaponNumber];
+                this.currentWeaponInstance = this.Weapons[this.currentWeaponNumber];
                 this.currentWeaponObject   = this.currentWeaponInstance.WeaponObject;
 
                 this.DetectThrowingWeapon();
@@ -101,7 +101,10 @@
         private void DetectThrowingWeapon() {
             var throwInstance = this.currentWeaponInstance as ThrowingWeapon;
             this.isThrowable = throwInstance != null;
-            this.arcRenderer.SetupRendering(this.isThrowable);
+            
+            if (this.arcRenderer != null) {
+                this.arcRenderer.SetupRendering(this.isThrowable);
+            }
         }
 
         private async void SetWeapon() {

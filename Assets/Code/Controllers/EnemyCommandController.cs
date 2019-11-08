@@ -1,4 +1,7 @@
-﻿namespace Controllers {
+﻿using System.Collections;
+using System.Threading.Tasks;
+
+namespace Controllers {
     using Structures;
     using UnityEngine.AI;
     using System;
@@ -24,7 +27,7 @@
             set => this.serialRate = value;
         }
 
-        [Range(17f, 10f)] [SerializeField] private float distanceForNewPos = 15f;
+        [Range(17f, 10f)] [SerializeField] private float distanceForNewPos = 5f;
 
         [SerializeField] private float minDistanceForAttack = 7;
         [SerializeField] private float maxDistanceForAttack = 15;
@@ -32,7 +35,7 @@
         private float chosenDistanceForAttack;
 
         private NavMeshAgent navMeshAgent;
-        private AIPhase      phase = AIPhase.ChasingPlayer;
+        private AIPhase      phase = AIPhase.Attacking;
         private Transform    PlayerT;
 
         private bool needToSafeMyself;
@@ -47,15 +50,22 @@
             this.OnPhaseChanged = this.ChangeThePhase;
         }
 
-        private void Update() {
-            if ((this.PlayerT.position - this.transform.position).magnitude <= this.chosenDistanceForAttack) {
-                this.OnPhaseChanged?.Invoke(AIPhase.Attacking);
-            }
-            else {
-                this.phase = AIPhase.ChasingPlayer;
-            }
+        private async void Start() {
+            await Task.Delay(TimeSpan.FromSeconds(3f));
+            this.OnPhaseChanged?.Invoke(AIPhase.Attacking);
+        }
 
-//            this.BehaveAccordingThePhase();
+        private void Update() {
+            if (this.PlayerT != null) {
+                if ((this.PlayerT.position - this.transform.position).magnitude <= this.chosenDistanceForAttack) {
+                    this.OnPhaseChanged?.Invoke(AIPhase.Attacking);
+                }
+                else {
+                    this.phase = AIPhase.ChasingPlayer;
+                }
+
+                this.BehaveAccordingThePhase();
+            }
         }
 
         private void ChangeThePhase(AIPhase phase) {
@@ -63,6 +73,7 @@
                 case AIPhase.Attacking:
 
                     this.navMeshAgent.Stop();
+                    this.StartCoroutine(this.Fire());
 
                     break;
 
@@ -81,14 +92,16 @@
             this.phase = phase;
         }
 
+        private IEnumerator Fire() {
+            this.OnFireOnce?.Invoke();
+            yield return new WaitForSeconds(this.serialRate);
+            
+            this.StartCoroutine(this.Fire());
+        }
+
         private void BehaveAccordingThePhase() {
             switch (this.phase) {
                 case AIPhase.Attacking:
-                    this.navMeshAgent.Stop();
-
-
-                    // fire
-                    this.OnFireOnce?.Invoke();
 
                     break;
 

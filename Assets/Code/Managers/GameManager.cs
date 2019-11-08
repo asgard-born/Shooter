@@ -47,7 +47,8 @@
 
                 var weaponOptions = weaponOptionsContainer.weaponOptions;
 
-                foreach (var weapon in this.weaponController.weapons) {
+
+                foreach (var weapon in this.weaponController.Weapons) {
                     var findedOption = weaponOptions.First(option => option.id == weapon.Id);
 
                     weapon.WeaponName = findedOption.weaponName;
@@ -65,6 +66,32 @@
                         firingWeapon.AttackSpeed      = findedOption.attackSpeed;
                         firingWeapon.MagazineCapacity = findedOption.magazineCapacity;
                         firingWeapon.ReloadRate       = findedOption.reloadRate;
+                    }
+                }
+
+
+                foreach (var enemy in this.enemiesManager.Enemies) {
+                    enemy.EnemyCommandController.SerialRate = weaponOptions.First(option => option.id == 1).serialRate;
+
+                    foreach (var weapon in enemy.WeaponController.Weapons) {
+                        var findedOption = weaponOptions.First(option => option.id == weapon.Id);
+
+                        weapon.WeaponName = findedOption.weaponName;
+                        weapon.SerialRate = findedOption.serialRate;
+                        weapon.Damage     = findedOption.damage;
+                        weapon.Range      = findedOption.range;
+
+                        if (weapon is Grenade grenade) {
+                            grenade.BlowingTime = findedOption.blowingTime;
+
+                            continue;
+                        }
+
+                        if (weapon is FiringWeapon firingWeapon) {
+                            firingWeapon.AttackSpeed      = findedOption.attackSpeed;
+                            firingWeapon.MagazineCapacity = findedOption.magazineCapacity;
+                            firingWeapon.ReloadRate       = findedOption.reloadRate;
+                        }
                     }
                 }
             }
