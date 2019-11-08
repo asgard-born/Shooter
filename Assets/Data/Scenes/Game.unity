@@ -2279,16 +2279,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2512439405413045516, guid: 89f8125a55fc7d24cb38b12f49f66964,
-        type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 1335
-      objectReference: {fileID: 0}
-    - target: {fileID: 2512439404517596502, guid: 89f8125a55fc7d24cb38b12f49f66964,
-        type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 1335
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89f8125a55fc7d24cb38b12f49f66964, type: 3}
 --- !u!4 &1879999860 stripped
