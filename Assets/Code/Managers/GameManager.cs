@@ -1,6 +1,5 @@
-﻿using Structures.Weapons.WeaponTypes;
-
-namespace Managers {
+﻿namespace Managers {
+    using Structures.Weapons.WeaponTypes;
     using System.Linq;
     using Structures.Weapons.ConcreteWeapons;
     using Structures.Weapons.Options;
@@ -22,10 +21,12 @@ namespace Managers {
         private InputController playerInputController;
         private Joystick        joystick;
 
+        // Singletons
         private PoolManager              poolManager;
         private AnimatorManager          animatorManager;
         private CommandController        playerCommandController;
         private CommandsForBotController commandsForBotController;
+        private EnemiesManager           enemiesManager;
 
         private CameraController   cameraController;
         private MovementController movementController;
@@ -45,13 +46,13 @@ namespace Managers {
             var asset = Resources.Load<TextAsset>("GameOptions/weapon_options");
 
             if (asset != null) {
-                var weaponOptionsContainer = JsonUtility.FromJson<WeaponOptionsLIst>(asset.text);
+                var weaponOptionsContainer = JsonUtility.FromJson<WeaponOptionsList>(asset.text);
 
                 var weaponOptions = weaponOptionsContainer.weaponOptions;
 
                 foreach (var weapon in this.weaponController.weapons) {
                     var findedOption = weaponOptions.First(option => option.id == weapon.Id);
-                    
+
                     weapon.WeaponName = findedOption.weaponName;
                     weapon.SerialRate = findedOption.serialRate;
                     weapon.Damage     = findedOption.damage;
@@ -114,16 +115,23 @@ namespace Managers {
 
             this.weaponController.Initialize();
             this.poolManager.Initialize(this.PoolOptions.Pools);
+
+            this.InitializeTheEnemies();
         }
 
         private void GetSingletons() {
             this.poolManager             = PoolManager.Instance;
             this.playerCommandController = PlayerCommandController.Instance;
             this.animatorManager         = AnimatorManager.Instance;
+            this.enemiesManager          = EnemiesManager.Instance;
 
             this.cameraController   = CameraController.Instance;
             this.movementController = MovementController.Instance;
             this.weaponController   = WeaponController.Instance;
+        }
+
+        private void InitializeTheEnemies() {
+            this.enemiesManager.Initialize(this.player.transform);
         }
 
         private void Update() {
@@ -146,7 +154,7 @@ namespace Managers {
         private void FixedUpdate() {
             this.movementController.Move(
                 this.playerCommandController.ForwardMoving,
-                this.playerCommandController.HorizontalMoving);
+                0);
         }
 
         private void LateUpdate() {

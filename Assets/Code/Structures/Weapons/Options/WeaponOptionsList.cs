@@ -3,7 +3,7 @@
     using System.Collections.Generic;
 
     [Serializable]
-    public class WeaponOptionsLIst {
+    public class WeaponOptionsList {
         public List<WeaponOptions> weaponOptions = new List<WeaponOptions>();
     }
 }

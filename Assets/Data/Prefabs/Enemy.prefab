@@ -101,10 +101,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 355788480018988484}
-  - component: {fileID: 5272043323611117221}
   - component: {fileID: 297558984757713762}
-  - component: {fileID: 361549657132803942}
+  - component: {fileID: 5836476183694948126}
   - component: {fileID: 352142542513105701}
+  - component: {fileID: 361549657132803942}
+  - component: {fileID: 1677730888}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Player
@@ -131,20 +132,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -182.549, z: 0}
---- !u!114 &5272043323611117221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352142542513105702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a68d4c3aee4db98a8b44a3fe0e8960, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 1
-  VisiblePart: {fileID: 0}
 --- !u!54 &297558984757713762
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -161,20 +148,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &361549657132803942
-CapsuleCollider:
+--- !u!114 &5836476183694948126
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 352142542513105702}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.31207356
-  m_Height: 1.9269416
-  m_Direction: 1
-  m_Center: {x: 0.022010833, y: 0.971573, z: -0.019338427}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b92717fbb0c4b2cbd14d26287f33dc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerT: {fileID: 0}
+  navMeshAgent: {fileID: 1677730888}
 --- !u!114 &352142542513105701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +179,42 @@ MonoBehaviour:
   visiblePart: {fileID: 352142542513105702}
   maxHealthValue: 100
   health: 100
+--- !u!136 &361549657132803942
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352142542513105702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.31207356
+  m_Height: 1.9269416
+  m_Direction: 1
+  m_Center: {x: 0.022010833, y: 0.971573, z: -0.019338427}
+--- !u!195 &1677730888
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352142542513105702}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &352164535738846210
 GameObject:
   m_ObjectHideFlags: 0
@@ -3788,13 +3811,12 @@ MonoBehaviour:
   WeaponName: Shotgun
   SerialRate: 0.6
   Damage: 10
-  AttackSpeed: 20
   Range: 50
   Sprite: {fileID: 0}
   MagazineCapacity: 7
-  Ammo: 0
+  AttackSpeed: 20
+  ReloadRate: 0
   aim: {fileID: 2512439404313846412}
-  reloadRate: 3
   splash: 0.074
 --- !u!1 &2512439404634057132
 GameObject:
@@ -4198,13 +4220,12 @@ MonoBehaviour:
   WeaponName: Rifle
   SerialRate: 0.2
   Damage: 30
-  AttackSpeed: 40
   Range: 600
   Sprite: {fileID: 0}
   MagazineCapacity: 30
-  Ammo: 0
+  AttackSpeed: 40
+  ReloadRate: 0
   aim: {fileID: 2512439404207044387}
-  reloadRate: 2
 --- !u!1 &7799782408448383073
 GameObject:
   m_ObjectHideFlags: 0
