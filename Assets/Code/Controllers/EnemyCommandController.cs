@@ -6,8 +6,6 @@
     using UnityEngine;
 
     public class EnemyCommandController : MonoBehaviour, CommandController {
-        private InputController inputController;
-
         public float ForwardMoving    { get; }
         public float HorizontalMoving { get; }
         public float RotateX          { get; }
@@ -27,9 +25,6 @@
 
         public float SerialRate {
             set => this.serialRate = value;
-        }
-
-        public void Initialize(InputController inputController) {
         }
 
         [SerializeField] private NavMeshAgent navMeshAgent;

@@ -13,18 +13,16 @@
     public class GameManager : MonoBehaviour {
         public PoolOptions PoolOptions;
 
-        [SerializeField] private JoystickController joystickController;
-        [SerializeField] private Player             player;
-        [SerializeField] private float              cameraYAxisOnMobilePlatform = -25f;
-        [SerializeField] private Transform          respawnPoint;
+        [SerializeField] private Player    player;
+        [SerializeField] private float     cameraYAxisOnMobilePlatform = -25f;
+        [SerializeField] private Transform respawnPoint;
 
-        private InputController playerInputController;
-        private Joystick        joystick;
+        private Joystick joystick;
 
         // Singletons
         private PoolManager              poolManager;
         private AnimatorManager          animatorManager;
-        private CommandController        playerCommandController;
+        private PlayerCommandController  playerCommandController;
         private CommandsForBotController commandsForBotController;
         private EnemiesManager           enemiesManager;
 
@@ -86,21 +84,15 @@
 
         private void Initialize() {
             this.GetSingletons();
+            this.joystick = this.playerCommandController.Initialize() as Joystick;
 
-            if (!Application.isMobilePlatform) {
-                this.playerInputController = this.joystickController;
-                this.joystick              = this.playerInputController as Joystick;
-                this.isJoystickOn          = true;
-
+            if (this.joystick != null) {
                 this.weaponController.OnWeaponChanged += (rate, sprite, isThrowable) => this.joystick.RearrangeAttackUI(sprite, isThrowable);
+                this.isJoystickOn                     =  true;
             }
             else {
-                this.playerInputController = this.gameObject.AddComponent<KeyboardController>();
-                this.isJoystickOn          = false;
+                this.isJoystickOn = false;
             }
-
-            this.joystickController.gameObject.SetActive(this.isJoystickOn);
-            this.playerCommandController.Initialize(this.playerInputController);
 
             this.animatorManager.OnWeaponEquip += this.weaponController.OnWeaponEquip;
 

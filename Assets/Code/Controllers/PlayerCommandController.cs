@@ -6,6 +6,9 @@ namespace Controllers {
     public class PlayerCommandController : MonoBehaviour, CommandController {
         public static PlayerCommandController Instance;
 
+        private                  InputController    playerInputController;
+        [SerializeField] private JoystickController joystickController;
+
         public float ForwardMoving    => this.forwardMoving;
         public float HorizontalMoving => this.horizontalMoving;
         public float RotateX          => this.rotateX;
@@ -33,11 +36,24 @@ namespace Controllers {
             set => this.inputController.SerialRate = value;
         }
 
-        public void Initialize(InputController inputController) {
-            this.inputController                  =  inputController;
+        public InputController Initialize() {
+            bool isJoystick;
+
+            if (!Application.isMobilePlatform) {
+                this.inputController = this.joystickController;
+                isJoystick           = true;
+            }
+            else {
+                this.playerInputController = this.gameObject.AddComponent<KeyboardController>();
+                isJoystick                 = false;
+            }
+
+            this.joystickController.gameObject.SetActive(isJoystick);
             this.inputController.OnFireOnce       += () => this.OnFireOnce?.Invoke();
             this.inputController.OnReload         += () => this.OnReload?.Invoke();
             this.inputController.OnChangingWeapon += () => this.OnChangingWeapon?.Invoke();
+
+            return this.inputController;
         }
 
         private void Awake() => Instance = this;

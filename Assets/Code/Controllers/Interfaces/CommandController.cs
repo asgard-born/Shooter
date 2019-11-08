@@ -13,7 +13,5 @@
         event Action OnFireOnce;
         event Action OnReload;
         event Action OnChangingWeapon;
-
-        void Initialize(InputController inputController);
     }
 }
