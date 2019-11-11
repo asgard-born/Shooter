@@ -116,11 +116,6 @@
             }
         }
 
-        private void Aiming(Vector3 direction) {
-            var newRotation = Quaternion.LookRotation(direction);
-            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, newRotation, 0.1f);
-        }
-
         private void BehaveAccordingThePhase() {
             switch (this.phase) {
                 case AIPhase.Attacking:

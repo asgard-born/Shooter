@@ -1,8 +1,8 @@
-﻿using System;
-using Controllers.Interfaces;
-using UnityEngine;
+﻿namespace Controllers {
+    using System;
+    using Interfaces;
+    using UnityEngine;
 
-namespace Controllers {
     public class PlayerCommandController : MonoBehaviour, CommandController {
         public static PlayerCommandController Instance;
 
@@ -12,6 +12,7 @@ namespace Controllers {
         public float HorizontalMoving => this.horizontalMoving;
         public float RotateX          => this.rotateX;
         public float RotateY          => this.rotateY;
+        public float BallisticValue   => this.joystickController.GetBallisticValue;
         public bool  IsSneak          => this.isSneak;
         public bool  IsJumping        => this.isJumping;
 
@@ -26,7 +27,6 @@ namespace Controllers {
         public event Action OnFireOnce;
         public event Action OnReload;
         public event Action OnChangingWeapon;
-        public event Action OnGrenadeAngleChanged;
 
         private InputController inputController;
 
@@ -44,7 +44,7 @@ namespace Controllers {
             }
             else {
                 this.inputController = this.gameObject.AddComponent<KeyboardController>();
-                this.isJoystick            = false;
+                this.isJoystick      = false;
             }
 
             this.joystickController.gameObject.SetActive(this.isJoystick);

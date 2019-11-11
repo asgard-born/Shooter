@@ -8,10 +8,10 @@
     using UnityEngine;
 
     public class WeaponController : MonoBehaviour {
-        public static WeaponController Instance;
-        public        Weapon[]         Weapons;
+        public Weapon[] Weapons;
 
-        [SerializeField] private ArcRenderer arcRenderer;
+        [SerializeField] private ArcRenderer       arcRenderer;
+        [SerializeField] private GrenadeController grenadeController;
 
         public event Action<float, Sprite, bool> OnWeaponChanged;
         public event Action<string, bool>        OnWeaponRearranged;
@@ -27,8 +27,17 @@
 
         private bool isChangingWeaponProcess;
         private bool isChangingWeaponOver = true;
-        private bool isFiring;
+        private bool isFiring;    
         private bool isThrowable;
+
+        public float BallisticValue {
+            set {
+                this.ballisticValue += value;
+                this.ballisticValue =  Mathf.Clamp(this.ballisticValue, 15, 90);
+            }
+        }
+
+        private float ballisticValue = 45f;
 
         public void OnWeaponEquip() {
             if (this.isChangingWeaponProcess) {
@@ -63,14 +72,20 @@
             this.OnWeaponChanged?.Invoke(this.currentWeaponInstance.SerialRate, this.currentWeaponInstance.Sprite, this.isThrowable);
         }
 
-        public void SetupTheWeapon(bool isSet) {
+        private void SetupTheWeapon(bool isSet) {
             this.OnWeaponRearranged?.Invoke(this.currentWeaponInstance.WeaponName, isSet);
         }
 
         private void Awake() {
-            Instance          = this;
             this.player       = this.GetComponent<Character>();
             this.character_id = this.player.Id;
+        }
+
+        private void Update() {
+            if (this.grenadeController != null) {
+                this.arcRenderer.Angle       = this.ballisticValue;
+                this.grenadeController.Angle = this.ballisticValue;
+            }
         }
 
         public void ChangeWeapon() {
@@ -101,7 +116,7 @@
         private void DetectThrowingWeapon() {
             var throwInstance = this.currentWeaponInstance as ThrowingWeapon;
             this.isThrowable = throwInstance != null;
-            
+
             if (this.arcRenderer != null) {
                 this.arcRenderer.SetupRendering(this.isThrowable);
             }
