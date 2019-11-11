@@ -3,7 +3,7 @@
     using UnityEngine.UI;
 
     public interface Joystick {
-        AttackButton AttackBtn       { get; }
+        Image WeaponImage       { get; }
         Button       ReloadBtn       { get; }
         Button       ChangeWeaponBtn { get; }
 
