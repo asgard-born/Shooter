@@ -31,24 +31,23 @@ namespace Controllers {
         private InputController inputController;
 
         private bool canInputFire = true;
+        private bool isJoystick;
 
         public float SerialRate {
             set => this.inputController.SerialRate = value;
         }
 
         public InputController Initialize() {
-            bool isJoystick;
-
             if (!Application.isMobilePlatform) {
                 this.inputController = this.joystickController;
-                isJoystick           = true;
+                this.isJoystick      = true;
             }
             else {
                 this.playerInputController = this.gameObject.AddComponent<KeyboardController>();
-                isJoystick                 = false;
+                this.isJoystick            = false;
             }
 
-            this.joystickController.gameObject.SetActive(isJoystick);
+            this.joystickController.gameObject.SetActive(this.isJoystick);
             this.inputController.OnFireOnce       += () => this.OnFireOnce?.Invoke();
             this.inputController.OnReload         += () => this.OnReload?.Invoke();
             this.inputController.OnChangingWeapon += () => this.OnChangingWeapon?.Invoke();
@@ -62,9 +61,17 @@ namespace Controllers {
             this.rotateX += this.inputController.GetAxisX;
             this.rotateY -= this.inputController.GetAxisY;
 
-            this.forwardMoving    = this.inputController.ForwardMoving;
-            this.horizontalMoving = this.inputController.HorizontalMoving;
-            this.isSneak          = this.inputController.IsSneak;
+            if (this.isJoystick) {
+                this.forwardMoving    = this.inputController.ForwardMoving > 0 ? 1 : this.inputController.ForwardMoving < 0 ? -1 : 0;
+                this.horizontalMoving = this.inputController.HorizontalMoving > 0 ? 1 : 0;
+            }
+            else {
+                this.forwardMoving    = this.inputController.ForwardMoving;
+                this.horizontalMoving = this.inputController.HorizontalMoving;
+            }
+
+
+            this.isSneak = this.inputController.IsSneak;
 
             this.isJumping = this.inputController.IsJumping;
         }

@@ -1,4 +1,7 @@
-﻿namespace Managers {
+﻿using System;
+using System.Threading.Tasks;
+
+namespace Managers {
     using Structures.Weapons.WeaponTypes;
     using System.Linq;
     using Structures.Weapons.ConcreteWeapons;
@@ -38,11 +41,12 @@
             this.player.OnDeath += () => this.isRespawning = true;
         }
 
-        private void Start() {
+        private async void Start() {
             this.GetSingletones();
             this.GetLogicEssences();
             this.ParseJSONData();
             this.EstablishSubscriptions();
+            await Task.Delay(TimeSpan.FromSeconds(1));
             this.Initialize();
         }
 
@@ -85,8 +89,8 @@
 
 
                 // for not to loosing after 2 seconds :)
-                var additionalSerialRate = 1.8f;
-                var enemyDamage = 10;
+                var additionalSerialRate = 3.8f;
+                var enemyDamage          = 10;
                 foreach (var enemy in this.enemiesManager.Enemies) {
                     enemy.EnemyCommandController.SerialRate = (weaponOptions.First(option => option.id == 1).serialRate + additionalSerialRate);
 
@@ -184,9 +188,15 @@
         }
 
         private void FixedUpdate() {
+            var horizontalMoving = 0f;
+
+            if (!this.isJoystickOn) {
+                horizontalMoving = this.playerCommandController.HorizontalMoving;
+            }
+
             this.movementController.Move(
                 this.playerCommandController.ForwardMoving,
-                0);
+                horizontalMoving);
         }
 
         private void LateUpdate() {
@@ -201,13 +211,17 @@
         }
 
         private void UpdateAnimatorState() {
-            this.animatorManager.ForwardMoving    = this.playerCommandController.ForwardMoving;
-            this.animatorManager.HorizontalMoving = this.playerCommandController.HorizontalMoving;
-            this.animatorManager.IsSneak          = this.playerCommandController.IsSneak;
-            this.animatorManager.IsJumping        = this.movementController.IsJumping;
-            this.animatorManager.IsFalling        = this.movementController.IsFalling();
-            this.animatorManager.IsGrounded       = this.movementController.IsGrounded();
-            this.animatorManager.IsNearToGround   = this.movementController.IsNearToGround();
+            this.animatorManager.ForwardMoving = this.playerCommandController.ForwardMoving;
+
+            if (!this.isJoystickOn) {
+                this.animatorManager.HorizontalMoving = this.playerCommandController.HorizontalMoving;
+            }
+
+            this.animatorManager.IsSneak        = this.playerCommandController.IsSneak;
+            this.animatorManager.IsJumping      = this.movementController.IsJumping;
+            this.animatorManager.IsFalling      = this.movementController.IsFalling();
+            this.animatorManager.IsGrounded     = this.movementController.IsGrounded();
+            this.animatorManager.IsNearToGround = this.movementController.IsNearToGround();
         }
     }
 }

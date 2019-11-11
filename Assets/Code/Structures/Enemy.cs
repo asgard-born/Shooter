@@ -37,11 +37,6 @@
         private void UpdateAnimatorState() {
             this.animatorManager.ForwardMoving    = this.EnemyCommandController.ForwardMoving;
             this.animatorManager.HorizontalMoving = this.EnemyCommandController.HorizontalMoving;
-
-            this.animatorManager.IsJumping      = this.movementController.IsJumping;
-            this.animatorManager.IsFalling      = this.movementController.IsFalling();
-            this.animatorManager.IsGrounded     = this.movementController.IsGrounded();
-            this.animatorManager.IsNearToGround = this.movementController.IsNearToGround();
         }
     }
 }

@@ -23,8 +23,9 @@
         private Lifer      life;
         private RaycastHit hit;
 
-        public                   float     serialRate;
-        public                   bool      isAiming;
+        public float serialRate;
+        public bool  isAiming;
+
         [SerializeField] private LayerMask checkingForObstaclesLayerMask;
 
         public float SerialRate {
@@ -33,14 +34,15 @@
 
         [Range(.5f, 15f)] [SerializeField] private float distanceFactorForNewPosition = 11.2f;
 
-        [SerializeField]                    private float minDistanceForAttack = 7;
-        [SerializeField]                    private float maxDistanceForAttack = 15;
-        [Range(.5f, 2.5f)] [SerializeField] private float aimingFallibility    = 1.8f;
+        [SerializeField] private float minDistanceForAttack = 15;
+        [SerializeField] private float maxDistanceForAttack = 25;
+
+        [Range(.5f, 2.5f)] [SerializeField] private float aimingFallibility = 1.8f;
 
         private float chosenDistanceForAttack;
 
         private NavMeshAgent navMeshAgent;
-        private AIPhase      phase = AIPhase.Attacking;
+        private AIPhase      phase = AIPhase.ChasingPlayer;
         private Transform    PlayerT;
 
         private bool isInitialized;
@@ -68,6 +70,8 @@
         }
 
         private void UpdateBehaviour() {
+            if (!this.isInitialized) return;
+
             var canAttack = this.CheckForAttackOpportunity();
 
             if (this.phase != AIPhase.Attacking && canAttack && (this.PlayerT.position - this.transform.position).magnitude <= this.chosenDistanceForAttack) {
@@ -90,12 +94,12 @@
                 case AIPhase.Attacking:
                     this.forwardMoving          = 0;
                     this.navMeshAgent.isStopped = true;
+                    this.StopCoroutine(this.Fire());
                     this.StartCoroutine(this.Fire());
                     break;
 
                 case AIPhase.ChasingPlayer:
                     this.chosenDistanceForAttack = Random.Range(this.minDistanceForAttack, this.maxDistanceForAttack);
-                    this.StopCoroutine(this.Fire());
                     break;
             }
 
@@ -107,9 +111,8 @@
                 this.isAiming = true;
                 var pointForAttack = this.PlayerT.position + this.PlayerT.right * Random.Range(this.aimingFallibility, -this.aimingFallibility);
                 this.transform.LookAt(pointForAttack);
-
-                yield return new WaitForSeconds(this.serialRate);
                 this.OnFireOnce?.Invoke();
+                yield return new WaitForSeconds(this.serialRate);
             }
         }
 
@@ -122,26 +125,25 @@
             switch (this.phase) {
                 case AIPhase.Attacking:
 
-
                     break;
 
                 case AIPhase.ChasingPlayer:
-                    var randomPosition = this.PlayerT.position
-                      + this.PlayerT.forward * Random.Range(this.distanceFactorForNewPosition, -this.distanceFactorForNewPosition)
-                      + this.PlayerT.right * Random.Range(this.distanceFactorForNewPosition, -this.distanceFactorForNewPosition);
-
-                    this.transform.LookAt(this.PlayerT);
-                    this.forwardMoving = 1f;
-
-                    this.navMeshAgent.isStopped = false;
-                    this.navMeshAgent.SetDestination(randomPosition);
-
+                    this.ChasingPlayer();
 
                     break;
             }
         }
 
         private void ChasingPlayer() {
+            var randomPosition = this.PlayerT.position
+              + this.PlayerT.forward * Random.Range(this.distanceFactorForNewPosition, -this.distanceFactorForNewPosition)
+              + this.PlayerT.right * Random.Range(this.distanceFactorForNewPosition, -this.distanceFactorForNewPosition);
+
+            this.transform.LookAt(this.PlayerT);
+            this.forwardMoving = 1f;
+
+            this.navMeshAgent.isStopped = false;
+            this.navMeshAgent.SetDestination(randomPosition);
         }
     }
 }
