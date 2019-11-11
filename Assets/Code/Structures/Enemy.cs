@@ -27,7 +27,7 @@
         }
 
         private void Update() {
-            if (canUpdateAnimator) {
+            if (this.canUpdateAnimator) {
                 this.UpdateAnimatorState();
             }
         }

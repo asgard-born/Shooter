@@ -70,8 +70,10 @@
                 }
 
 
+                // for not to loosing after 2 seconds :)
+                var additionalSerialRate = 1.8f;
                 foreach (var enemy in this.enemiesManager.Enemies) {
-                    enemy.EnemyCommandController.SerialRate = weaponOptions.First(option => option.id == 1).serialRate;
+                    enemy.EnemyCommandController.SerialRate = (weaponOptions.First(option => option.id == 1).serialRate + additionalSerialRate);
 
                     foreach (var weapon in enemy.WeaponController.Weapons) {
                         var findedOption = weaponOptions.First(option => option.id == weapon.Id);

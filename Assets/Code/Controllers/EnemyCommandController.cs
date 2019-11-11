@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Threading.Tasks;
-
-namespace Controllers {
+﻿namespace Controllers {
+    using System.Collections;
+    using System.Threading.Tasks;
     using Structures;
     using UnityEngine.AI;
     using System;
@@ -10,7 +9,7 @@ namespace Controllers {
     using Random = UnityEngine.Random;
 
     public class EnemyCommandController : MonoBehaviour, CommandController {
-        public float ForwardMoving    { get; }
+        public float ForwardMoving    => this.forwardMoving;
         public float HorizontalMoving { get; }
         public float RotateX          { get; }
         public float RotateY          { get; }
@@ -21,16 +20,22 @@ namespace Controllers {
         public event Action OnReload;
         public event Action OnChangingWeapon;
 
-        private float serialRate;
+        private Lifer      life;
+        private RaycastHit hit;
+
+        public                   float     serialRate;
+        public                   bool      isAiming;
+        [SerializeField] private LayerMask checkingForObstaclesLayerMask;
 
         public float SerialRate {
             set => this.serialRate = value;
         }
 
-        [Range(17f, 10f)] [SerializeField] private float distanceForNewPos = 5f;
+        [Range(.5f, 15f)] [SerializeField] private float distanceFactorForNewPosition = 11.2f;
 
-        [SerializeField] private float minDistanceForAttack = 7;
-        [SerializeField] private float maxDistanceForAttack = 15;
+        [SerializeField]                    private float minDistanceForAttack = 7;
+        [SerializeField]                    private float maxDistanceForAttack = 15;
+        [Range(.5f, 2.5f)] [SerializeField] private float aimingFallibility    = 1.8f;
 
         private float chosenDistanceForAttack;
 
@@ -38,54 +43,59 @@ namespace Controllers {
         private AIPhase      phase = AIPhase.Attacking;
         private Transform    PlayerT;
 
-        private bool needToSafeMyself;
+        private bool isInitialized;
 
         private Action<AIPhase> OnPhaseChanged;
+        private float           forwardMoving;
 
-        public void Initialize(Transform playerT) => this.PlayerT = playerT;
-
-        private void Awake() {
+        public void Initialize(Transform playerT) {
+            this.life         = this.GetComponent<Lifer>();
             this.navMeshAgent = this.GetComponent<NavMeshAgent>();
 
-            this.OnPhaseChanged = this.ChangeThePhase;
-        }
+            this.OnPhaseChanged          = this.ChangeThePhase;
+            this.chosenDistanceForAttack = Random.Range(this.minDistanceForAttack, this.maxDistanceForAttack);
 
-        private async void Start() {
-            await Task.Delay(TimeSpan.FromSeconds(3f));
-            this.OnPhaseChanged?.Invoke(AIPhase.Attacking);
+            this.PlayerT       = playerT;
+            this.isInitialized = true;
         }
 
         private void Update() {
-            if (this.PlayerT != null) {
-                if ((this.PlayerT.position - this.transform.position).magnitude <= this.chosenDistanceForAttack) {
-                    this.OnPhaseChanged?.Invoke(AIPhase.Attacking);
-                }
-                else {
-                    this.phase = AIPhase.ChasingPlayer;
-                }
+            if (this.isInitialized) {
+                this.UpdateBehaviour();
 
                 this.BehaveAccordingThePhase();
             }
         }
 
+        private void UpdateBehaviour() {
+            var canAttack = this.CheckForAttackOpportunity();
+
+            if (this.phase != AIPhase.Attacking && canAttack && (this.PlayerT.position - this.transform.position).magnitude <= this.chosenDistanceForAttack) {
+                this.OnPhaseChanged?.Invoke(AIPhase.Attacking);
+            }
+            else if (!canAttack
+             || this.phase != AIPhase.ChasingPlayer && (this.PlayerT.position - this.transform.position).magnitude > this.chosenDistanceForAttack) {
+                this.OnPhaseChanged?.Invoke(AIPhase.ChasingPlayer);
+            }
+        }
+
+        private bool CheckForAttackOpportunity() {
+            return !Physics.Linecast(this.transform.position + Vector3.up, this.PlayerT.position + Vector3.up, out this.hit, this.checkingForObstaclesLayerMask);
+        }
+
         private void ChangeThePhase(AIPhase phase) {
-            switch (this.phase) {
+            this.phase = phase;
+
+            switch (phase) {
                 case AIPhase.Attacking:
-
-                    this.navMeshAgent.Stop();
+                    this.forwardMoving          = 0;
+                    this.navMeshAgent.isStopped = true;
                     this.StartCoroutine(this.Fire());
-
                     break;
 
                 case AIPhase.ChasingPlayer:
                     this.chosenDistanceForAttack = Random.Range(this.minDistanceForAttack, this.maxDistanceForAttack);
-
-
-                    break;
-
-                case AIPhase.Dodging:
-
-
+                    this.StopCoroutine(this.Fire());
                     break;
             }
 
@@ -93,28 +103,40 @@ namespace Controllers {
         }
 
         private IEnumerator Fire() {
-            this.OnFireOnce?.Invoke();
-            yield return new WaitForSeconds(this.serialRate);
-            
-            this.StartCoroutine(this.Fire());
+            while (this.phase == AIPhase.Attacking) {
+                this.isAiming = true;
+                var pointForAttack = this.PlayerT.position + this.PlayerT.right * Random.Range(this.aimingFallibility, -this.aimingFallibility);
+                this.transform.LookAt(pointForAttack);
+
+                yield return new WaitForSeconds(this.serialRate);
+                this.OnFireOnce?.Invoke();
+            }
+        }
+
+        private void Aiming(Vector3 direction) {
+            var newRotation = Quaternion.LookRotation(direction);
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, newRotation, 0.1f);
         }
 
         private void BehaveAccordingThePhase() {
             switch (this.phase) {
                 case AIPhase.Attacking:
 
+
                     break;
 
                 case AIPhase.ChasingPlayer:
-                    var randomPosition = this.PlayerT.forward * this.distanceForNewPos
-                      + this.PlayerT.right * Random.Range(-this.distanceForNewPos, this.distanceForNewPos);
+                    var randomPosition = this.PlayerT.position
+                      + this.PlayerT.forward * Random.Range(this.distanceFactorForNewPosition, -this.distanceFactorForNewPosition)
+                      + this.PlayerT.right * Random.Range(this.distanceFactorForNewPosition, -this.distanceFactorForNewPosition);
 
+                    this.transform.LookAt(this.PlayerT);
+                    this.forwardMoving = 1f;
+
+                    this.navMeshAgent.isStopped = false;
                     this.navMeshAgent.SetDestination(randomPosition);
 
 
-                    break;
-
-                case AIPhase.Dodging:
                     break;
             }
         }
