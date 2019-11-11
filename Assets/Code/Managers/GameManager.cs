@@ -34,12 +34,26 @@
         private bool  isJoystickOn;
         private bool  isRespawning;
 
-        private void Awake()
-            => this.player.OnDeath += () => this.isRespawning = true;
+        private void Awake() {
+            this.player.OnDeath += () => this.isRespawning = true;
+        }
 
         private void Start() {
+            this.GetSingletones();
+            this.GetLogicEssences();
+            this.ParseJSONData();
+            this.EstablishSubscriptions();
             this.Initialize();
+        }
 
+        private void Initialize() {
+            this.weaponController.Initialize();
+            this.poolManager.Initialize(this.PoolOptions.Pools);
+
+            this.InitializeTheEnemies();
+        }
+
+        private void ParseJSONData() {
             var asset = Resources.Load<TextAsset>("GameOptions/weapon_options");
 
             if (asset != null) {
@@ -72,6 +86,7 @@
 
                 // for not to loosing after 2 seconds :)
                 var additionalSerialRate = 1.8f;
+                var enemyDamage = 10;
                 foreach (var enemy in this.enemiesManager.Enemies) {
                     enemy.EnemyCommandController.SerialRate = (weaponOptions.First(option => option.id == 1).serialRate + additionalSerialRate);
 
@@ -80,7 +95,7 @@
 
                         weapon.WeaponName = findedOption.weaponName;
                         weapon.SerialRate = findedOption.serialRate;
-                        weapon.Damage     = findedOption.damage;
+                        weapon.Damage     = enemyDamage;
                         weapon.Range      = findedOption.range;
 
                         if (weapon is Grenade grenade) {
@@ -99,22 +114,7 @@
             }
         }
 
-        private void Respawn() {
-            this.player.transform.position = Vector3.Lerp(
-                this.player.transform.position, this.respawnPoint.position, Time.deltaTime);
-
-            if (Vector3.Distance(this.player.transform.position, this.respawnPoint.position) <= 0.5f) {
-                this.isRespawning              = false;
-                this.player.transform.position = this.respawnPoint.position;
-                this.player.gameObject.SetActive(true);
-                this.player.Respawn();
-            }
-        }
-
-        private void Initialize() {
-            this.GetSingletones();
-            this.GetLogicEssences();
-
+        private void EstablishSubscriptions() {
             this.joystick = this.playerCommandController.Initialize() as Joystick;
 
             if (this.joystick != null) {
@@ -135,11 +135,18 @@
             this.playerCommandController.OnFireOnce       += this.weaponController.OnFire;
             this.playerCommandController.OnReload         += this.weaponController.Reload;
             this.playerCommandController.OnChangingWeapon += this.weaponController.ChangeWeapon;
+        }
 
-            this.weaponController.Initialize();
-            this.poolManager.Initialize(this.PoolOptions.Pools);
+        private void Respawn() {
+            this.player.transform.position = Vector3.Lerp(
+                this.player.transform.position, this.respawnPoint.position, Time.deltaTime);
 
-            this.InitializeTheEnemies();
+            if (Vector3.Distance(this.player.transform.position, this.respawnPoint.position) <= 0.5f) {
+                this.isRespawning              = false;
+                this.player.transform.position = this.respawnPoint.position;
+                this.player.gameObject.SetActive(true);
+                this.player.Respawn();
+            }
         }
 
         private void GetLogicEssences() {
