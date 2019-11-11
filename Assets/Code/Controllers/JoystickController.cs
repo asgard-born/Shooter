@@ -10,7 +10,7 @@
     public class JoystickController : MonoBehaviour, InputController, Joystick {
         public float ForwardMoving     => this.movingJoystick.GetAxisY();
         public float HorizontalMoving  => this.movingJoystick.GetAxisX();
-        public float GetAxisX          => this.movingJoystick.GetAxisX();
+        public float GetAxisX          => this.movingJoystick.GetAxisX() * 1.5f;
         public float GetAxisY          => this.movingJoystick.GetAxisY();
         public float GetBallisticValue => this.grenadeBar.GetAxisY();
 

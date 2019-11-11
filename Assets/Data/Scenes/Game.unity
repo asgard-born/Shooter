@@ -1562,7 +1562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &306518067
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6079,7 +6079,7 @@ MonoBehaviour:
   - {fileID: 988844697}
   - {fileID: 1700999855}
   arcRenderer: {fileID: 281702170}
-  currentWeaponNumber: 0
+  currentWeaponNumber: 2
 --- !u!114 &1698161844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6123,8 +6123,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698161838}
-  m_LocalRotation: {x: -0, y: -0.7107533, z: -0, w: -0.70344144}
-  m_LocalPosition: {x: -2.4648483, y: 0, z: 13.367186}
+  m_LocalRotation: {x: -0, y: 0.41512778, z: -0, w: -0.90976316}
+  m_LocalPosition: {x: 27.8, y: 0, z: -13.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1649249092}
@@ -6132,7 +6132,7 @@ Transform:
   - {fileID: 1589417882}
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: -269.408, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -409.055, z: 0}
 --- !u!114 &1698161847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7590,6 +7590,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrenadeBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167540620779432661, guid: 0ba45df726ca7854eaa5852f9a1403fb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6945498821958276217, guid: 0ba45df726ca7854eaa5852f9a1403fb,
         type: 3}

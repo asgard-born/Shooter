@@ -6,7 +6,6 @@ namespace Controllers {
     public class PlayerCommandController : MonoBehaviour, CommandController {
         public static PlayerCommandController Instance;
 
-        private                  InputController    playerInputController;
         [SerializeField] private JoystickController joystickController;
 
         public float ForwardMoving    => this.forwardMoving;
@@ -27,6 +26,7 @@ namespace Controllers {
         public event Action OnFireOnce;
         public event Action OnReload;
         public event Action OnChangingWeapon;
+        public event Action OnGrenadeAngleChanged;
 
         private InputController inputController;
 
@@ -43,7 +43,7 @@ namespace Controllers {
                 this.isJoystick      = true;
             }
             else {
-                this.playerInputController = this.gameObject.AddComponent<KeyboardController>();
+                this.inputController = this.gameObject.AddComponent<KeyboardController>();
                 this.isJoystick            = false;
             }
 
