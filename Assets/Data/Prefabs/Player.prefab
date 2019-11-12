@@ -2962,7 +2962,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6598971201574492195}
-  m_LocalRotation: {x: -0, y: 0.41512778, z: -0, w: -0.90976316}
+  m_LocalRotation: {x: 0, y: 0.41512978, z: -0, w: -0.90976226}
   m_LocalPosition: {x: 27.8, y: 0, z: -13.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2985,8 +2985,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 16
-  VisiblePart: {fileID: 6598971201687336910}
   lifer: {fileID: 0}
+  cameraYAxisOnMobilePlatform: -30
 --- !u!114 &6598971201574492216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3041,7 +3041,7 @@ MonoBehaviour:
   - {fileID: 6598971201571622434}
   arcRenderer: {fileID: 0}
   grenadeController: {fileID: 0}
-  currentWeaponNumber: 2
+  currentWeaponNumber: 0
 --- !u!114 &6598971201574492223
 MonoBehaviour:
   m_ObjectHideFlags: 0
