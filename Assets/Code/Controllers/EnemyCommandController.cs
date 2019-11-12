@@ -32,7 +32,8 @@
             set => this.serialRate = value;
         }
 
-        [Range(.5f, 15f)] [SerializeField] private float distanceFactorForNewPosition = 11.2f;
+        [Range(30f, 150f)] [SerializeField] private float distanceForwardFactorForNewPosition = 100f;
+        [Range(30f, 250f)] [SerializeField] private float distanceHorizontalFactorForNewPosition = 200f;
 
         [SerializeField] private float minDistanceForAttack = 15;
         [SerializeField] private float maxDistanceForAttack = 25;
@@ -130,9 +131,17 @@
         }
 
         private void ChasingPlayer() {
+            var isPositiveNumberForward    = (Random.Range(0, 2) == 0);
+            var isPositiveNumberHorizontal = (Random.Range(0, 2) == 0);
+
+            var forwardRandom    = Random.Range(this.distanceForwardFactorForNewPosition, this.distanceForwardFactorForNewPosition / 2);
+            var horizontalRandom = Random.Range(this.distanceHorizontalFactorForNewPosition, this.distanceHorizontalFactorForNewPosition / 2f);
+
+            forwardRandom    = !isPositiveNumberForward ? -forwardRandom : forwardRandom;
+            horizontalRandom = !isPositiveNumberHorizontal ? -horizontalRandom : horizontalRandom;
+
             var randomPosition = this.PlayerT.position
-              + this.PlayerT.forward * Random.Range(this.distanceFactorForNewPosition, -this.distanceFactorForNewPosition)
-              + this.PlayerT.right * Random.Range(this.distanceFactorForNewPosition, -this.distanceFactorForNewPosition);
+              + this.PlayerT.forward * forwardRandom + this.PlayerT.right * horizontalRandom;
 
             this.transform.LookAt(this.PlayerT);
             this.forwardMoving = 1f;

@@ -182,9 +182,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serialRate: 0
   isAiming: 0
-  distanceForNewPos: 2.16
-  minDistanceForAttack: 7
-  maxDistanceForAttack: 15
+  checkingForObstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 1559
+  distanceFactorForNewPosition: 30.4
+  minDistanceForAttack: 15
+  maxDistanceForAttack: 25
   aimingFallibility: 1.8
 --- !u!114 &5504676608124326265
 MonoBehaviour:
@@ -202,6 +205,7 @@ MonoBehaviour:
   - {fileID: 2512439405413045516}
   - {fileID: 2512439404517596502}
   arcRenderer: {fileID: 0}
+  grenadeController: {fileID: 0}
   currentWeaponNumber: 0
 --- !u!114 &352142542513105701
 MonoBehaviour:
@@ -244,7 +248,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1.5
+  m_Speed: 1
   m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 20

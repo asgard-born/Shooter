@@ -6,7 +6,6 @@
     public class Enemy : Character {
         [HideInInspector] public EnemyCommandController EnemyCommandController;
         [HideInInspector] public WeaponController       WeaponController;
-        private                  MovementController     movementController;
         private                  AnimatorManager        animatorManager;
 
         public void Respawn() => this.lifer.Respawn();
@@ -15,7 +14,6 @@
 
         private void Awake() {
             this.WeaponController       = this.GetComponent<WeaponController>();
-            this.movementController     = this.GetComponent<MovementController>();
             this.animatorManager        = this.GetComponent<AnimatorManager>();
             this.EnemyCommandController = this.GetComponent<EnemyCommandController>();
 
