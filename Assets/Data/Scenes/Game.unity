@@ -321,7 +321,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -457,7 +457,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -605,7 +605,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -1190,7 +1190,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -1343,7 +1343,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0, g: 0.23935056, b: 1, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -1370,7 +1370,7 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
+    numCornerVertices: 1
     numCapVertices: 0
     alignment: 0
     textureMode: 0
@@ -2153,7 +2153,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -2301,7 +2301,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -2479,7 +2479,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -2718,7 +2718,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -2854,7 +2854,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -3233,7 +3233,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -3667,7 +3667,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -4051,7 +4051,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -4256,7 +4256,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -4798,7 +4798,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
@@ -4936,7 +4936,7 @@ PrefabInstance:
     - target: {fileID: 5836476183694948126, guid: 89f8125a55fc7d24cb38b12f49f66964,
         type: 3}
       propertyPath: maxDistanceForAttack
-      value: 100
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89f8125a55fc7d24cb38b12f49f66964, type: 3}

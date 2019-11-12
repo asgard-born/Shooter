@@ -53,10 +53,12 @@
 
         private async void Awake() {
             this.attackJoystick.activated = false;
+            this.changeWeaponBtn.enabled = false;
             this.changeWeaponBtn.onClick.AddListener(() => this.OnChangingWeapon?.Invoke());
             this.reloadBtn.onClick.AddListener(() => this.OnReload?.Invoke());
             await Task.Delay(TimeSpan.FromSeconds(1));
             this.attackJoystick.activated = true;
+            this.changeWeaponBtn.enabled = true;
         }
 
         public void OnAttackPressDown() {

@@ -88,15 +88,14 @@
 
                 return false;
             }
-            else {
-                this.arcArray[this.currentIteration] = this.CalculateNextPoint(this.time);
 
-                if (this.currentIteration + 1 == this.PointsCount) {
-                    this.currentVelocity = this.Velocity;
-                }
+            this.arcArray[this.currentIteration] = this.CalculateNextPoint(this.time);
 
-                return true;
+            if (this.currentIteration + 1 == this.PointsCount) {
+                this.currentVelocity = this.Velocity;
             }
+
+            return true;
         }
     }
 }
