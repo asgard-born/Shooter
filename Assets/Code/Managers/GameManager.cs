@@ -170,14 +170,7 @@ namespace Managers {
         }
 
         private void Update() {
-            if (this.playerCommandController.AttackRotatingValue == 0) {
-                Debug.Log("yes");
-                this.mouseX = this.playerCommandController.RotateX;
-            }
-            else {
-                this.mouseX = this.playerCommandController.AttackRotatingValue;
-            }
-
+            this.mouseX = this.playerCommandController.RotateX;
             this.mouseY = this.playerCommandController.RotateY;
 
             this.movementController.HorizontalMoving = this.playerCommandController.HorizontalMoving;

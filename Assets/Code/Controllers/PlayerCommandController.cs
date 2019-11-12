@@ -59,7 +59,13 @@
         private void Awake() => Instance = this;
 
         private void Update() {
-            this.rotateX += this.inputController.GetAxisX;
+            if (this.isJoystick) {
+                this.rotateX += this.AttackRotatingValue == 0 ? this.inputController.GetAxisX : this.AttackRotatingValue;
+            }
+            else {
+                this.rotateX += this.inputController.GetAxisX;
+            }
+
             this.rotateY -= this.inputController.GetAxisY;
 
             if (this.isJoystick) {
