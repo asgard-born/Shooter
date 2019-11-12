@@ -1,7 +1,8 @@
-﻿namespace Controllers {
-    using Structures.Weapons;
-    using Structures.Weapons.Interfaces;
-    using Structures.Weapons.WeaponTypes;
+﻿using Weapons;
+using Weapons.Interfaces;
+using Weapons.WeaponTypes;
+
+namespace Controllers {
     using System;
     using System.Threading.Tasks;
     using Structures;
@@ -52,7 +53,7 @@
         }
 
         public void Reload() {
-            if (this.currentWeaponInstance is Reloadable reloadableInstance && !reloadableInstance.IsReloading) {
+            if (this.currentWeaponInstance is IReloadable reloadableInstance && !reloadableInstance.IsReloading) {
                 reloadableInstance.Reload();
             }
         }
