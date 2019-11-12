@@ -8,13 +8,14 @@
 
         [SerializeField] private JoystickController joystickController;
 
-        public float ForwardMoving    => this.forwardMoving;
-        public float HorizontalMoving => this.horizontalMoving;
-        public float RotateX          => this.rotateX;
-        public float RotateY          => this.rotateY;
-        public float BallisticValue   => this.joystickController.GetBallisticValue;
-        public bool  IsSneak          => this.isSneak;
-        public bool  IsJumping        => this.isJumping;
+        public float ForwardMoving       => this.forwardMoving;
+        public float HorizontalMoving    => this.horizontalMoving;
+        public float RotateX             => this.rotateX;
+        public float RotateY             => this.rotateY;
+        public float BallisticValue      => this.joystickController.GetBallisticValue;
+        public float AttackRotatingValue => this.joystickController.GetAttackJoystickValue;
+        public bool  IsSneak             => this.isSneak;
+        public bool  IsJumping           => this.isJumping;
 
         private float rotateX;
         private float rotateY;

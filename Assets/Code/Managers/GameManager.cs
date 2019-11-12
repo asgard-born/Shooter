@@ -65,7 +65,6 @@ namespace Managers {
 
                 var weaponOptions = weaponOptionsContainer.weaponOptions;
 
-
                 foreach (var weapon in this.weaponController.Weapons) {
                     var findedOption = weaponOptions.First(option => option.id == weapon.Id);
 
@@ -86,7 +85,6 @@ namespace Managers {
                         firingWeapon.ReloadRate       = findedOption.reloadRate;
                     }
                 }
-
 
                 // for not to loosing after 2 seconds :)
                 var additionalSerialRate = 3.8f;
@@ -172,7 +170,14 @@ namespace Managers {
         }
 
         private void Update() {
-            this.mouseX = this.playerCommandController.RotateX;
+            if (this.playerCommandController.AttackRotatingValue == 0) {
+                Debug.Log("yes");
+                this.mouseX = this.playerCommandController.RotateX;
+            }
+            else {
+                this.mouseX = this.playerCommandController.AttackRotatingValue;
+            }
+
             this.mouseY = this.playerCommandController.RotateY;
 
             this.movementController.HorizontalMoving = this.playerCommandController.HorizontalMoving;
@@ -180,7 +185,7 @@ namespace Managers {
             this.movementController.IsJumpPressed    = this.playerCommandController.IsJumping;
 
             this.movementController.RotatePlayer(this.mouseX);
-            
+
             this.weaponController.BallisticValue = this.playerCommandController.BallisticValue;
 
             this.UpdateAnimatorState();

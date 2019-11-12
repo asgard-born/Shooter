@@ -1,7 +1,4 @@
-﻿using UnityEngine.Events;
-
-namespace Controllers {
-    using UI;
+﻿namespace Controllers {
     using System.Threading.Tasks;
     using UI.Interfaces;
     using UnityEngine.UI;
@@ -10,12 +7,12 @@ namespace Controllers {
     using UnityEngine;
 
     public class JoystickController : MonoBehaviour, InputController, Joystick {
-        public float      ForwardMoving     => this.movingJoystick.GetAxisY();
-        public float      HorizontalMoving  => this.movingJoystick.GetAxisX();
-        public float      GetAxisX          => this.movingJoystick.GetAxisX() * 1.5f;
-        public float      GetAxisY          => this.movingJoystick.GetAxisY();
-        public float      GetBallisticValue => this.grenadeBar.GetAxisY();
-        public ETCJoystick.OnDownDownHandler OnPressDownHandler;
+        public float ForwardMoving          => this.movingJoystick.GetAxisY();
+        public float HorizontalMoving       => this.movingJoystick.GetAxisX();
+        public float GetAxisX               => this.movingJoystick.GetAxisX() * 1.5f;
+        public float GetAxisY               => this.movingJoystick.GetAxisY();
+        public float GetBallisticValue      => this.grenadeBar.GetAxisY();
+        public float GetAttackJoystickValue => this.attackJoystick.GetAxisX();
 
         public Image  WeaponImage     => this.weaponImg;
         public Button ReloadBtn       => this.reloadBtn;
@@ -31,10 +28,11 @@ namespace Controllers {
 
         public ETCJoystick MovingJoystick => this.movingJoystick;
         public ETCJoystick GrenadeBar     => this.grenadeBar;
-        public ETCJoystick AttackJoystick;
+        public ETCJoystick AttackJoystick => this.attackJoystick;
 
         [SerializeField] private ETCJoystick movingJoystick;
         [SerializeField] private ETCJoystick grenadeBar;
+        [SerializeField] private ETCJoystick attackJoystick;
 
         [SerializeField] private Image  weaponImg;
         [SerializeField] private Button reloadBtn;
@@ -53,28 +51,20 @@ namespace Controllers {
         private void ChangeWeaponSprite(Sprite sprite)
             => this.WeaponImage.GetComponent<Image>().sprite = sprite;
 
-        private UnityEvent OnJoystickPressDown() {
-            Debug.Log("hui");
+        private void Awake() {
+            this.changeWeaponBtn.onClick.AddListener(() => this.OnChangingWeapon?.Invoke());
+            this.reloadBtn.onClick.AddListener(() => this.OnReload?.Invoke());
+        }
+
+        public void OnAttackPressDown() {
             this.isAttackHolding = true;
 
             if (this.canInputFire) {
                 this.PerformFireInputWithFireRate();
             }
-
-            return null;
         }
 
-        private void Awake() {
-            this.changeWeaponBtn.onClick.AddListener(() => this.OnChangingWeapon?.Invoke());
-            this.reloadBtn.onClick.AddListener(() => this.OnReload?.Invoke());
-
-//            this.attackJoystick.OnPressUp += () => this.isAttackHolding = false;
-        }
-
-        private void Start() {
-            this.OnPressDownHandler         = (ETCJoystick.OnDownDownHandler) this.OnJoystickPressDown();
-            this.AttackJoystick.OnPressDown = this.OnPressDownHandler;
-        }
+        public void OnAttackPressUp() => this.isAttackHolding = false;
 
         private void Update() {
             if (this.isAttackHolding && this.canInputFire) {
