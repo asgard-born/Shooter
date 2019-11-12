@@ -1,59 +1,38 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Managers {
+﻿namespace Managers {
+    using System;
+    using System.Threading.Tasks;
     using Structures.Weapons.WeaponTypes;
     using System.Linq;
     using Structures.Weapons.ConcreteWeapons;
     using Structures.Weapons.Options;
-    using Structures;
-    using UI.Interfaces;
-    using Controllers;
     using ScriptableObjects;
     using UnityEngine;
 
     public class GameManager : MonoBehaviour {
         public PoolOptions PoolOptions;
 
-        [SerializeField] private Player    player;
-        [SerializeField] private float     cameraYAxisOnMobilePlatform = -25f;
-        [SerializeField] private Transform respawnPoint;
-
-        private Joystick joystick;
+        [SerializeField] private PlayerManager playerManager;
+        [SerializeField] private Transform     respawnPoint;
 
         // Singletons
-        private PoolManager              poolManager;
-        private AnimatorManager          animatorManager;
-        private PlayerCommandController  playerCommandController;
-        private CommandsForBotController commandsForBotController;
-        private EnemiesManager           enemiesManager;
+        private PoolManager    poolManager;
+        private EnemiesManager enemiesManager;
 
-        private CameraController   cameraController;
-        private MovementController movementController;
-        private WeaponController   weaponController;
+        private bool isRespawning;
 
-        private float mouseX;
-        private float mouseY;
-        private bool  isJoystickOn;
-        private bool  isRespawning;
-
-        private void Awake() {
-            this.player.OnDeath += () => this.isRespawning = true;
-        }
+        private void Awake() 
+            => this.playerManager.OnDeath += () => this.isRespawning = true;
 
         private async void Start() {
             this.GetSingletones();
-            this.GetLogicEssences();
+            await Task.Delay(TimeSpan.FromSeconds(1));
             this.ParseJSONData();
-            this.EstablishSubscriptions();
             await Task.Delay(TimeSpan.FromSeconds(1));
             this.Initialize();
         }
 
         private void Initialize() {
-            this.weaponController.Initialize();
             this.poolManager.Initialize(this.PoolOptions.Pools);
-
             this.InitializeTheEnemies();
         }
 
@@ -65,7 +44,7 @@ namespace Managers {
 
                 var weaponOptions = weaponOptionsContainer.weaponOptions;
 
-                foreach (var weapon in this.weaponController.Weapons) {
+                foreach (var weapon in this.playerManager.WeaponController.Weapons) {
                     var findedOption = weaponOptions.First(option => option.id == weapon.Id);
 
                     weapon.WeaponName = findedOption.weaponName;
@@ -117,112 +96,30 @@ namespace Managers {
             }
         }
 
-        private void EstablishSubscriptions() {
-            this.joystick = this.playerCommandController.Initialize() as Joystick;
-
-            if (this.joystick != null) {
-                this.weaponController.OnWeaponChanged += (rate, sprite, isThrowable) => this.joystick.RearrangeAttackUI(sprite, isThrowable);
-                this.isJoystickOn                     =  true;
-            }
-            else {
-                this.isJoystickOn = false;
-            }
-
-            this.animatorManager.OnWeaponEquip += this.weaponController.OnWeaponEquip;
-
-            this.weaponController.OnWeaponRearranged += this.animatorManager.SetupWeaponCondition;
-            this.weaponController.SetWeaponEquipped  += this.animatorManager.SetWeaponEquipping;
-            this.weaponController.OnWeaponChanged    += (rate, sprite, isThrowable) => this.playerCommandController.SerialRate = rate;
-            this.weaponController.OnWeaponChanged    += (rate, sprite, isThrowable) => this.movementController.SetAimIK(!isThrowable);
-
-            this.playerCommandController.OnFireOnce       += this.weaponController.OnFire;
-            this.playerCommandController.OnReload         += this.weaponController.Reload;
-            this.playerCommandController.OnChangingWeapon += this.weaponController.ChangeWeapon;
-        }
-
         private void Respawn() {
-            this.player.transform.position = Vector3.Lerp(
-                this.player.transform.position, this.respawnPoint.position, Time.deltaTime);
+            this.playerManager.transform.position = Vector3.Lerp(
+                this.playerManager.transform.position, this.respawnPoint.position, Time.deltaTime);
 
-            if (Vector3.Distance(this.player.transform.position, this.respawnPoint.position) <= 0.5f) {
-                this.isRespawning              = false;
-                this.player.transform.position = this.respawnPoint.position;
-                this.player.gameObject.SetActive(true);
-                this.player.Respawn();
+            if (Vector3.Distance(this.playerManager.transform.position, this.respawnPoint.position) <= 0.5f) {
+                this.isRespawning                     = false;
+                this.playerManager.transform.position = this.respawnPoint.position;
+                this.playerManager.gameObject.SetActive(true);
+                this.playerManager.Respawn();
             }
-        }
-
-        private void GetLogicEssences() {
-            this.animatorManager    = this.player.GetComponent<AnimatorManager>();
-            this.movementController = this.player.GetComponent<MovementController>();
-            this.weaponController   = this.player.GetComponent<WeaponController>();
         }
 
         private void GetSingletones() {
-            this.poolManager             = PoolManager.Instance;
-            this.playerCommandController = PlayerCommandController.Instance;
-            this.enemiesManager          = EnemiesManager.Instance;
-            this.cameraController        = CameraController.Instance;
+            this.poolManager    = PoolManager.Instance;
+            this.enemiesManager = EnemiesManager.Instance;
         }
 
-        private void InitializeTheEnemies() {
-            this.enemiesManager.Initialize(this.player.transform);
-        }
+        private void InitializeTheEnemies()
+            => this.enemiesManager.Initialize(this.playerManager.transform);
 
         private void Update() {
-            this.mouseX = this.playerCommandController.RotateX;
-            this.mouseY = this.playerCommandController.RotateY;
-
-            this.movementController.HorizontalMoving = this.playerCommandController.HorizontalMoving;
-            this.movementController.ForwardMoving    = this.playerCommandController.ForwardMoving;
-            this.movementController.IsJumpPressed    = this.playerCommandController.IsJumping;
-
-            this.movementController.RotatePlayer(this.mouseX);
-
-            this.weaponController.BallisticValue = this.playerCommandController.BallisticValue;
-
-            this.UpdateAnimatorState();
-
             if (this.isRespawning) {
                 this.Respawn();
             }
-        }
-
-        private void FixedUpdate() {
-            var horizontalMoving = 0f;
-
-            if (!this.isJoystickOn) {
-                horizontalMoving = this.playerCommandController.HorizontalMoving;
-            }
-
-            this.movementController.Move(
-                this.playerCommandController.ForwardMoving,
-                horizontalMoving);
-        }
-
-        private void LateUpdate() {
-            this.cameraController.RotateTargetHorizontally(this.mouseX);
-
-            if (this.isJoystickOn) {
-                this.cameraController.RotateCamera(this.mouseX, this.cameraYAxisOnMobilePlatform);
-            }
-            else {
-                this.cameraController.RotateCamera(this.mouseX, this.mouseY);
-            }
-        }
-
-        private void UpdateAnimatorState() {
-            this.animatorManager.ForwardMoving = this.playerCommandController.ForwardMoving;
-
-            if (!this.isJoystickOn) {
-                this.animatorManager.HorizontalMoving = this.playerCommandController.HorizontalMoving;
-            }
-
-            this.animatorManager.IsSneak        = this.playerCommandController.IsSneak;
-            this.animatorManager.IsJumping      = this.movementController.IsJumping;
-            this.animatorManager.IsFalling      = this.movementController.IsFalling();
-            this.animatorManager.IsGrounded     = this.movementController.IsGrounded();
-            this.animatorManager.IsNearToGround = this.movementController.IsNearToGround();
         }
     }
 }
