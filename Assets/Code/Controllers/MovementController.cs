@@ -7,28 +7,26 @@
     public class MovementController : MonoBehaviour {
         public static MovementController Instance;
 
+        public float SpeedFactorAdditive;
+        public int   SpeedFactorMultiplicative = 1;
+
+        public float MovingSpeed;
+
         [HideInInspector] public float HorizontalMoving;
         [HideInInspector] public float ForwardMoving;
         [HideInInspector] public bool  IsJumpPressed;
         [HideInInspector] public bool  IsJumping;
 
-        [SerializeField] private float movingSpeed;
-        [SerializeField] private float jumpVelocity       = 7f;
-        [SerializeField] private float jumpRotationSpeed  = 1.2f;
-        private readonly         float turnSmoothingTimer = 0.2f;
+        [SerializeField] private float jumpVelocity      = 7f;
+        [SerializeField] private float jumpRotationSpeed = 1.2f;
+
+        private readonly float turnSmoothingTimer = 0.2f;
 
         private readonly float nearGroundMarker = 1.2f;
 
         private Rigidbody rigidbody;
         private AimIK     aimIK;
         private float     turnSmoothVelocity;
-
-        private void Awake() {
-            Instance = this;
-
-            this.aimIK     = this.GetComponent<AimIK>();
-            this.rigidbody = this.GetComponent<Rigidbody>();
-        }
 
         public void SetAimIK(bool isSet) => this.aimIK.enabled = isSet;
 
@@ -38,8 +36,8 @@
 
         // Should be called in FixedUpdate
         public void Move(float forwardMoving, float horizontalMoving) {
-            forwardMoving    *= this.movingSpeed * Time.fixedDeltaTime;
-            horizontalMoving *= this.movingSpeed * Time.fixedDeltaTime;
+            forwardMoving    *= this.MovingSpeed * Time.fixedDeltaTime;
+            horizontalMoving *= this.MovingSpeed * Time.fixedDeltaTime;
 
             this.rigidbody.MovePosition(
                 this.transform.position +
@@ -58,6 +56,26 @@
             RaycastHit hit;
 
             return (!this.IsGrounded()) && Physics.Raycast(this.transform.position, Vector3.down, out hit, this.nearGroundMarker);
+        }
+
+        public void CalculateMovingValue() {
+            if (this.SpeedFactorMultiplicative == 0) {
+                this.SpeedFactorMultiplicative = 1;
+                
+            }
+            this.MovingSpeed = this.SpeedFactorMultiplicative > 0
+                ? this.MovingSpeed * this.SpeedFactorMultiplicative
+                : this.MovingSpeed / this.SpeedFactorMultiplicative;
+
+
+            this.MovingSpeed += this.MovingSpeed * this.SpeedFactorAdditive;
+        }
+
+        private void Awake() {
+            Instance = this;
+
+            this.aimIK     = this.GetComponent<AimIK>();
+            this.rigidbody = this.GetComponent<Rigidbody>();
         }
 
         private void LateUpdate() {

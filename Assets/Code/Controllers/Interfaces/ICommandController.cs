@@ -1,7 +1,7 @@
 ﻿namespace Controllers.Interfaces {
     using System;
 
-    public interface CommandController {
+    public interface ICommandController {
         float ForwardMoving    { get; }
         float HorizontalMoving { get; }
         float RotateX          { get; }

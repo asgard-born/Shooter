@@ -1,4 +1,5 @@
 ﻿namespace Structures {
+    using Abilities.Interfaces;
     using UnityEngine.Assertions;
     using System;
     using UnityEngine.UI;
@@ -12,6 +13,9 @@
         [SerializeField] private float      maxHealthValue = 100;
         [SerializeField] private float      health;
 
+        public float DamageFactorAdditive;
+        public int   DamageFactorMultiplicative = 1;
+
         public event Action OnDeath;
 
         public void Respawn() {
@@ -20,7 +24,20 @@
             this.healthBar.value = this.health / this.maxHealthValue;
         }
 
-        public void Hit(int damage, int id_attacker, int id_weapon, string weaponName) {
+        private float CalculateDamageValue(float damage) {
+            if (this.DamageFactorMultiplicative == 0) {
+                this.DamageFactorMultiplicative = 1;
+            }
+            
+            damage = this.DamageFactorMultiplicative > 1 ? damage * this.DamageFactorMultiplicative : damage / this.DamageFactorMultiplicative;
+            damage += damage * this.DamageFactorAdditive;
+
+            return damage;
+        }
+
+        public void Hit(float damage, int id_attacker, int id_weapon, string weaponName) {
+            damage = this.CalculateDamageValue(damage);
+
             this.health -= damage;
 
             this.healthBar.value = this.health / this.maxHealthValue;

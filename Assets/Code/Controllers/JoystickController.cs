@@ -6,7 +6,7 @@
     using System;
     using UnityEngine;
 
-    public class JoystickController : MonoBehaviour, InputController, Joystick {
+    public class JoystickController : MonoBehaviour, IInputController, Joystick {
         public float ForwardMoving          => this.movingJoystick.GetAxisY();
         public float HorizontalMoving       => this.movingJoystick.GetAxisX();
         public float GetAxisX               => this.movingJoystick.GetAxisX() * 1.5f;

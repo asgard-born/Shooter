@@ -7,7 +7,7 @@
     using UnityEngine;
     using Random = UnityEngine.Random;
 
-    public class EnemyCommandController : MonoBehaviour, CommandController {
+    public class EnemyCommandController : MonoBehaviour, ICommandController {
         public float ForwardMoving    => this.forwardMoving;
         public float HorizontalMoving { get; }
         public float RotateX          { get; }

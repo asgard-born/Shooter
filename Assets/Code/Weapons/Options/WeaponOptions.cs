@@ -1,6 +1,6 @@
-﻿namespace Structures.Weapons.Options {
-    using System;
+﻿using System;
 
+namespace Weapons.Options {
     [Serializable]
     public class WeaponOptions {
         public int    id;

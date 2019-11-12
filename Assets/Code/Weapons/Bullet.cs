@@ -1,5 +1,6 @@
-﻿namespace Structures.Weapons {
+﻿namespace Weapons {
     using ObjectPool;
+    using Structures;
     using UnityEngine;
 
     public class Bullet : MonoBehaviour {

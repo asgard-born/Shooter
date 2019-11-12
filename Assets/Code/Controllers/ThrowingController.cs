@@ -9,7 +9,8 @@
 
         protected string    weaponName;
         protected float     blowingTime, range;
-        protected int       damage,      id_attacker, id_weapon;
+        protected float     damage;
+        protected int       id_attacker, id_weapon;
         protected bool      isFly;
         public    LayerMask attackingLayerMask;
 

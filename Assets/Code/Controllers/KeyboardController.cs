@@ -4,7 +4,7 @@
     using System;
     using UnityEngine;
 
-    public class KeyboardController : MonoBehaviour, InputController {
+    public class KeyboardController : MonoBehaviour, IInputController {
         public float GetAxisX         => Input.GetAxis("Mouse X");
         public float GetAxisY         => Input.GetAxis("Mouse Y");
         public float HorizontalMoving => this.horizontalMoving;

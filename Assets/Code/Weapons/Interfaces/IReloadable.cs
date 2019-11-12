@@ -1,7 +1,7 @@
-﻿namespace Structures.Weapons.Interfaces {
+﻿namespace Weapons.Interfaces {
     using System.Threading.Tasks;
 
-    public interface Reloadable {
+    public interface IReloadable {
         Task Reload();
         bool IsReloading { get; }
     }

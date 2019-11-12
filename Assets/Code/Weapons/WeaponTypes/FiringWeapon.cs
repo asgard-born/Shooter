@@ -1,10 +1,10 @@
-﻿namespace Structures.Weapons.WeaponTypes {
-    using System;
-    using System.Threading.Tasks;
-    using Interfaces;
-    using UnityEngine;
+﻿using System;
+using System.Threading.Tasks;
+using UnityEngine;
+using Weapons.Interfaces;
 
-    public abstract class FiringWeapon : Weapon, Reloadable {
+namespace Weapons.WeaponTypes {
+    public abstract class FiringWeapon : Weapon, IReloadable {
         public    int   MagazineCapacity;
         public    int   AttackSpeed;
         public    float ReloadRate;

@@ -3,7 +3,7 @@
     using Interfaces;
     using UnityEngine;
 
-    public class PlayerCommandController : MonoBehaviour, CommandController {
+    public class PlayerCommandController : MonoBehaviour, ICommandController {
         public static PlayerCommandController Instance;
 
         [SerializeField] private JoystickController joystickController;
@@ -29,7 +29,7 @@
         public event Action OnReload;
         public event Action OnChangingWeapon;
 
-        private InputController inputController;
+        private IInputController inputController;
 
         private bool canInputFire = true;
         private bool isJoystick;
@@ -38,7 +38,7 @@
             set => this.inputController.SerialRate = value;
         }
 
-        public InputController Initialize() {
+        public IInputController Initialize() {
             if (!Application.isMobilePlatform) {
                 this.inputController = this.joystickController;
                 this.isJoystick      = true;
@@ -76,7 +76,6 @@
                 this.forwardMoving    = this.inputController.ForwardMoving;
                 this.horizontalMoving = this.inputController.HorizontalMoving;
             }
-
 
             this.isSneak = this.inputController.IsSneak;
 

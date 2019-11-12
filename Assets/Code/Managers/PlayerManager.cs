@@ -1,4 +1,8 @@
 ﻿namespace Managers {
+    using System.Linq;
+    using Abilities.Interfaces;
+    using Abilities;
+    using System.Collections.Generic;
     using System;
     using System.Threading.Tasks;
     using Controllers;
@@ -6,21 +10,115 @@
     using UI.Interfaces;
     using UnityEngine;
 
-    public class PlayerManager : Character {
-        private CameraController        cameraController;
-        private AnimatorManager         animatorManager;
-        private MovementController      movementController;
-        private PlayerCommandController playerCommandController;
-        private float                   mouseX;
-        private float                   mouseY;
+    public class PlayerManager : Character, IBuffable {
+        public WeaponController WeaponController => this.weaponController;
 
-        public  WeaponController WeaponController => this.weaponController;
-        private WeaponController weaponController;
+        public Dictionary<AbilityType, Ability> Abilities => this.abilities;
 
         [SerializeField] private float cameraYAxisOnMobilePlatform = -30f;
 
-        private Joystick joystick;
-        private bool     isJoystickOn;
+        private PlayerCommandController playerCommandController;
+        private WeaponController        weaponController;
+        private Joystick                joystick;
+        private CameraController        cameraController;
+        private AnimatorManager         animatorManager;
+        private MovementController      movementController;
+        private float                   mouseX;
+        private float                   mouseY;
+
+        private readonly Dictionary<AbilityType, Ability> abilities = new Dictionary<AbilityType, Ability>();
+
+        private bool isJoystickOn;
+
+        public void TransferAbilityToBuffableTarget(Ability ability) {
+            switch (ability.AbilityTarget) {
+                case AbilityTarget.Player:
+                    this.AddAbility(ability);
+                    break;
+
+                case AbilityTarget.FirstWeapon:
+                    var firstWeapon = this.weaponController.Weapons.First(weapon => weapon.Id == 1);
+                    if (firstWeapon != null) {
+                        firstWeapon.AddAbility(ability);
+                    }
+
+                    break;
+
+                case AbilityTarget.SecondWeapon:
+                    var secondWeapon = this.weaponController.Weapons.First(weapon => weapon.Id == 2);
+                    if (secondWeapon != null) {
+                        secondWeapon.AddAbility(ability);
+                    }
+
+                    break;
+
+                case AbilityTarget.ThirdWeapon:
+                    var thirdWeapon = this.weaponController.Weapons.First(weapon => weapon.Id == 3);
+                    if (thirdWeapon != null) {
+                        thirdWeapon.AddAbility(ability);
+                    }
+
+                    break;
+            }
+        }
+
+        public void AddAbility(Ability ability) {
+            if (!this.Abilities.ContainsKey(ability.AbilityType)) {
+                this.abilities.Add(ability.AbilityType, ability);
+                this.EnableAbility(ability);
+            }
+        }
+
+        public void RemoveAbility(Ability ability) {
+            if (this.Abilities.ContainsKey(ability.AbilityType)) {
+                this.abilities.Remove(ability.AbilityType);
+                this.DisableAbility(ability);
+            }
+        }
+
+        public void EnableAbility(Ability ability) {
+            if (this.Abilities.ContainsKey(ability.AbilityType)) {
+
+                foreach (var buff in ability.Buffs) {
+                    switch (buff.StatType) {
+                        case StatType.MovingSpeed:
+//                            this.movementController.
+                            break;
+
+                        case StatType.IncomingDamage:
+//                            this.lifer
+
+                            break;
+
+                        case StatType.AttackDamage:
+                            
+                            break;
+
+                        case StatType.SerialRate:
+                            this.abilities.Add(ability.AbilityType, ability);
+                            break;
+
+                        case StatType.SplashValue:
+                            this.abilities.Add(ability.AbilityType, ability);
+                            break;
+                    }
+                    
+                }
+            }
+            else {
+                Debug.LogError($"{this.GetType().Name} doesn't have such ability: {ability.AbilityType.ToString()}");
+            }
+        }
+
+        public void DisableAbility(Ability ability) {
+            if (this.Abilities.ContainsKey(ability.AbilityType)) {
+
+            }
+        }
+
+        public float SerialRate {
+            set => this.playerCommandController.SerialRate = value;
+        }
 
         private async void Start() {
             this.GetLogicEssences();
@@ -30,9 +128,7 @@
             this.Initialize();
         }
 
-        private void Initialize() {
-            this.weaponController.Initialize();
-        }
+        private void Initialize() => this.weaponController.Initialize();
 
         private void Update() {
             this.movementController.HorizontalMoving = this.playerCommandController.HorizontalMoving;

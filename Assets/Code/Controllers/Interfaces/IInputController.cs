@@ -1,7 +1,7 @@
 ﻿namespace Controllers.Interfaces {
     using System;
 
-    public interface InputController {
+    public interface IInputController {
         float GetAxisX         { get; }
         float GetAxisY         { get; }
         float HorizontalMoving { get; }

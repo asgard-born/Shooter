@@ -1,10 +1,11 @@
-﻿namespace Managers {
+﻿using Weapons.ConcreteWeapons;
+using Weapons.Options;
+using Weapons.WeaponTypes;
+
+namespace Managers {
     using System;
     using System.Threading.Tasks;
-    using Structures.Weapons.WeaponTypes;
     using System.Linq;
-    using Structures.Weapons.ConcreteWeapons;
-    using Structures.Weapons.Options;
     using ScriptableObjects;
     using UnityEngine;
 
