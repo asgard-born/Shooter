@@ -3818,6 +3818,11 @@ PrefabInstance:
       propertyPath: grenadeController
       value: 
       objectReference: {fileID: 281702168}
+    - target: {fileID: 6598971201574492222, guid: e653946ea86641c45ad55483e5879868,
+        type: 3}
+      propertyPath: currentWeaponNumber
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6598971201574492223, guid: e653946ea86641c45ad55483e5879868,
         type: 3}
       propertyPath: joystickController
