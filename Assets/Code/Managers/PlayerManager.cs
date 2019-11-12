@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Managers {
+﻿namespace Managers {
+    using System;
+    using System.Threading.Tasks;
     using Controllers;
     using Structures;
     using UI.Interfaces;
@@ -29,7 +28,6 @@ namespace Managers {
             this.EstablishSubscriptions();
             await Task.Delay(TimeSpan.FromSeconds(1));
             this.Initialize();
-            
         }
 
         private void Initialize() {

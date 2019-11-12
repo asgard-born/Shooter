@@ -6,7 +6,6 @@
         public int Id => this.id;
 
         [SerializeField]  private int        id;
-        [SerializeField]  private GameObject VisiblePart;
         [HideInInspector] public  Lifer      lifer;
 
         public event Action OnDeath;
