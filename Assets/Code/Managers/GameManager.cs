@@ -1,4 +1,6 @@
 ﻿namespace Managers {
+    using System.Collections.Generic;
+    using Abilities;
     using Weapons.ConcreteWeapons;
     using Weapons.Options;
     using Weapons.WeaponTypes;
@@ -13,6 +15,9 @@
 
         [SerializeField] private PlayerManager playerManager;
         [SerializeField] private Transform     respawnPoint;
+
+        [SerializeField] private List<Ability> startingPlayerAbilities;
+        [SerializeField] private List<Ability> startingEnemyAIAbilities;
 
         // Singletons
         private PoolManager    poolManager;
@@ -32,6 +37,10 @@
         }
 
         private void Initialize() {
+            foreach (var ability in this.startingPlayerAbilities) {
+                this.playerManager.AddAbility(ability);
+            }
+            
             this.poolManager.Initialize(this.PoolOptions.Pools);
             this.InitializeTheEnemies();
         }
@@ -72,7 +81,7 @@
                 var enemyDamage          = 5;
 
                 foreach (var enemy in this.enemiesManager.Enemies) {
-                    enemy.aiCommandController.SerialRate = (weaponOptions.FirstOrDefault(option => option.id == 1).serialRate + additionalSerialRate);
+                    enemy.SerialRate = (weaponOptions.FirstOrDefault(option => option.id == 1).serialRate + additionalSerialRate);
 
                     foreach (var weapon in enemy.WeaponController.Weapons) {
                         var findedOption = weaponOptions.FirstOrDefault(option => option.id == weapon.Id);
@@ -117,7 +126,7 @@
         }
 
         private void InitializeTheEnemies()
-            => this.enemiesManager.Initialize(this.playerManager.transform);
+            => this.enemiesManager.Initialize(this.playerManager.transform, this.startingEnemyAIAbilities);
 
         private void Update() {
             if (this.isRespawning) {

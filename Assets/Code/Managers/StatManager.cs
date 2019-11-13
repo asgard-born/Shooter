@@ -51,7 +51,7 @@ namespace Managers {
                     multiplicativeFactor = 1;
                 }
 
-                var multiplicativeValue = multiplicativeFactor > 1 ? value * multiplicativeFactor : value / multiplicativeFactor;
+                var multiplicativeValue = multiplicativeFactor > 1 ? value * multiplicativeFactor : value / Mathf.Abs(multiplicativeFactor);
                 var additiveValue       = value * additiveFactor;
 
                 return multiplicativeValue + additiveValue;

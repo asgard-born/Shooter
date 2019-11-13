@@ -4,6 +4,5 @@
         Manoeuvrer,
         Lifer,
         FiringSpeedUp,
-        
     }
 }

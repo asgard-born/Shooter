@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LifeController: {fileID: 352142542513105701}
   movingSpeed: 5
+  statManager: {fileID: 5265853221121363710}
   id: 5
   aiCommandController: {fileID: 0}
 --- !u!114 &5836476183694948126
@@ -3942,8 +3943,8 @@ MonoBehaviour:
   MagazineCapacity: 7
   AttackSpeed: 20
   ReloadRate: 0
+  Splash: 0.1
   aim: {fileID: 2512439404313846412}
-  splash: 0.074
 --- !u!1 &2512439404634057132
 GameObject:
   m_ObjectHideFlags: 0
@@ -4351,6 +4352,7 @@ MonoBehaviour:
   MagazineCapacity: 30
   AttackSpeed: 40
   ReloadRate: 0
+  Splash: 0.1
   aim: {fileID: 2512439404207044387}
 --- !u!1 &7799782408448383073
 GameObject:

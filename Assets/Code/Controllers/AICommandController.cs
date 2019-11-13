@@ -23,13 +23,15 @@
 
         private RaycastHit hit;
 
-        public float serialRate;
+        private float waitingForFire;
         public bool  isAiming;
 
         [SerializeField] private LayerMask checkingForObstaclesLayerMask;
 
-        public float SerialRate {
-            set => this.serialRate = value;
+        public float SerialRate { get; set; }
+
+        public float WaitingForFire {
+            set => this.waitingForFire = value;
         }
 
         public event Action<AIPhase> OnPhaseChanged;
@@ -103,7 +105,7 @@
 
         private IEnumerator Fire() {
             while (this.phase == AIPhase.Attacking) {
-                yield return new WaitForSeconds(this.serialRate);
+                yield return new WaitForSeconds(this.waitingForFire);
                 this.isAiming = true;
                 var pointForAttack = this.PlayerT.position;
                 this.transform.LookAt(pointForAttack);

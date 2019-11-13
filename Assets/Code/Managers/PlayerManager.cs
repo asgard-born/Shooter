@@ -1,4 +1,5 @@
 ﻿namespace Managers {
+    using Abstract;
     using UI.Abstract;
     using Abilities;
     using Controllers;
@@ -14,7 +15,10 @@
         private bool isJoystickOn;
 
         public float SerialRate {
-            set => this.playerCommandController.SerialRate = value;
+            set {
+                var serialRate = this.statManager.CalculateValue(StatType.SerialRate, value);
+                this.playerCommandController.SerialRate = serialRate;
+            }
         }
 
         protected new void Start() {

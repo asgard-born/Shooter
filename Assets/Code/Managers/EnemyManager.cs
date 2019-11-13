@@ -1,4 +1,5 @@
 ﻿namespace Managers {
+    using Abstract;
     using Abilities;
     using Structures;
     using Controllers;
@@ -12,6 +13,10 @@
         private EnemyMovementController enemyMovementController;
         private Transform               playerT;
         private bool                    canUpdateAnimator;
+        
+        public float SerialRate {
+            set => this.aiCommandController.SerialRate = value;
+        }
 
         private new void Start() {
             base.Start();
@@ -33,6 +38,7 @@
             this.aiCommandController.OnPhaseChanged += phase => {
                 switch (phase) {
                     case AIPhase.Attacking:
+                        this.aiCommandController.WaitingForFire = this.statManager.CalculateValue(StatType.SerialRate, this.aiCommandController.SerialRate);
                         this.movementController.Stop();
                         break;
 

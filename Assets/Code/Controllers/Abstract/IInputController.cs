@@ -1,6 +1,6 @@
-﻿using System;
+﻿namespace Controllers.Abstract {
+    using System;
 
-namespace Controllers.Abstract {
     public interface IInputController {
         float GetAxisX         { get; }
         float GetAxisY         { get; }

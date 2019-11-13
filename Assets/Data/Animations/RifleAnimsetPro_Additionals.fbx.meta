@@ -1,204 +1,556 @@
 fileFormatVersion: 2
 guid: fa608feaf64a07040bef63f640abf835
 ModelImporter:
-  serializedVersion: 19
-  fileIDToRecycleName:
-    100000: DummyMESH
-    100002: Head
-    100004: Hips
-    100006: LeftArm
-    100008: LeftArmRoll
-    100010: LeftFoot
-    100012: LeftForeArm
-    100014: LeftForeArmRoll
-    100016: LeftHand
-    100018: LeftHandIndex1
-    100020: LeftHandIndex2
-    100022: LeftHandIndex3
-    100024: LeftHandIndex4
-    100026: LeftHandMiddle1
-    100028: LeftHandMiddle2
-    100030: LeftHandMiddle3
-    100032: LeftHandMiddle4
-    100034: LeftHandPinky1
-    100036: LeftHandPinky2
-    100038: LeftHandPinky3
-    100040: LeftHandPinky4
-    100042: LeftHandProp
-    100044: LeftHandRing1
-    100046: LeftHandRing2
-    100048: LeftHandRing3
-    100050: LeftHandRing4
-    100052: LeftHandThumb1
-    100054: LeftHandThumb2
-    100056: LeftHandThumb3
-    100058: LeftHandThumb4
-    100060: LeftLeg
-    100062: LeftLegRoll
-    100064: LeftShoulder
-    100066: LeftToeBase
-    100068: LeftToeBase_END
-    100070: LeftUpLeg
-    100072: LeftUpLegRoll
-    100074: Neck
-    100076: //RootNode
-    100078: RightArm
-    100080: RightArmRoll
-    100082: RightFoot
-    100084: RightForeArm
-    100086: RightForeArmRoll
-    100088: RightHand
-    100090: RightHandIndex1
-    100092: RightHandIndex2
-    100094: RightHandIndex3
-    100096: RightHandIndex4
-    100098: RightHandMiddle1
-    100100: RightHandMiddle2
-    100102: RightHandMiddle3
-    100104: RightHandMiddle4
-    100106: RightHandPinky1
-    100108: RightHandPinky2
-    100110: RightHandPinky3
-    100112: RightHandPinky4
-    100114: RightHandProp
-    100116: RightHandRing1
-    100118: RightHandRing2
-    100120: RightHandRing3
-    100122: RightHandRing4
-    100124: RightHandThumb1
-    100126: RightHandThumb2
-    100128: RightHandThumb3
-    100130: RightHandThumb4
-    100132: RightLeg
-    100134: RightLegRoll
-    100136: RightShoulder
-    100138: RightToeBase
-    100140: RightToeBase_END
-    100142: RightUpLeg
-    100144: RightUpLegRoll
-    100146: Root
-    100148: Spine
-    100150: Spine1
-    400000: DummyMESH
-    400002: Head
-    400004: Hips
-    400006: LeftArm
-    400008: LeftArmRoll
-    400010: LeftFoot
-    400012: LeftForeArm
-    400014: LeftForeArmRoll
-    400016: LeftHand
-    400018: LeftHandIndex1
-    400020: LeftHandIndex2
-    400022: LeftHandIndex3
-    400024: LeftHandIndex4
-    400026: LeftHandMiddle1
-    400028: LeftHandMiddle2
-    400030: LeftHandMiddle3
-    400032: LeftHandMiddle4
-    400034: LeftHandPinky1
-    400036: LeftHandPinky2
-    400038: LeftHandPinky3
-    400040: LeftHandPinky4
-    400042: LeftHandProp
-    400044: LeftHandRing1
-    400046: LeftHandRing2
-    400048: LeftHandRing3
-    400050: LeftHandRing4
-    400052: LeftHandThumb1
-    400054: LeftHandThumb2
-    400056: LeftHandThumb3
-    400058: LeftHandThumb4
-    400060: LeftLeg
-    400062: LeftLegRoll
-    400064: LeftShoulder
-    400066: LeftToeBase
-    400068: LeftToeBase_END
-    400070: LeftUpLeg
-    400072: LeftUpLegRoll
-    400074: Neck
-    400076: //RootNode
-    400078: RightArm
-    400080: RightArmRoll
-    400082: RightFoot
-    400084: RightForeArm
-    400086: RightForeArmRoll
-    400088: RightHand
-    400090: RightHandIndex1
-    400092: RightHandIndex2
-    400094: RightHandIndex3
-    400096: RightHandIndex4
-    400098: RightHandMiddle1
-    400100: RightHandMiddle2
-    400102: RightHandMiddle3
-    400104: RightHandMiddle4
-    400106: RightHandPinky1
-    400108: RightHandPinky2
-    400110: RightHandPinky3
-    400112: RightHandPinky4
-    400114: RightHandProp
-    400116: RightHandRing1
-    400118: RightHandRing2
-    400120: RightHandRing3
-    400122: RightHandRing4
-    400124: RightHandThumb1
-    400126: RightHandThumb2
-    400128: RightHandThumb3
-    400130: RightHandThumb4
-    400132: RightLeg
-    400134: RightLegRoll
-    400136: RightShoulder
-    400138: RightToeBase
-    400140: RightToeBase_END
-    400142: RightUpLeg
-    400144: RightUpLegRoll
-    400146: Root
-    400148: Spine
-    400150: Spine1
-    4300000: DummyMESH
-    7400000: BindPose
-    7400002: Rifle_FallingLoop
-    7400004: Rifle_Idle2Crouch
-    7400006: Rifle_CrouchLoop
-    7400008: Rifle_Crouch2Idle
-    7400010: Rifle_Idle_GunDown
-    7400012: Rifle_Idle_GunDown2Idle
-    7400014: Rifle_Climb_1m
-    7400016: Rifle_Vault_1m
-    7400018: Rifle_OpenDoor
-    7400020: Rifle_Death_3
-    7400022: Rifle_RunFwdLoop
-    7400024: Rifle_RunBwdLoop
-    7400026: Rifle_StrafeRunRightLoop
-    7400028: Rifle_StrafeRunLeftLoop
-    7400030: Rifle_StrafeRun45LeftLoop
-    7400032: Rifle_StrafeRun135LeftLoop
-    9500000: //RootNode
-    13700000: DummyMESH
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: DummyMESH
+  - first:
+      1: 100002
+    second: Head
+  - first:
+      1: 100004
+    second: Hips
+  - first:
+      1: 100006
+    second: LeftArm
+  - first:
+      1: 100008
+    second: LeftArmRoll
+  - first:
+      1: 100010
+    second: LeftFoot
+  - first:
+      1: 100012
+    second: LeftForeArm
+  - first:
+      1: 100014
+    second: LeftForeArmRoll
+  - first:
+      1: 100016
+    second: LeftHand
+  - first:
+      1: 100018
+    second: LeftHandIndex1
+  - first:
+      1: 100020
+    second: LeftHandIndex2
+  - first:
+      1: 100022
+    second: LeftHandIndex3
+  - first:
+      1: 100024
+    second: LeftHandIndex4
+  - first:
+      1: 100026
+    second: LeftHandMiddle1
+  - first:
+      1: 100028
+    second: LeftHandMiddle2
+  - first:
+      1: 100030
+    second: LeftHandMiddle3
+  - first:
+      1: 100032
+    second: LeftHandMiddle4
+  - first:
+      1: 100034
+    second: LeftHandPinky1
+  - first:
+      1: 100036
+    second: LeftHandPinky2
+  - first:
+      1: 100038
+    second: LeftHandPinky3
+  - first:
+      1: 100040
+    second: LeftHandPinky4
+  - first:
+      1: 100042
+    second: LeftHandProp
+  - first:
+      1: 100044
+    second: LeftHandRing1
+  - first:
+      1: 100046
+    second: LeftHandRing2
+  - first:
+      1: 100048
+    second: LeftHandRing3
+  - first:
+      1: 100050
+    second: LeftHandRing4
+  - first:
+      1: 100052
+    second: LeftHandThumb1
+  - first:
+      1: 100054
+    second: LeftHandThumb2
+  - first:
+      1: 100056
+    second: LeftHandThumb3
+  - first:
+      1: 100058
+    second: LeftHandThumb4
+  - first:
+      1: 100060
+    second: LeftLeg
+  - first:
+      1: 100062
+    second: LeftLegRoll
+  - first:
+      1: 100064
+    second: LeftShoulder
+  - first:
+      1: 100066
+    second: LeftToeBase
+  - first:
+      1: 100068
+    second: LeftToeBase_END
+  - first:
+      1: 100070
+    second: LeftUpLeg
+  - first:
+      1: 100072
+    second: LeftUpLegRoll
+  - first:
+      1: 100074
+    second: Neck
+  - first:
+      1: 100076
+    second: //RootNode
+  - first:
+      1: 100078
+    second: RightArm
+  - first:
+      1: 100080
+    second: RightArmRoll
+  - first:
+      1: 100082
+    second: RightFoot
+  - first:
+      1: 100084
+    second: RightForeArm
+  - first:
+      1: 100086
+    second: RightForeArmRoll
+  - first:
+      1: 100088
+    second: RightHand
+  - first:
+      1: 100090
+    second: RightHandIndex1
+  - first:
+      1: 100092
+    second: RightHandIndex2
+  - first:
+      1: 100094
+    second: RightHandIndex3
+  - first:
+      1: 100096
+    second: RightHandIndex4
+  - first:
+      1: 100098
+    second: RightHandMiddle1
+  - first:
+      1: 100100
+    second: RightHandMiddle2
+  - first:
+      1: 100102
+    second: RightHandMiddle3
+  - first:
+      1: 100104
+    second: RightHandMiddle4
+  - first:
+      1: 100106
+    second: RightHandPinky1
+  - first:
+      1: 100108
+    second: RightHandPinky2
+  - first:
+      1: 100110
+    second: RightHandPinky3
+  - first:
+      1: 100112
+    second: RightHandPinky4
+  - first:
+      1: 100114
+    second: RightHandProp
+  - first:
+      1: 100116
+    second: RightHandRing1
+  - first:
+      1: 100118
+    second: RightHandRing2
+  - first:
+      1: 100120
+    second: RightHandRing3
+  - first:
+      1: 100122
+    second: RightHandRing4
+  - first:
+      1: 100124
+    second: RightHandThumb1
+  - first:
+      1: 100126
+    second: RightHandThumb2
+  - first:
+      1: 100128
+    second: RightHandThumb3
+  - first:
+      1: 100130
+    second: RightHandThumb4
+  - first:
+      1: 100132
+    second: RightLeg
+  - first:
+      1: 100134
+    second: RightLegRoll
+  - first:
+      1: 100136
+    second: RightShoulder
+  - first:
+      1: 100138
+    second: RightToeBase
+  - first:
+      1: 100140
+    second: RightToeBase_END
+  - first:
+      1: 100142
+    second: RightUpLeg
+  - first:
+      1: 100144
+    second: RightUpLegRoll
+  - first:
+      1: 100146
+    second: Root
+  - first:
+      1: 100148
+    second: Spine
+  - first:
+      1: 100150
+    second: Spine1
+  - first:
+      4: 400000
+    second: DummyMESH
+  - first:
+      4: 400002
+    second: Head
+  - first:
+      4: 400004
+    second: Hips
+  - first:
+      4: 400006
+    second: LeftArm
+  - first:
+      4: 400008
+    second: LeftArmRoll
+  - first:
+      4: 400010
+    second: LeftFoot
+  - first:
+      4: 400012
+    second: LeftForeArm
+  - first:
+      4: 400014
+    second: LeftForeArmRoll
+  - first:
+      4: 400016
+    second: LeftHand
+  - first:
+      4: 400018
+    second: LeftHandIndex1
+  - first:
+      4: 400020
+    second: LeftHandIndex2
+  - first:
+      4: 400022
+    second: LeftHandIndex3
+  - first:
+      4: 400024
+    second: LeftHandIndex4
+  - first:
+      4: 400026
+    second: LeftHandMiddle1
+  - first:
+      4: 400028
+    second: LeftHandMiddle2
+  - first:
+      4: 400030
+    second: LeftHandMiddle3
+  - first:
+      4: 400032
+    second: LeftHandMiddle4
+  - first:
+      4: 400034
+    second: LeftHandPinky1
+  - first:
+      4: 400036
+    second: LeftHandPinky2
+  - first:
+      4: 400038
+    second: LeftHandPinky3
+  - first:
+      4: 400040
+    second: LeftHandPinky4
+  - first:
+      4: 400042
+    second: LeftHandProp
+  - first:
+      4: 400044
+    second: LeftHandRing1
+  - first:
+      4: 400046
+    second: LeftHandRing2
+  - first:
+      4: 400048
+    second: LeftHandRing3
+  - first:
+      4: 400050
+    second: LeftHandRing4
+  - first:
+      4: 400052
+    second: LeftHandThumb1
+  - first:
+      4: 400054
+    second: LeftHandThumb2
+  - first:
+      4: 400056
+    second: LeftHandThumb3
+  - first:
+      4: 400058
+    second: LeftHandThumb4
+  - first:
+      4: 400060
+    second: LeftLeg
+  - first:
+      4: 400062
+    second: LeftLegRoll
+  - first:
+      4: 400064
+    second: LeftShoulder
+  - first:
+      4: 400066
+    second: LeftToeBase
+  - first:
+      4: 400068
+    second: LeftToeBase_END
+  - first:
+      4: 400070
+    second: LeftUpLeg
+  - first:
+      4: 400072
+    second: LeftUpLegRoll
+  - first:
+      4: 400074
+    second: Neck
+  - first:
+      4: 400076
+    second: //RootNode
+  - first:
+      4: 400078
+    second: RightArm
+  - first:
+      4: 400080
+    second: RightArmRoll
+  - first:
+      4: 400082
+    second: RightFoot
+  - first:
+      4: 400084
+    second: RightForeArm
+  - first:
+      4: 400086
+    second: RightForeArmRoll
+  - first:
+      4: 400088
+    second: RightHand
+  - first:
+      4: 400090
+    second: RightHandIndex1
+  - first:
+      4: 400092
+    second: RightHandIndex2
+  - first:
+      4: 400094
+    second: RightHandIndex3
+  - first:
+      4: 400096
+    second: RightHandIndex4
+  - first:
+      4: 400098
+    second: RightHandMiddle1
+  - first:
+      4: 400100
+    second: RightHandMiddle2
+  - first:
+      4: 400102
+    second: RightHandMiddle3
+  - first:
+      4: 400104
+    second: RightHandMiddle4
+  - first:
+      4: 400106
+    second: RightHandPinky1
+  - first:
+      4: 400108
+    second: RightHandPinky2
+  - first:
+      4: 400110
+    second: RightHandPinky3
+  - first:
+      4: 400112
+    second: RightHandPinky4
+  - first:
+      4: 400114
+    second: RightHandProp
+  - first:
+      4: 400116
+    second: RightHandRing1
+  - first:
+      4: 400118
+    second: RightHandRing2
+  - first:
+      4: 400120
+    second: RightHandRing3
+  - first:
+      4: 400122
+    second: RightHandRing4
+  - first:
+      4: 400124
+    second: RightHandThumb1
+  - first:
+      4: 400126
+    second: RightHandThumb2
+  - first:
+      4: 400128
+    second: RightHandThumb3
+  - first:
+      4: 400130
+    second: RightHandThumb4
+  - first:
+      4: 400132
+    second: RightLeg
+  - first:
+      4: 400134
+    second: RightLegRoll
+  - first:
+      4: 400136
+    second: RightShoulder
+  - first:
+      4: 400138
+    second: RightToeBase
+  - first:
+      4: 400140
+    second: RightToeBase_END
+  - first:
+      4: 400142
+    second: RightUpLeg
+  - first:
+      4: 400144
+    second: RightUpLegRoll
+  - first:
+      4: 400146
+    second: Root
+  - first:
+      4: 400148
+    second: Spine
+  - first:
+      4: 400150
+    second: Spine1
+  - first:
+      43: 4300000
+    second: DummyMESH
+  - first:
+      74: 7400000
+    second: BindPose
+  - first:
+      74: 7400002
+    second: Rifle_FallingLoop
+  - first:
+      74: 7400004
+    second: Rifle_Idle2Crouch
+  - first:
+      74: 7400006
+    second: Rifle_CrouchLoop
+  - first:
+      74: 7400008
+    second: Rifle_Crouch2Idle
+  - first:
+      74: 7400010
+    second: Rifle_Idle_GunDown
+  - first:
+      74: 7400012
+    second: Rifle_Idle_GunDown2Idle
+  - first:
+      74: 7400014
+    second: Rifle_Climb_1m
+  - first:
+      74: 7400016
+    second: Rifle_Vault_1m
+  - first:
+      74: 7400018
+    second: Rifle_OpenDoor
+  - first:
+      74: 7400020
+    second: Rifle_Death_3
+  - first:
+      74: 7400022
+    second: Rifle_RunFwdLoop
+  - first:
+      74: 7400024
+    second: Rifle_RunBwdLoop
+  - first:
+      74: 7400026
+    second: Rifle_StrafeRunRightLoop
+  - first:
+      74: 7400028
+    second: Rifle_StrafeRunLeftLoop
+  - first:
+      74: 7400030
+    second: Rifle_StrafeRun45LeftLoop
+  - first:
+      74: 7400032
+    second: Rifle_StrafeRun135LeftLoop
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: DummyMESH
+  externalObjects: {}
   materials:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
-    animationRotationError: 0.2
-    animationPositionError: 0.2
-    animationScaleError: 0.2
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
       name: BindPose
       takeName: BindPose
+      internalID: 0
       firstFrame: 0
       lastFrame: 30
       wrapMode: 0
@@ -379,6 +731,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_FallingLoop
       takeName: Rifle_FallingLoop
+      internalID: 0
       firstFrame: 70
       lastFrame: 170
       wrapMode: 0
@@ -559,6 +912,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_Idle2Crouch
       takeName: Rifle_Idle2Crouch
+      internalID: 0
       firstFrame: 0
       lastFrame: 20
       wrapMode: 0
@@ -739,6 +1093,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_CrouchLoop
       takeName: Rifle_CrouchLoop
+      internalID: 0
       firstFrame: 0
       lastFrame: 150
       wrapMode: 0
@@ -919,6 +1274,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_Crouch2Idle
       takeName: Rifle_Crouch2Idle
+      internalID: 0
       firstFrame: 0
       lastFrame: 30
       wrapMode: 0
@@ -1099,6 +1455,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_Idle_GunDown
       takeName: Rifle_Idle_GunDown
+      internalID: 0
       firstFrame: 137
       lastFrame: 288
       wrapMode: 0
@@ -1279,6 +1636,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_Idle_GunDown2Idle
       takeName: Rifle_Idle_GunDown2Idle
+      internalID: 0
       firstFrame: 0
       lastFrame: 17
       wrapMode: 0
@@ -1459,6 +1817,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_Climb_1m
       takeName: Rifle_Climb_1m
+      internalID: 0
       firstFrame: 0
       lastFrame: 52
       wrapMode: 0
@@ -1639,6 +1998,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_Vault_1m
       takeName: Rifle_Vault_1m
+      internalID: 0
       firstFrame: 0
       lastFrame: 64
       wrapMode: 0
@@ -1819,6 +2179,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_OpenDoor
       takeName: Rifle_OpenDoor
+      internalID: 0
       firstFrame: 0
       lastFrame: 48
       wrapMode: 0
@@ -1999,6 +2360,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_Death_3
       takeName: Rifle_Death_3
+      internalID: 0
       firstFrame: 0
       lastFrame: 118
       wrapMode: 0
@@ -2179,6 +2541,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_RunFwdLoop
       takeName: Rifle_RunFwdLoop
+      internalID: 0
       firstFrame: 0
       lastFrame: 19
       wrapMode: 0
@@ -2188,14 +2551,14 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlend: 1
+      loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 1
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves:
@@ -2203,42 +2566,60 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.20403023
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.23173805
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.7128464
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.7607053
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4
@@ -2402,6 +2783,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_RunBwdLoop
       takeName: Rifle_RunBwdLoop
+      internalID: 0
       firstFrame: 0
       lastFrame: 19
       wrapMode: 0
@@ -2411,14 +2793,14 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 0
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves:
@@ -2426,42 +2808,60 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.20654911
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.2745592
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.77581865
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.82115865
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4
@@ -2625,6 +3025,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_StrafeRunRightLoop
       takeName: Rifle_StrafeRunRightLoop
+      internalID: 0
       firstFrame: 0
       lastFrame: 19
       wrapMode: 0
@@ -2649,42 +3050,60 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.29219142
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.32241815
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.74811083
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.77581865
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4
@@ -2848,6 +3267,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_StrafeRunLeftLoop
       takeName: Rifle_StrafeRunLeftLoop
+      internalID: 0
       firstFrame: 0
       lastFrame: 19
       wrapMode: 0
@@ -2872,42 +3292,60 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.21914358
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.25944585
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.74307305
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.77833754
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4
@@ -3071,6 +3509,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_StrafeRun45LeftLoop
       takeName: Rifle_StrafeRun45LeftLoop
+      internalID: 0
       firstFrame: 0
       lastFrame: 19
       wrapMode: 0
@@ -3095,42 +3534,60 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.14105794
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.21158691
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.62972295
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.6826197
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4
@@ -3294,6 +3751,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Rifle_StrafeRun135LeftLoop
       takeName: Rifle_StrafeRun135LeftLoop
+      internalID: 0
       firstFrame: 0
       lastFrame: 21
       wrapMode: 0
@@ -3318,42 +3776,60 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.22418135
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.26952142
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.7581864
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.7858942
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 2
           postInfinity: 2
           rotationOrder: 4
@@ -3520,13 +3996,23 @@ ModelImporter:
     globalScale: 0.01
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -3536,10 +4022,15 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 4
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human:
     - boneName: Hips
       humanName: Hips
@@ -4337,8 +4828,8 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 0.01
     rootMotionBoneName: Root
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 0

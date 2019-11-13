@@ -226,7 +226,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Basic
     m_StateMachine: {fileID: 110712928}
-    m_Mask: {fileID: 101100000, guid: f79fef4eee11e0f4eba8d4f95959814b, type: 2}
+    m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -592,7 +592,7 @@ BlendTree:
   m_MaxThreshold: 1.2
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
-  m_BlendType: 2
+  m_BlendType: 3
 --- !u!206 &20664752
 BlendTree:
   m_ObjectHideFlags: 3
@@ -3039,7 +3039,7 @@ AnimatorState:
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
-  m_WriteDefaultValues: 0
+  m_WriteDefaultValues: 1
   m_Mirror: 0
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
@@ -3047,10 +3047,10 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 20654162}
   m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
+  m_SpeedParameter: Speed
+  m_MirrorParameter: Sneak
+  m_CycleOffsetParameter: Speed
+  m_TimeParameter: Speed
 --- !u!1102 &110295688
 AnimatorState:
   serializedVersion: 5

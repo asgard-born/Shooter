@@ -1,20 +1,19 @@
-﻿using Controllers.Abstract;
-
-namespace Controllers {
+﻿namespace Controllers {
+    using Abstract;
     using System;
     using UnityEngine;
 
     public class PlayerCommandController : MonoBehaviour, ICommandController {
         public static PlayerCommandController Instance;
 
-        [SerializeField] private JoystickController joystickController;
+        public JoystickController JoystickController;
 
         public float ForwardMoving       => this.forwardMoving;
         public float HorizontalMoving    => this.horizontalMoving;
         public float RotationX           => this.rotationX;
         public float RotationY           => this.rotationY;
-        public float BallisticValue      => this.joystickController.GetBallisticValue;
-        public float AttackRotatingValue => this.joystickController.GetAttackJoystickValue;
+        public float BallisticValue      => this.JoystickController.GetBallisticValue;
+        public float AttackRotatingValue => this.JoystickController.GetAttackJoystickValue;
         public bool  IsSneak             => this.isSneak;
         public bool  IsJumping           => this.isJumping;
 
@@ -41,7 +40,7 @@ namespace Controllers {
 
         public IInputController Initialize() {
             if (!Application.isMobilePlatform) {
-                this.inputController = this.joystickController;
+                this.inputController = this.JoystickController;
                 this.isJoystick      = true;
             }
             else {
@@ -49,7 +48,7 @@ namespace Controllers {
                 this.isJoystick      = false;
             }
 
-            this.joystickController.gameObject.SetActive(this.isJoystick);
+            this.JoystickController.gameObject.SetActive(this.isJoystick);
             this.inputController.OnFireOnce       += () => this.OnFireOnce?.Invoke();
             this.inputController.OnReload         += () => this.OnReload?.Invoke();
             this.inputController.OnChangingWeapon += () => this.OnChangingWeapon?.Invoke();

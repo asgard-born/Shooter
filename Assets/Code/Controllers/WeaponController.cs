@@ -1,4 +1,5 @@
 ﻿namespace Controllers {
+    using Managers.Abstract;
     using Weapons.Abstract;
     using Managers;
     using Weapons.WeaponTypes;
