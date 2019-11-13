@@ -1,11 +1,10 @@
 ﻿namespace Managers {
-    using Structures;
     using UnityEngine;
 
     public class EnemiesManager : MonoBehaviour {
         public static EnemiesManager Instance;
 
-        public Enemy[] Enemies;
+        public EnemyManager[] Enemies;
 
         private void Awake() => Instance = this;
 

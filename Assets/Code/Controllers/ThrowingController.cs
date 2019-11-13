@@ -3,16 +3,17 @@
     using UnityEngine;
 
     public abstract class ThrowingController : BallisticController {
-        [SerializeField] private Transform comparerHolder;
+        public LayerMask attackingLayerMask;
 
         protected Transform weaponTransform;
-
         protected string    weaponName;
         protected float     blowingTime, range;
         protected float     damage;
         protected int       id_attacker, id_weapon;
-        protected bool      isFly;
-        public    LayerMask attackingLayerMask;
+
+        [SerializeField] private Transform comparerHolder;
+
+        private bool isFly;
 
         protected abstract void OnWeaponReachedTarget();
 
@@ -23,8 +24,15 @@
             return this.Comparer.position + this.Comparer.rotation * offset;
         }
 
-        protected void InitializeWeapon(Transform weaponTransform, int damage, float range, float blowingTime, int id_attacker, int id_weapon, string weaponName,
-                                        LayerMask layerMask) {
+        private void InitializeWeapon(
+            Transform weaponTransform,
+            float     damage,
+            float     range,
+            float     blowingTime,
+            int       id_attacker,
+            int       id_weapon,
+            string    weaponName,
+            LayerMask layerMask) {
             this.weaponTransform    = weaponTransform;
             this.damage             = damage;
             this.range              = range;
@@ -35,8 +43,15 @@
             this.attackingLayerMask = layerMask;
         }
 
-        public void StartFlyingProcess(Transform weaponTransform, int damage, float range, float blowingTime, int id_attacker, int id_weapon, string weaponName,
-                                       LayerMask layerMask) {
+        public void StartFlyingProcess(
+            Transform weaponTransform,
+            float     damage,
+            float     range,
+            float     blowingTime,
+            int       id_attacker,
+            int       id_weapon,
+            string    weaponName,
+            LayerMask layerMask) {
             this.InitializeWeapon(weaponTransform, damage, range, blowingTime, id_attacker, id_weapon, weaponName, layerMask);
 
             this.weaponTransform.SetParent(null);

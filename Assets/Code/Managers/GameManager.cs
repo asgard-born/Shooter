@@ -46,7 +46,7 @@ namespace Managers {
                 var weaponOptions = weaponOptionsContainer.weaponOptions;
 
                 foreach (var weapon in this.playerManager.WeaponController.Weapons) {
-                    var findedOption = weaponOptions.First(option => option.id == weapon.Id);
+                    var findedOption = weaponOptions.FirstOrDefault(option => option.id == weapon.Id);
 
                     weapon.WeaponName = findedOption.weaponName;
                     weapon.SerialRate = findedOption.serialRate;
@@ -71,10 +71,10 @@ namespace Managers {
                 var enemyDamage          = 5;
 
                 foreach (var enemy in this.enemiesManager.Enemies) {
-                    enemy.EnemyCommandController.SerialRate = (weaponOptions.First(option => option.id == 1).serialRate + additionalSerialRate);
+                    enemy.EnemyCommandController.SerialRate = (weaponOptions.FirstOrDefault(option => option.id == 1).serialRate + additionalSerialRate);
 
                     foreach (var weapon in enemy.WeaponController.Weapons) {
-                        var findedOption = weaponOptions.First(option => option.id == weapon.Id);
+                        var findedOption = weaponOptions.FirstOrDefault(option => option.id == weapon.Id);
 
                         weapon.WeaponName = findedOption.weaponName;
                         weapon.SerialRate = findedOption.serialRate;

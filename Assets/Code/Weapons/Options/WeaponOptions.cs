@@ -1,6 +1,6 @@
-﻿using System;
+﻿namespace Weapons.Options {
+    using System;
 
-namespace Weapons.Options {
     [Serializable]
     public class WeaponOptions {
         public int    id;

@@ -1,5 +1,6 @@
-﻿namespace Controllers {
-    using Interfaces;
+﻿using Controllers.Abstract;
+
+namespace Controllers {
     using System.Threading.Tasks;
     using System;
     using UnityEngine;

@@ -1,11 +1,9 @@
-﻿using Weapons;
-using Weapons.Interfaces;
-using Weapons.WeaponTypes;
-
-namespace Controllers {
+﻿namespace Controllers {
+    using Weapons.Abstract;
+    using Managers;
+    using Weapons.WeaponTypes;
     using System;
     using System.Threading.Tasks;
-    using Structures;
     using UnityEngine;
 
     public class WeaponController : MonoBehaviour {
@@ -20,15 +18,15 @@ namespace Controllers {
 
         [Space] [SerializeField] private int currentWeaponNumber = 1;
 
-        private Character player;
-        private int       character_id;
+        private CharacterManager player;
 
         private Weapon     currentWeaponInstance;
         private GameObject currentWeaponObject;
 
+        private int  character_id;
         private bool isChangingWeaponProcess;
         private bool isChangingWeaponOver = true;
-        private bool isFiring;    
+        private bool isFiring;
         private bool isThrowable;
 
         public float BallisticValue {
@@ -58,8 +56,9 @@ namespace Controllers {
             }
         }
 
-        public void Initialize() {
+        public void Initialize(StatManager statManager) {
             foreach (var weapon in this.Weapons) {
+                weapon.Initialize(statManager);
                 weapon.WeaponObject.SetActive(false);
             }
 
@@ -78,7 +77,7 @@ namespace Controllers {
         }
 
         private void Awake() {
-            this.player       = this.GetComponent<Character>();
+            this.player       = this.GetComponent<CharacterManager>();
             this.character_id = this.player.Id;
         }
 

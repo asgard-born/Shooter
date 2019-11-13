@@ -485,15 +485,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponObject: {fileID: 6598971200471707162}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1591
   Id: 2
   WeaponName: Shotgun
   SerialRate: 0.6
   Damage: 10
   Range: 50
   Sprite: {fileID: 21300000, guid: 49dd7ff4db186924db15c02f1c3483fd, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1591
   MagazineCapacity: 7
   AttackSpeed: 30
   ReloadRate: 0
@@ -1150,15 +1150,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponObject: {fileID: 6598971200678916559}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1591
   Id: 1
   WeaponName: 
   SerialRate: 0
   Damage: 0
   Range: 0
   Sprite: {fileID: 21300000, guid: dc5c4f1572761c346a8063a4d3d0eecf, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1591
   MagazineCapacity: 0
   AttackSpeed: 0
   ReloadRate: 0
@@ -2918,15 +2918,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponObject: {fileID: 6598971202038416878}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 823
   Id: 3
   WeaponName: Grenade
   SerialRate: 1
   Damage: 100
   Range: 0
   Sprite: {fileID: 21300000, guid: dd23fa37b2556fa449e8503a931cfc53, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 823
   throwingController: {fileID: 0}
   BlowingTime: 0
 --- !u!1 &6598971201574492195
@@ -2948,6 +2948,7 @@ GameObject:
   - component: {fileID: 6598971201574492221}
   - component: {fileID: 6598971201574492218}
   - component: {fileID: 6598971201574492194}
+  - component: {fileID: 1795501323}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -2984,8 +2985,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a68d4c3aee4db98a8b44a3fe0e8960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LifeController: {fileID: 0}
   id: 16
-  lifer: {fileID: 0}
   cameraYAxisOnMobilePlatform: -30
 --- !u!114 &6598971201574492216
 MonoBehaviour:
@@ -3016,13 +3017,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd359320b19288143a4260eedaf22144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovingSpeed: 5
+  IsInitialized: 0
   HorizontalMoving: 0
   ForwardMoving: 0
   IsJumpPressed: 0
   IsJumping: 0
-  movingSpeed: 5
   jumpVelocity: 7
-  jumpRotationSpeed: 1.2
 --- !u!114 &6598971201574492222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3172,6 +3173,28 @@ MonoBehaviour:
   IsFalling: 0
   IsGrounded: 0
   IsNearToGround: 0
+--- !u!114 &1795501323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598971201574492195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f296df691744e3784a5e9f9045467c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovingSpeedFactorMultiplicative: 1
+  MovingSpeedFactorAdditive: 0
+  SerialRateFactorMultiplicative: 1
+  SerialRateFactorAdditive: 0
+  AttackDamageFactorMultiplicative: 1
+  AttackDamageFactorAdditive: 0
+  IncomingDamageFactorMultiplicative: 1
+  IncomingDamageFactorAdditive: 0
+  FiringSplashFactorMultiplicative: 1
+  FiringSplashFactorAdditive: 0
 --- !u!1 &6598971201613546380
 GameObject:
   m_ObjectHideFlags: 0

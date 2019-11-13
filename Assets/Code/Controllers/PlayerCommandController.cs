@@ -1,6 +1,7 @@
-﻿namespace Controllers {
+﻿using Controllers.Abstract;
+
+namespace Controllers {
     using System;
-    using Interfaces;
     using UnityEngine;
 
     public class PlayerCommandController : MonoBehaviour, ICommandController {

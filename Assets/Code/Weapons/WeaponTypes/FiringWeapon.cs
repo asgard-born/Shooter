@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using UnityEngine;
-using Weapons.Interfaces;
+﻿namespace Weapons.WeaponTypes {
+    using System;
+    using System.Threading.Tasks;
+    using UnityEngine;
+    using Abstract;
 
-namespace Weapons.WeaponTypes {
     public abstract class FiringWeapon : Weapon, IReloadable {
         public    int   MagazineCapacity;
         public    int   AttackSpeed;
@@ -37,11 +37,15 @@ namespace Weapons.WeaponTypes {
         }
 
         protected void InitializeTheBullet(Bullet bullet, int id_attacker, LayerMask layerMask) {
+            if (id_attacker == 16) {
+                Debug.Log(this.CalculatedDamage);
+            }
+
             bullet.Initialize(
                 bullet.transform.position,
                 this.Range,
                 0,
-                this.Damage,
+                this.CalculatedDamage,
                 this.AttackSpeed,
                 id_attacker,
                 this.Id,

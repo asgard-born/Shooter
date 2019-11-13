@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 2200634960826130343}
   - component: {fileID: 3433941586591868202}
   - component: {fileID: 1647473951694999658}
+  - component: {fileID: 5265853221121363710}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Player
@@ -163,11 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0636fb2a8f4b95a93a756dc36e62b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LifeController: {fileID: 352142542513105701}
   id: 0
-  VisiblePart: {fileID: 7799782408448383073}
-  lifer: {fileID: 0}
   EnemyCommandController: {fileID: 0}
-  WeaponController: {fileID: 0}
 --- !u!114 &5836476183694948126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,9 +184,10 @@ MonoBehaviour:
   checkingForObstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 1559
-  distanceFactorForNewPosition: 30.4
-  minDistanceForAttack: 15
-  maxDistanceForAttack: 25
+  distanceForwardFactorForNewPosition: 50
+  distanceHorizontalFactorForNewPosition: 100
+  minDistanceForAttack: 20
+  maxDistanceForAttack: 80
   aimingFallibility: 1.8
 --- !u!114 &5504676608124326265
 MonoBehaviour:
@@ -272,13 +272,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd359320b19288143a4260eedaf22144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HorizontalMoving: 0
-  ForwardMoving: 0
-  IsJumpPressed: 0
   IsJumping: 0
-  movingSpeed: 5
+  IsJumpPressed: 0
+  ForwardMoving: 0
+  HorizontalMoving: 0
   jumpVelocity: 7
-  jumpRotationSpeed: 1.2
 --- !u!95 &2200634960826130343
 Animator:
   serializedVersion: 3
@@ -330,6 +328,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PoolContainer: {fileID: 0}
+--- !u!114 &5265853221121363710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352142542513105702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f296df691744e3784a5e9f9045467c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovingSpeedFactorMultiplicative: 1
+  MovingSpeedFactorAdditive: 0
+  SerialRateFactorMultiplicative: 1
+  SerialRateFactorAdditive: 0
+  AttackDamageFactorMultiplicative: 1
+  AttackDamageFactorAdditive: 0
+  IncomingDamageFactorMultiplicative: 1
+  IncomingDamageFactorAdditive: 0
+  FiringSplashFactorMultiplicative: 1
+  FiringSplashFactorAdditive: 0
 --- !u!1 &352164535738846210
 GameObject:
   m_ObjectHideFlags: 0
@@ -3889,15 +3909,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponObject: {fileID: 2512439404517596496}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1335
   Id: 2
   WeaponName: Shotgun
   SerialRate: 0.6
   Damage: 10
   Range: 50
   Sprite: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1335
   MagazineCapacity: 7
   AttackSpeed: 20
   ReloadRate: 0
@@ -4298,15 +4318,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponObject: {fileID: 2512439405413045518}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1335
   Id: 1
   WeaponName: Rifle
   SerialRate: 0.2
   Damage: 30
   Range: 600
   Sprite: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1335
   MagazineCapacity: 30
   AttackSpeed: 40
   ReloadRate: 0

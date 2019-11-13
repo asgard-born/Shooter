@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Weapons.WeaponTypes;
+﻿namespace Weapons.ConcreteWeapons {
+    using UnityEngine;
+    using WeaponTypes;
 
-namespace Weapons.ConcreteWeapons {
     public class Shotgun : FiringWeapon {
         [Range(.05f, .3f)] [SerializeField] private float splash = .1f;
 

@@ -1,13 +1,14 @@
-﻿namespace Weapons {
+﻿using Controllers;
+
+namespace Weapons {
     using ObjectPool;
-    using Structures;
     using UnityEngine;
 
     public class Bullet : MonoBehaviour {
         private Vector3   startingPoint;
         private float     weaponRange;
         private float     travelledDistance;
-        private int       damage;
+        private float     damage;
         private int       bulletSpeed;
         private int       id_attacker;
         private int       id_weapon;
@@ -17,15 +18,15 @@
 
         private RaycastHit raycastHit;
 
-        public void Initialize(Vector3 startingPoint,
-                               float weaponRange,
-                               float travelledDistance,
-                               int damage,
-                               int bulletSpeed,
-                               int id_attacker,
-                               int id_weapon,
-                               string weaponName,
-                               bool isBulletFly,
+        public void Initialize(Vector3   startingPoint,
+                               float     weaponRange,
+                               float     travelledDistance,
+                               float     damage,
+                               int       bulletSpeed,
+                               int       id_attacker,
+                               int       id_weapon,
+                               string    weaponName,
+                               bool      isBulletFly,
                                LayerMask layerMask) {
             this.startingPoint     = startingPoint;
             this.weaponRange       = weaponRange;
@@ -45,7 +46,7 @@
 
             if (Physics.Raycast(startingPoint, this.transform.forward, out this.raycastHit, this.travelledDistance, this.layerMask)) {
                 this.isBulletFly = false;
-                var lifer = this.raycastHit.transform.gameObject.GetComponent<Lifer>();
+                var lifer = this.raycastHit.transform.gameObject.GetComponent<LifeController>();
 
                 if (lifer != null) {
                     lifer.Hit(this.damage, this.id_attacker, this.id_weapon, this.weaponName);

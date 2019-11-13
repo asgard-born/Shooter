@@ -1,9 +1,9 @@
 ﻿namespace Controllers {
+    using Abstract;
     using System.Collections;
     using Structures;
     using UnityEngine.AI;
     using System;
-    using Interfaces;
     using UnityEngine;
     using Random = UnityEngine.Random;
 
@@ -19,8 +19,8 @@
         public event Action OnReload;
         public event Action OnChangingWeapon;
 
-        private Lifer      life;
-        private RaycastHit hit;
+        private LifeController life;
+        private RaycastHit     hit;
 
         public float serialRate;
         public bool  isAiming;
@@ -31,7 +31,7 @@
             set => this.serialRate = value;
         }
 
-        [Range(30f, 150f)] [SerializeField] private float distanceForwardFactorForNewPosition = 100f;
+        [Range(30f, 150f)] [SerializeField] private float distanceForwardFactorForNewPosition    = 100f;
         [Range(30f, 250f)] [SerializeField] private float distanceHorizontalFactorForNewPosition = 200f;
 
         [SerializeField] private float minDistanceForAttack = 15;
@@ -51,7 +51,7 @@
         private float           forwardMoving;
 
         public void Initialize(Transform playerT) {
-            this.life         = this.GetComponent<Lifer>();
+            this.life         = this.GetComponent<LifeController>();
             this.navMeshAgent = this.GetComponent<NavMeshAgent>();
 
             this.OnPhaseChanged          = this.ChangeThePhase;
@@ -112,6 +112,7 @@
                 var pointForAttack = this.PlayerT.position + this.PlayerT.right * Random.Range(this.aimingFallibility, -this.aimingFallibility);
                 this.transform.LookAt(pointForAttack);
                 this.OnFireOnce?.Invoke();
+
                 yield return new WaitForSeconds(this.serialRate);
             }
         }
@@ -119,17 +120,25 @@
         private void BehaveAccordingThePhase() {
             switch (this.phase) {
                 case AIPhase.Attacking:
-
                     break;
 
                 case AIPhase.ChasingPlayer:
                     this.ChasingPlayer();
-
                     break;
             }
         }
 
         private void ChasingPlayer() {
+            var randomPosition = this.CalculateNewPosition();
+            this.transform.LookAt(this.PlayerT);
+
+            // moving logic
+            this.forwardMoving          = 1f;
+            this.navMeshAgent.isStopped = false;
+            this.navMeshAgent.SetDestination(randomPosition);
+        }
+
+        private Vector3 CalculateNewPosition() {
             var isPositiveNumberForward    = (Random.Range(0, 2) == 0);
             var isPositiveNumberHorizontal = (Random.Range(0, 2) == 0);
 
@@ -138,15 +147,8 @@
 
             forwardRandom    = !isPositiveNumberForward ? -forwardRandom : forwardRandom;
             horizontalRandom = !isPositiveNumberHorizontal ? -horizontalRandom : horizontalRandom;
-
-            var randomPosition = this.PlayerT.position
-              + this.PlayerT.forward * forwardRandom + this.PlayerT.right * horizontalRandom;
-
-            this.transform.LookAt(this.PlayerT);
-            this.forwardMoving = 1f;
-
-            this.navMeshAgent.isStopped = false;
-            this.navMeshAgent.SetDestination(randomPosition);
+            
+            return this.PlayerT.position + this.PlayerT.forward * forwardRandom + this.PlayerT.right * horizontalRandom;
         }
     }
 }

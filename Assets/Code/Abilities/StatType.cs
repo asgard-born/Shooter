@@ -4,6 +4,6 @@
         IncomingDamage,
         AttackDamage,
         SerialRate,
-        SplashValue,
+        FiringSplash,
     }
 }
