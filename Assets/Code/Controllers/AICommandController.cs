@@ -18,6 +18,8 @@
         public event Action OnReload;
         public event Action OnChangingWeapon;
         public event Action OnChasingThePlayer;
+        
+        Coroutine lastFireRoutine;
 
         private RaycastHit hit;
 
@@ -83,11 +85,15 @@
 
             switch (phase) {
                 case AIPhase.Attacking:
-                    this.StopCoroutine(this.Fire());
-                    this.StartCoroutine(this.Fire());
+                    if (this.lastFireRoutine != null) {
+                        this.StopCoroutine(this.lastFireRoutine);
+                    }
+
+                    this.lastFireRoutine = this.StartCoroutine(this.Fire());
                     break;
 
                 case AIPhase.ChasingPlayer:
+                    this.StopCoroutine(this.Fire());
                     this.chosenDistanceForAttack = Random.Range(this.minDistanceForAttack, this.maxDistanceForAttack);
                     break;
             }
@@ -97,12 +103,11 @@
 
         private IEnumerator Fire() {
             while (this.phase == AIPhase.Attacking) {
+                yield return new WaitForSeconds(this.serialRate);
                 this.isAiming = true;
                 var pointForAttack = this.PlayerT.position + this.PlayerT.right * Random.Range(this.aimingFallibility, -this.aimingFallibility);
                 this.transform.LookAt(pointForAttack);
                 this.OnFireOnce?.Invoke();
-
-                yield return new WaitForSeconds(this.serialRate);
             }
         }
 
