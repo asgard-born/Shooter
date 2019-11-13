@@ -8,6 +8,7 @@
         public float  serialRate;
         public int    damage;
         public int    attackSpeed;
+        public float  splash;
         public int    range;
         public int    magazineCapacity;
         public float  reloadRate;

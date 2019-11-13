@@ -1,26 +1,28 @@
-﻿namespace Managers {
+﻿using Abilities.Abstract;
+
+namespace Managers {
     using System.Collections.Generic;
     using Abilities;
     using UnityEngine;
 
-    public class StatManager : MonoBehaviour {
+    public class StatManager : MonoBehaviour, IBuffable {
         public Dictionary<AbilityType, Ability> Abilities => this.abilities;
 
         private readonly Dictionary<AbilityType, Ability> abilities = new Dictionary<AbilityType, Ability>();
 
-        public int   MovingSpeedFactorMultiplicative = 1;
+        public float MovingSpeedFactorMultiplicative = 1;
         public float MovingSpeedFactorAdditive;
 
-        public int   SerialRateFactorMultiplicative = 1;
+        public float SerialRateFactorMultiplicative = 1;
         public float SerialRateFactorAdditive;
 
-        public int   AttackDamageFactorMultiplicative = 1;
+        public float AttackDamageFactorMultiplicative = 1;
         public float AttackDamageFactorAdditive;
 
-        public int   IncomingDamageFactorMultiplicative = 1;
+        public float IncomingDamageFactorMultiplicative = 1;
         public float IncomingDamageFactorAdditive;
 
-        public int   FiringSplashFactorMultiplicative = 1;
+        public float FiringSplashFactorMultiplicative = 1;
         public float FiringSplashFactorAdditive;
 
         public float CalculateValue(StatType statType, float value) {
@@ -44,7 +46,7 @@
                     return Calculate(1, 0);
             }
 
-            float Calculate(int multiplicativeFactor, float additiveFactor) {
+            float Calculate(float multiplicativeFactor, float additiveFactor) {
                 if (multiplicativeFactor == 0) {
                     multiplicativeFactor = 1;
                 }
@@ -75,24 +77,61 @@
                 foreach (var buff in ability.Buffs) {
                     switch (buff.StatType) {
                         case StatType.MovingSpeed:
-//                            this.movementController.
+                            if (buff.ModifierType == StatModifierType.Additive) {
+                                this.MovingSpeedFactorAdditive += buff.Value;
+                            }
+                            else if (buff.ModifierType == StatModifierType.Multiplier) {
+                                this.MovingSpeedFactorMultiplicative = this.MovingSpeedFactorMultiplicative <= 1
+                                    ? buff.Value
+                                    : this.MovingSpeedFactorMultiplicative + buff.Value;
+                            }
+
                             break;
 
                         case StatType.IncomingDamage:
-//                            this.lifer
+                            if (buff.ModifierType == StatModifierType.Additive) {
+                                this.IncomingDamageFactorAdditive += buff.Value;
+                            }
+                            else if (buff.ModifierType == StatModifierType.Multiplier) {
+                                this.IncomingDamageFactorMultiplicative = this.IncomingDamageFactorMultiplicative <= 1
+                                    ? buff.Value
+                                    : this.IncomingDamageFactorMultiplicative + buff.Value;
+                            }
 
                             break;
 
                         case StatType.AttackDamage:
-
+                            if (buff.ModifierType == StatModifierType.Additive) {
+                                this.AttackDamageFactorAdditive += buff.Value;
+                            }
+                            else if (buff.ModifierType == StatModifierType.Multiplier) {
+                                this.AttackDamageFactorMultiplicative = this.AttackDamageFactorMultiplicative <= 1
+                                    ? buff.Value
+                                    : this.AttackDamageFactorMultiplicative + buff.Value;
+                            }
+                            
                             break;
 
                         case StatType.SerialRate:
-                            this.abilities.Add(ability.AbilityType, ability);
+                            if (buff.ModifierType == StatModifierType.Additive) {
+                                this.SerialRateFactorAdditive += buff.Value;
+                            }
+                            else if (buff.ModifierType == StatModifierType.Multiplier) {
+                                this.SerialRateFactorMultiplicative = this.SerialRateFactorMultiplicative <= 1
+                                    ? buff.Value
+                                    : this.SerialRateFactorMultiplicative + buff.Value;
+                            }
                             break;
 
                         case StatType.FiringSplash:
-                            this.abilities.Add(ability.AbilityType, ability);
+                            if (buff.ModifierType == StatModifierType.Additive) {
+                                this.FiringSplashFactorAdditive += buff.Value;
+                            }
+                            else if (buff.ModifierType == StatModifierType.Multiplier) {
+                                this.FiringSplashFactorMultiplicative = this.FiringSplashFactorMultiplicative <= 1
+                                    ? buff.Value
+                                    : this.FiringSplashFactorMultiplicative + buff.Value;
+                            }
                             break;
                     }
                 }

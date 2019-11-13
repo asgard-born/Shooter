@@ -1,8 +1,7 @@
-﻿using Weapons.ConcreteWeapons;
-using Weapons.Options;
-using Weapons.WeaponTypes;
-
-namespace Managers {
+﻿namespace Managers {
+    using Weapons.ConcreteWeapons;
+    using Weapons.Options;
+    using Weapons.WeaponTypes;
     using System;
     using System.Threading.Tasks;
     using System.Linq;
@@ -21,7 +20,7 @@ namespace Managers {
 
         private bool isRespawning;
 
-        private void Awake() 
+        private void Awake()
             => this.playerManager.OnDeath += () => this.isRespawning = true;
 
         private async void Start() {
@@ -59,15 +58,17 @@ namespace Managers {
                         continue;
                     }
 
+
                     if (weapon is FiringWeapon firingWeapon) {
                         firingWeapon.AttackSpeed      = findedOption.attackSpeed;
+                        firingWeapon.Splash           = findedOption.splash;
                         firingWeapon.MagazineCapacity = findedOption.magazineCapacity;
                         firingWeapon.ReloadRate       = findedOption.reloadRate;
                     }
                 }
 
                 // for not loosing after 2 seconds :)
-                var additionalSerialRate = 3.8f;
+                var additionalSerialRate = 0.8f;
                 var enemyDamage          = 5;
 
                 foreach (var enemy in this.enemiesManager.Enemies) {
@@ -89,6 +90,7 @@ namespace Managers {
 
                         if (weapon is FiringWeapon firingWeapon) {
                             firingWeapon.AttackSpeed      = findedOption.attackSpeed;
+                            firingWeapon.Splash           = findedOption.splash;
                             firingWeapon.MagazineCapacity = findedOption.magazineCapacity;
                             firingWeapon.ReloadRate       = findedOption.reloadRate;
                         }

@@ -105,7 +105,7 @@
             while (this.phase == AIPhase.Attacking) {
                 yield return new WaitForSeconds(this.serialRate);
                 this.isAiming = true;
-                var pointForAttack = this.PlayerT.position + this.PlayerT.right * Random.Range(this.aimingFallibility, -this.aimingFallibility);
+                var pointForAttack = this.PlayerT.position;
                 this.transform.LookAt(pointForAttack);
                 this.OnFireOnce?.Invoke();
             }
