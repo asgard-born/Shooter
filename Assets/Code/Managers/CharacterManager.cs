@@ -10,7 +10,9 @@
 
         [HideInInspector] public LifeController LifeController;
 
-        protected MovementController MovementController;
+        protected MovementController movementController;
+
+        [SerializeField] protected float movingSpeed = 5f;
 
         protected AnimatorManager animatorManager;
         protected StatManager     statManager;
@@ -36,7 +38,7 @@
             this.weaponController.Initialize(this.statManager);
         }
 
-        private void Awake() {
+        protected void Awake() {
             this.LifeController         =  this.GetComponent<LifeController>();
             this.LifeController.OnDeath += () => this.OnDeath?.Invoke();
         }
@@ -45,7 +47,7 @@
             this.statManager        = this.GetComponent<StatManager>();
             this.weaponController   = this.GetComponent<WeaponController>();
             this.animatorManager    = this.GetComponent<AnimatorManager>();
-            this.MovementController = this.GetComponent<MovementController>();
+            this.movementController = this.GetComponent<MovementController>();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace UI.Interfaces {
+﻿namespace UI.Abstract {
     using UnityEngine;
     using UnityEngine.UI;
 

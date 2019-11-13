@@ -2,25 +2,24 @@
     using Abstract;
     using System.Collections;
     using Structures;
-    using UnityEngine.AI;
     using System;
     using UnityEngine;
     using Random = UnityEngine.Random;
 
-    public class EnemyCommandController : MonoBehaviour, ICommandController {
-        public float ForwardMoving    => this.forwardMoving;
+    public class AICommandController : MonoBehaviour, ICommandController {
+        public float ForwardMoving    { get; }
         public float HorizontalMoving { get; }
-        public float RotateX          { get; }
-        public float RotateY          { get; }
+        public float RotationX        { get; }
+        public float RotationY        { get; }
         public bool  IsSneak          { get; }
         public bool  IsJumping        { get; }
 
         public event Action OnFireOnce;
         public event Action OnReload;
         public event Action OnChangingWeapon;
+        public event Action OnChasingThePlayer;
 
-        private LifeController life;
-        private RaycastHit     hit;
+        private RaycastHit hit;
 
         public float serialRate;
         public bool  isAiming;
@@ -31,8 +30,7 @@
             set => this.serialRate = value;
         }
 
-        [Range(30f, 150f)] [SerializeField] private float distanceForwardFactorForNewPosition    = 100f;
-        [Range(30f, 250f)] [SerializeField] private float distanceHorizontalFactorForNewPosition = 200f;
+        public event Action<AIPhase> OnPhaseChanged;
 
         [SerializeField] private float minDistanceForAttack = 15;
         [SerializeField] private float maxDistanceForAttack = 25;
@@ -41,21 +39,14 @@
 
         private float chosenDistanceForAttack;
 
-        private NavMeshAgent navMeshAgent;
-        private AIPhase      phase = AIPhase.ChasingPlayer;
-        private Transform    PlayerT;
+        private AIPhase   phase = AIPhase.ChasingPlayer;
+        private Transform PlayerT;
 
         private bool isInitialized;
 
-        private Action<AIPhase> OnPhaseChanged;
-        private float           forwardMoving;
-
         public void Initialize(Transform playerT) {
-            this.life         = this.GetComponent<LifeController>();
-            this.navMeshAgent = this.GetComponent<NavMeshAgent>();
-
-            this.OnPhaseChanged          = this.ChangeThePhase;
-            this.chosenDistanceForAttack = Random.Range(this.minDistanceForAttack, this.maxDistanceForAttack);
+            this.OnPhaseChanged          += this.ChangeThePhase;
+            this.chosenDistanceForAttack =  Random.Range(this.minDistanceForAttack, this.maxDistanceForAttack);
 
             this.PlayerT       = playerT;
             this.isInitialized = true;
@@ -92,8 +83,6 @@
 
             switch (phase) {
                 case AIPhase.Attacking:
-                    this.forwardMoving          = 0;
-                    this.navMeshAgent.isStopped = true;
                     this.StopCoroutine(this.Fire());
                     this.StartCoroutine(this.Fire());
                     break;
@@ -123,32 +112,9 @@
                     break;
 
                 case AIPhase.ChasingPlayer:
-                    this.ChasingPlayer();
+                    this.OnChasingThePlayer?.Invoke();
                     break;
             }
-        }
-
-        private void ChasingPlayer() {
-            var randomPosition = this.CalculateNewPosition();
-            this.transform.LookAt(this.PlayerT);
-
-            // moving logic
-            this.forwardMoving          = 1f;
-            this.navMeshAgent.isStopped = false;
-            this.navMeshAgent.SetDestination(randomPosition);
-        }
-
-        private Vector3 CalculateNewPosition() {
-            var isPositiveNumberForward    = (Random.Range(0, 2) == 0);
-            var isPositiveNumberHorizontal = (Random.Range(0, 2) == 0);
-
-            var forwardRandom    = Random.Range(this.distanceForwardFactorForNewPosition, this.distanceForwardFactorForNewPosition / 2);
-            var horizontalRandom = Random.Range(this.distanceHorizontalFactorForNewPosition, this.distanceHorizontalFactorForNewPosition / 2f);
-
-            forwardRandom    = !isPositiveNumberForward ? -forwardRandom : forwardRandom;
-            horizontalRandom = !isPositiveNumberHorizontal ? -horizontalRandom : horizontalRandom;
-            
-            return this.PlayerT.position + this.PlayerT.forward * forwardRandom + this.PlayerT.right * horizontalRandom;
         }
     }
 }

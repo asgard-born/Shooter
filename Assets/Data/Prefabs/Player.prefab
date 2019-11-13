@@ -2985,9 +2985,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a68d4c3aee4db98a8b44a3fe0e8960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LifeController: {fileID: 0}
+  LifeController: {fileID: 6598971201574492216}
   id: 16
   cameraYAxisOnMobilePlatform: -30
+  MovingSpeed: 5
 --- !u!114 &6598971201574492216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3017,12 +3018,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd359320b19288143a4260eedaf22144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovingSpeed: 5
-  IsInitialized: 0
-  HorizontalMoving: 0
-  ForwardMoving: 0
-  IsJumpPressed: 0
   IsJumping: 0
+  IsJumpPressed: 0
+  ForwardMoving: 0
+  HorizontalMoving: 0
   jumpVelocity: 7
 --- !u!114 &6598971201574492222
 MonoBehaviour:

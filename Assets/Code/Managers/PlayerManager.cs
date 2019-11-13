@@ -1,20 +1,17 @@
 ﻿namespace Managers {
+    using UI.Abstract;
     using Abilities;
     using Controllers;
-    using UI.Interfaces;
     using UnityEngine;
 
     public class PlayerManager : CharacterManager {
         [SerializeField] private float cameraYAxisOnMobilePlatform = -30f;
-        [SerializeField] private float MovingSpeed                 = 5f;
 
         private PlayerCommandController playerCommandController;
         private Joystick                joystick;
         private CameraController        cameraController;
 
-        private float mouseX;
-        private float mouseY;
-        private bool  isJoystickOn;
+        private bool isJoystickOn;
 
         public float SerialRate {
             set => this.playerCommandController.SerialRate = value;
@@ -27,7 +24,7 @@
         }
 
         private void Update() {
-            var movingSpeed = this.statManager.CalculateValue(StatType.MovingSpeed, this.MovingSpeed);
+            var movingSpeed = this.statManager.CalculateValue(StatType.MovingSpeed, this.movingSpeed);
 
             var forwardMoving    = this.playerCommandController.ForwardMoving * movingSpeed * Time.fixedDeltaTime;
             var horizontalMoving = 0f;
@@ -36,17 +33,16 @@
                 horizontalMoving = this.playerCommandController.HorizontalMoving * movingSpeed * Time.fixedDeltaTime;
             }
 
-            this.MovementController.ForwardMoving    = forwardMoving;
-            this.MovementController.HorizontalMoving = horizontalMoving;
+            this.movementController.ForwardMoving    = forwardMoving;
+            this.movementController.HorizontalMoving = horizontalMoving;
 
-            this.MovementController.IsJumpPressed = this.playerCommandController.IsJumping;
+            this.movementController.IsJumpPressed = this.playerCommandController.IsJumping;
 
-            this.MovementController.RotatePlayer(this.mouseX);
+            this.movementController.RotateTheCharacter();
 
             this.weaponController.BallisticValue = this.playerCommandController.BallisticValue;
 
-            this.mouseX = this.playerCommandController.RotateX;
-            this.mouseY = this.playerCommandController.RotateY;
+            this.movementController.RotationX = this.playerCommandController.RotationX;
 
             this.UpdateAnimatorState();
         }
@@ -72,23 +68,23 @@
             this.weaponController.OnWeaponRearranged += this.animatorManager.SetupWeaponCondition;
             this.weaponController.SetWeaponEquipped  += this.animatorManager.SetWeaponEquipping;
             this.weaponController.OnWeaponChanged    += (rate, sprite, isThrowable) => this.playerCommandController.SerialRate = rate;
-            this.weaponController.OnWeaponChanged    += (rate, sprite, isThrowable) => this.MovementController.SetAimIK(!isThrowable);
+            this.weaponController.OnWeaponChanged    += (rate, sprite, isThrowable) => this.movementController.SetAimIK(!isThrowable);
 
             this.playerCommandController.OnFireOnce       += this.weaponController.OnFire;
             this.playerCommandController.OnReload         += this.weaponController.Reload;
             this.playerCommandController.OnChangingWeapon += this.weaponController.ChangeWeapon;
         }
 
-        private void FixedUpdate() => this.MovementController.Move();
+        private void FixedUpdate() => this.movementController.Move();
 
         private void LateUpdate() {
-            this.cameraController.RotateTargetHorizontally(this.mouseX);
+            this.cameraController.RotateTargetHorizontally(this.playerCommandController.RotationX);
 
             if (this.isJoystickOn) {
-                this.cameraController.RotateCamera(this.mouseX, this.cameraYAxisOnMobilePlatform);
+                this.cameraController.RotateCamera(this.playerCommandController.RotationX, this.cameraYAxisOnMobilePlatform);
             }
             else {
-                this.cameraController.RotateCamera(this.mouseX, this.mouseY);
+                this.cameraController.RotateCamera(this.playerCommandController.RotationX, this.playerCommandController.RotationY);
             }
         }
 
@@ -100,10 +96,10 @@
             }
 
             this.animatorManager.IsSneak        = this.playerCommandController.IsSneak;
-            this.animatorManager.IsJumping      = this.MovementController.IsJumping;
-            this.animatorManager.IsFalling      = this.MovementController.IsFalling();
-            this.animatorManager.IsGrounded     = this.MovementController.IsGrounded();
-            this.animatorManager.IsNearToGround = this.MovementController.IsNearToGround();
+            this.animatorManager.IsJumping      = this.movementController.IsJumping;
+            this.animatorManager.IsFalling      = this.movementController.IsFalling();
+            this.animatorManager.IsGrounded     = this.movementController.IsGrounded();
+            this.animatorManager.IsNearToGround = this.movementController.IsNearToGround();
         }
     }
 }

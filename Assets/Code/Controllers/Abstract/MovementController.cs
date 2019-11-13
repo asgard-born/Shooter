@@ -7,10 +7,12 @@
 
         public float ForwardMoving;
         public float HorizontalMoving;
+        public float RotationX;
 
         public abstract void Move();
+        public abstract void Stop();
 
-        public abstract void RotatePlayer(float value);
+        public abstract void RotateTheCharacter();
         public abstract bool IsFalling();
         public abstract bool IsGrounded();
         public abstract bool IsNearToGround();

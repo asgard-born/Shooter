@@ -11,15 +11,15 @@ namespace Controllers {
 
         public float ForwardMoving       => this.forwardMoving;
         public float HorizontalMoving    => this.horizontalMoving;
-        public float RotateX             => this.rotateX;
-        public float RotateY             => this.rotateY;
+        public float RotationX           => this.rotationX;
+        public float RotationY           => this.rotationY;
         public float BallisticValue      => this.joystickController.GetBallisticValue;
         public float AttackRotatingValue => this.joystickController.GetAttackJoystickValue;
         public bool  IsSneak             => this.isSneak;
         public bool  IsJumping           => this.isJumping;
 
-        private float rotateX;
-        private float rotateY;
+        private float rotationX;
+        private float rotationY;
 
         private float forwardMoving;
         private float horizontalMoving;
@@ -61,13 +61,13 @@ namespace Controllers {
 
         private void Update() {
             if (this.isJoystick) {
-                this.rotateX += this.AttackRotatingValue == 0 ? this.inputController.GetAxisX : this.AttackRotatingValue;
+                this.rotationX += this.AttackRotatingValue == 0 ? this.inputController.GetAxisX : this.AttackRotatingValue;
             }
             else {
-                this.rotateX += this.inputController.GetAxisX;
+                this.rotationX += this.inputController.GetAxisX;
             }
 
-            this.rotateY -= this.inputController.GetAxisY;
+            this.rotationY -= this.inputController.GetAxisY;
 
             if (this.isJoystick) {
                 this.forwardMoving    = this.inputController.ForwardMoving > 0 ? 1 : this.inputController.ForwardMoving < 0 ? -1 : 0;

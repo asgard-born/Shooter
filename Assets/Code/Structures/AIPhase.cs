@@ -1,5 +1,5 @@
 ﻿namespace Structures {
     public enum AIPhase {
-        ChasingPlayer, Attacking, Dodging
+        ChasingPlayer, Attacking
     }
 }

@@ -1,19 +1,46 @@
 ﻿namespace Managers {
+    using Abilities;
+    using Structures;
     using Controllers;
     using UnityEngine;
 
     public class EnemyManager : CharacterManager {
-        [HideInInspector] public EnemyCommandController EnemyCommandController;
+        [HideInInspector] public AICommandController aiCommandController;
 
         public void Respawn() => this.LifeController.Resurrect();
 
-        private bool canUpdateAnimator;
+        private EnemyMovementController enemyMovementController;
+        private Transform               playerT;
+        private bool                    canUpdateAnimator;
 
         private new void Start() {
             base.Start();
-            this.EnemyCommandController = this.GetComponent<EnemyCommandController>();
-            this.EnemyCommandController.OnFireOnce += this.weaponController.OnFire;
-            this.EnemyCommandController.OnReload   += this.weaponController.Reload;
+
+            this.aiCommandController            =  this.GetComponent<AICommandController>();
+            this.aiCommandController.OnFireOnce += this.weaponController.OnFire;
+            this.aiCommandController.OnReload   += this.weaponController.Reload;
+
+            this.enemyMovementController = this.movementController as EnemyMovementController;
+
+            this.aiCommandController.OnChasingThePlayer += () => {
+                var movingSpeed = this.statManager.CalculateValue(StatType.MovingSpeed, this.movingSpeed);
+                this.movementController.ForwardMoving = movingSpeed;
+
+                this.enemyMovementController.CalculateNewPosition(this.playerT);
+                this.movementController.Move();
+            };
+
+            this.aiCommandController.OnPhaseChanged += phase => {
+                switch (phase) {
+                    case AIPhase.Attacking:
+                        this.movementController.Stop();
+                        break;
+
+                    case AIPhase.ChasingPlayer:
+                        this.enemyMovementController.RotateToPlayer(this.playerT);
+                        break;
+                }
+            };
 
             this.canUpdateAnimator = true;
         }
@@ -25,12 +52,13 @@
         }
 
         public void Initialize(Transform playerT) {
-            this.EnemyCommandController.Initialize(playerT);
+            this.playerT = playerT;
+            this.aiCommandController.Initialize(playerT);
         }
 
         private void UpdateAnimatorState() {
-            this.animatorManager.ForwardMoving    = this.EnemyCommandController.ForwardMoving;
-            this.animatorManager.HorizontalMoving = this.EnemyCommandController.HorizontalMoving;
+            this.animatorManager.ForwardMoving    = this.movementController.ForwardMoving;
+            this.animatorManager.HorizontalMoving = this.movementController.HorizontalMoving;
         }
     }
 }

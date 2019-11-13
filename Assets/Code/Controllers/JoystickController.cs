@@ -1,8 +1,8 @@
 ﻿using Controllers.Abstract;
+using UI.Abstract;
 
 namespace Controllers {
     using System.Threading.Tasks;
-    using UI.Interfaces;
     using UnityEngine.UI;
     using System;
     using UnityEngine;

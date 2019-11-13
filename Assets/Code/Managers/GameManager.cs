@@ -66,12 +66,12 @@ namespace Managers {
                     }
                 }
 
-                // for not to loosing after 2 seconds :)
+                // for not loosing after 2 seconds :)
                 var additionalSerialRate = 3.8f;
                 var enemyDamage          = 5;
 
                 foreach (var enemy in this.enemiesManager.Enemies) {
-                    enemy.EnemyCommandController.SerialRate = (weaponOptions.FirstOrDefault(option => option.id == 1).serialRate + additionalSerialRate);
+                    enemy.aiCommandController.SerialRate = (weaponOptions.FirstOrDefault(option => option.id == 1).serialRate + additionalSerialRate);
 
                     foreach (var weapon in enemy.WeaponController.Weapons) {
                         var findedOption = weaponOptions.FirstOrDefault(option => option.id == weapon.Id);
