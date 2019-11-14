@@ -95,7 +95,10 @@
                     break;
 
                 case AIPhase.ChasingPlayer:
-                    this.StopCoroutine(this.Fire());
+                    if (this.lastFireRoutine != null) {
+                        this.StopCoroutine(this.lastFireRoutine);
+                    }
+
                     this.chosenDistanceForAttack = Random.Range(this.minDistanceForAttack, this.maxDistanceForAttack);
                     break;
             }
