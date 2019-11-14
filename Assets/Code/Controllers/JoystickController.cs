@@ -1,6 +1,4 @@
-﻿using Managers;
-
-namespace Controllers {
+﻿namespace Controllers {
     using Abstract;
     using UI.Abstract;
     using System.Threading.Tasks;

@@ -1,6 +1,5 @@
-﻿using Abilities.Abstract;
-
-namespace Managers {
+﻿namespace Managers {
+    using Abilities.Abstract;
     using System.Collections.Generic;
     using Abilities;
     using UnityEngine;
@@ -109,7 +108,7 @@ namespace Managers {
                                     ? buff.Value
                                     : this.AttackDamageFactorMultiplicative + buff.Value;
                             }
-                            
+
                             break;
 
                         case StatType.SerialRate:
@@ -121,6 +120,7 @@ namespace Managers {
                                     ? buff.Value
                                     : this.SerialRateFactorMultiplicative + buff.Value;
                             }
+
                             break;
 
                         case StatType.FiringSplash:
@@ -132,6 +132,7 @@ namespace Managers {
                                     ? buff.Value
                                     : this.FiringSplashFactorMultiplicative + buff.Value;
                             }
+
                             break;
                     }
                 }
@@ -143,6 +144,72 @@ namespace Managers {
 
         public void DisableAbility(Ability ability) {
             if (this.Abilities.ContainsKey(ability.AbilityType)) {
+                foreach (var buff in ability.Buffs) {
+                    switch (buff.StatType) {
+                        case StatType.MovingSpeed:
+                            if (buff.ModifierType == StatModifierType.Additive) {
+                                this.MovingSpeedFactorAdditive -= buff.Value;
+                            }
+                            else if (buff.ModifierType == StatModifierType.Multiplier) {
+                                this.MovingSpeedFactorMultiplicative = this.MovingSpeedFactorMultiplicative <= 1
+                                    ? 1
+                                    : this.MovingSpeedFactorMultiplicative - buff.Value;
+                            }
+
+                            break;
+
+                        case StatType.IncomingDamage:
+                            if (buff.ModifierType == StatModifierType.Additive) {
+                                this.IncomingDamageFactorAdditive -= buff.Value;
+                            }
+                            else if (buff.ModifierType == StatModifierType.Multiplier) {
+                                this.IncomingDamageFactorMultiplicative = this.IncomingDamageFactorMultiplicative <= 1
+                                    ? 1
+                                    : this.IncomingDamageFactorMultiplicative - buff.Value;
+                            }
+
+                            break;
+
+                        case StatType.AttackDamage:
+                            if (buff.ModifierType == StatModifierType.Additive) {
+                                this.AttackDamageFactorAdditive -= buff.Value;
+                            }
+                            else if (buff.ModifierType == StatModifierType.Multiplier) {
+                                this.AttackDamageFactorMultiplicative = this.AttackDamageFactorMultiplicative <= 1
+                                    ? 1
+                                    : this.AttackDamageFactorMultiplicative - buff.Value;
+                            }
+
+                            break;
+
+                        case StatType.SerialRate:
+                            if (buff.ModifierType == StatModifierType.Additive) {
+                                this.SerialRateFactorAdditive -= buff.Value;
+                            }
+                            else if (buff.ModifierType == StatModifierType.Multiplier) {
+                                this.SerialRateFactorMultiplicative = this.SerialRateFactorMultiplicative <= 1
+                                    ? 1
+                                    : this.SerialRateFactorMultiplicative - buff.Value;
+                            }
+
+                            break;
+
+                        case StatType.FiringSplash:
+                            if (buff.ModifierType == StatModifierType.Additive) {
+                                this.FiringSplashFactorAdditive -= buff.Value;
+                            }
+                            else if (buff.ModifierType == StatModifierType.Multiplier) {
+                                this.FiringSplashFactorMultiplicative = this.FiringSplashFactorMultiplicative <= 1
+                                    ? 1
+                                    : this.FiringSplashFactorMultiplicative - buff.Value;
+                            }
+
+                            break;
+                    }
+                }
+            }
+            else {
+                Debug.LogError($"{this.GetType().Name} doesn't have such ability: {ability.AbilityType.ToString()}");
             }
         }
     }

@@ -1,6 +1,5 @@
-﻿using Controllers.Abstract;
-
-namespace Controllers {
+﻿namespace Controllers {
+    using Abstract;
     using System.Threading.Tasks;
     using System;
     using UnityEngine;

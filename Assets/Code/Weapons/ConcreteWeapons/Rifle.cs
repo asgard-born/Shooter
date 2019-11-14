@@ -1,5 +1,4 @@
 ﻿namespace Weapons.ConcreteWeapons {
-    using UnityEngine;
     using WeaponTypes;
 
     public class Rifle : FiringWeapon {

@@ -77,7 +77,7 @@
                 }
 
                 // for not loosing after 2 seconds :)
-                var additionalSerialRate = 0.8f;
+                var additionalSerialRate = 1.4f;
                 var enemyDamage          = 5;
 
                 foreach (var enemy in this.enemiesManager.Enemies) {

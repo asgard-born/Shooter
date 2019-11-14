@@ -1,6 +1,5 @@
-﻿using Controllers;
-
-namespace Weapons {
+﻿namespace Weapons {
+    using Controllers;
     using ObjectPool;
     using UnityEngine;
 
