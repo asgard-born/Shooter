@@ -26,7 +26,7 @@
         private bool isRespawning;
 
         private void Awake()
-            => this.playerManager.OnDeath += () => this.isRespawning = true;
+            => this.playerManager.OnDeath += this.OnDeath;
 
         private async void Start() {
             this.GetSingletones();
@@ -40,9 +40,14 @@
             foreach (var ability in this.startingPlayerAbilities) {
                 this.playerManager.AddAbility(ability);
             }
-            
+
             this.poolManager.Initialize(this.PoolOptions.Pools);
             this.InitializeTheEnemies();
+        }
+
+        private void OnDeath() {
+            this.isRespawning = true;
+            this.playerManager.WeaponController.SetupArcRenderer(false);
         }
 
         private void ParseJSONData() {
@@ -117,6 +122,7 @@
                 this.playerManager.transform.position = this.respawnPoint.position;
                 this.playerManager.gameObject.SetActive(true);
                 this.playerManager.Respawn();
+                this.playerManager.WeaponController.DetectThrowingWeapon();
             }
         }
 

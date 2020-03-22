@@ -24,7 +24,7 @@
         public override void Move() {
             this.rigidbody.MovePosition(
                 this.transform.position +
-                (this.transform.right * this.HorizontalMoving + this.transform.forward * this.ForwardMoving));
+                (this.transform.right * 2 * this.HorizontalMoving + this.transform.forward * this.ForwardMoving));
         }
 
         public override void Stop() {

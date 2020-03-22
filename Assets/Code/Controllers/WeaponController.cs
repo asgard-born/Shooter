@@ -72,20 +72,17 @@
 
             this.OnWeaponChanged?.Invoke(this.currentWeaponInstance.SerialRate, this.currentWeaponInstance.Sprite, this.isThrowable);
         }
+        
+        public void DetectThrowingWeapon() {
+            var throwInstance = this.currentWeaponInstance as ThrowingWeapon;
+            this.isThrowable = throwInstance != null;
 
-        private void SetupTheWeapon(bool isSet) {
-            this.OnWeaponRearranged?.Invoke(this.currentWeaponInstance.WeaponName, isSet);
+            SetupArcRenderer(this.isThrowable);
         }
 
-        private void Awake() {
-            this.player       = this.GetComponent<CharacterManager>();
-            this.character_id = this.player.Id;
-        }
-
-        private void Update() {
-            if (this.grenadeController != null) {
-                this.arcRenderer.Angle       = this.ballisticValue;
-                this.grenadeController.Angle = this.ballisticValue;
+        public void SetupArcRenderer(bool isOn) {
+            if (this.arcRenderer != null) {
+                this.arcRenderer.SetupRendering(isOn);
             }
         }
 
@@ -114,12 +111,19 @@
             }
         }
 
-        private void DetectThrowingWeapon() {
-            var throwInstance = this.currentWeaponInstance as ThrowingWeapon;
-            this.isThrowable = throwInstance != null;
+        private void SetupTheWeapon(bool isSet) {
+            this.OnWeaponRearranged?.Invoke(this.currentWeaponInstance.WeaponName, isSet);
+        }
 
-            if (this.arcRenderer != null) {
-                this.arcRenderer.SetupRendering(this.isThrowable);
+        private void Awake() {
+            this.player       = this.GetComponent<CharacterManager>();
+            this.character_id = this.player.Id;
+        }
+
+        private void Update() {
+            if (this.grenadeController != null) {
+                this.arcRenderer.Angle       = this.ballisticValue;
+                this.grenadeController.Angle = this.ballisticValue;
             }
         }
 

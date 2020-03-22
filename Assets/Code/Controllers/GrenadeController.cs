@@ -34,8 +34,6 @@
                 }
             }
 
-            await Task.Delay(TimeSpan.FromSeconds(.1f));
-
             if (poolObject != null) {
                 this.weaponTransform.gameObject.GetComponent<PoolObject>().ReturnToPool();
             }

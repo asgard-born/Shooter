@@ -12,7 +12,7 @@
         private int currentIteration;
 
         public void SetupRendering(bool isOn)
-            => this.lineRenderer.enabled = this.enabled = isOn;
+            => this.lineRenderer.enabled = isOn;
 
         protected override Vector3 CalculateNextPoint(float timepoint) {
             var arcPoint2D = PhysicsMath.CalculateArcPoint2D(this.radianAngle, this.Gravity, this.currentVelocity, timepoint, this.maxDistance);
