@@ -39,7 +39,7 @@
         }
 
         public IInputController Initialize() {
-            if (!Application.isMobilePlatform) {
+            if (Application.isMobilePlatform) {
                 this.inputController = this.JoystickController;
                 this.isJoystick      = true;
             }
