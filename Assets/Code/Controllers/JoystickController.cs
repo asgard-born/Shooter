@@ -12,7 +12,7 @@
         public float GetAxisX               => this.movingJoystick.GetAxisX() * 1.5f;
         public float GetAxisY               => this.movingJoystick.GetAxisY();
         public float GetBallisticValue      => this.grenadeBar.GetAxisY();
-        public float GetAttackJoystickValue => this.attackJoystick.GetAxisX() / 2;
+        public float GetAttackJoystickValue => this.attackJoystick.GetAxisX();
 
         public Image  WeaponImage     => this.weaponImg;
         public Button ReloadBtn       => this.reloadBtn;
